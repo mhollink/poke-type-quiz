@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 
-const delayInMs = 7000;
+const delayInMs = 5000;
 
 (() => {
 	let pokemonData = [];
@@ -63,7 +63,7 @@ const delayInMs = 7000;
 		const pokemon = pokemonData.find((pokemon) => pokemon.nr === dexNumber);
 		if (pokemon) {
 			console.log("Pokemon already known in dataset, skipping...");
-			await delay(500);
+			await delay(100);
 			return pokemon;
 		}
 
