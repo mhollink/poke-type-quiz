@@ -3,5 +3,5 @@ import { defineConfig } from "vite";
 
 export default defineConfig(({ mode }) => ({
 	plugins: [react()],
-	base: mode === "github-pages" ? "/pokemon-type-quiz/" : "/",
+	base: mode === "github-pages" ? "/poke-type-quiz/" : "/",
 }));
