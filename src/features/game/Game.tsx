@@ -42,7 +42,7 @@ export function Game({ soundEnabled }: GameProps) {
 			: takeRandom(
 					getValidPokemonForChallenge(pokemonData, game.state.currentChallenge),
 					5,
-				).sort((a,b) => a.nr - b.nr);
+				).sort((a, b) => a.nr - b.nr);
 
 	function handlePokemonSubmit(pokemon: Pokemon): void {
 		const wasCorrect = game.submitPokemon(pokemon);
