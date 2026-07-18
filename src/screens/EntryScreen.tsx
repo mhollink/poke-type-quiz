@@ -1,8 +1,9 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import logo from "../assets/poketype-logo.webp";
 import { GameModeGrid } from "../features/game-modes/components/GameModeGrid.tsx";
-import type {GameMode} from "../features/game-modes/gameModeTypes.ts";
+import type { GameMode } from "../features/game-modes/gameModeTypes.ts";
 
 interface EntryPageProps {
 	version: string;
@@ -65,7 +66,7 @@ export function EntryScreen({ version, onSelectGameMode }: EntryPageProps) {
 				>
 					<Box
 						component="img"
-						src="/images/poketype-logo.webp"
+						src={logo}
 						alt="Poketype"
 						sx={{
 							display: "block",
