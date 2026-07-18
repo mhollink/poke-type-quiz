@@ -3,7 +3,7 @@ import type {
 	GameOverReason,
 	GameState,
 	TypeChallenge,
-} from "../../types/game.ts";
+} from "../../types";
 
 export type GameAction =
 	| {

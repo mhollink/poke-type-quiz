@@ -1,21 +1,27 @@
 import { Container, Paper, Stack, Typography } from "@mui/material";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { GameHeader } from "../../components/GameHeader.tsx";
-import { GameOver } from "../../components/GameOver.tsx";
-import { GameScore } from "../../components/GameScore.tsx";
-import { PokemonAutocomplete } from "../../components/PokemonAutocomplete.tsx";
-import { ScoreHistory } from "../../components/ScoreHistory.tsx";
-import { TypeChallenge } from "../../components/TypeChallenge.tsx";
-import { useSoundPreference } from "../../hooks/useSoundPreference.ts";
-import type { Pokemon } from "../../types/pokemon.ts";
-import { getValidPokemonForChallenge } from "../../utils/challenge.ts";
-import { getLocalDateKey } from "../../utils/date";
-import { pokemonData } from "../../utils/pokemon";
-import { playPokemonCry } from "../../utils/pokemonCry.ts";
-import { takeRandom } from "../../utils/random.ts";
-import { calculateMultiplier, defaultGameConfig } from "../../utils/scoring";
-import { getScoreHistory, saveGameAttempt } from "../../utils/storage";
-import { useGame } from "./useGame.ts";
+import {
+	GameHeader,
+	GameOver,
+	GameScore,
+	PokemonAutocomplete,
+	ScoreHistory,
+	TypeChallenge,
+} from "../../components";
+import { useSoundPreference } from "../../hooks";
+import type { Pokemon } from "../../types";
+import {
+	calculateMultiplier,
+	defaultGameConfig,
+	getLocalDateKey,
+	getScoreHistory,
+	getValidPokemonForChallenge,
+	playPokemonCry,
+	pokemonData,
+	saveGameAttempt,
+	takeRandom,
+} from "../../utils";
+import { useGame } from "./useGame";
 
 interface ClassicGameProps {
 	onExit: () => void;

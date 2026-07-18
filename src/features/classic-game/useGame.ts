@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
-import { useNow } from "../../hooks/useNow.ts";
+import { useNow } from "../../hooks";
 import type {
 	GameConfig,
 	GameState,
+	Pokemon,
 	TypeChallenge,
 	UsedAnswersByChallenge,
-} from "../../types/game.ts";
-import type { Pokemon } from "../../types/pokemon.ts";
+} from "../../types";
 import {
+	calculateScore,
 	createChallenges,
+	defaultGameConfig,
 	getAvailablePokemonIds,
 	selectRandomChallenge,
-} from "../../utils/challenge.ts";
-import { calculateScore, defaultGameConfig } from "../../utils/scoring.ts";
+} from "../../utils";
 import {
 	classicGameReducer,
 	createInitialGameState,

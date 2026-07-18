@@ -1,6 +1,6 @@
 import { Chip } from "@mui/material";
 import { TYPE_COLORS } from "../theme/typeColors";
-import type { PokemonType } from "../types/pokemon";
+import type { PokemonType } from "../types";
 
 type TypeBadgeProps = {
 	type: PokemonType;

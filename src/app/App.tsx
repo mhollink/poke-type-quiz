@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import { EntryScreen } from "../screens/EntryScreen.tsx";
 import { GameScreen } from "../screens/GameScreen.tsx";
-import { assertNever } from "../utils/assert.ts";
+import { assertNever } from "../utils";
 import { appReducer } from "./appReducer.ts";
 import { initialAppState } from "./appState.ts";
 
