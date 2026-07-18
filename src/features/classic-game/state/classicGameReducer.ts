@@ -3,7 +3,7 @@ import type {
 	GameOverReason,
 	GameState,
 	TypeChallenge,
-} from "../types/game";
+} from "../../../types/game";
 
 export type GameAction =
 	| {
@@ -38,7 +38,7 @@ export const initialGameState: GameState = {
 	gameOverReason: null,
 };
 
-export function gameReducer(state: GameState, action: GameAction): GameState {
+export function classicGameReducer(state: GameState, action: GameAction): GameState {
 	switch (action.type) {
 		case "START_GAME":
 			return {

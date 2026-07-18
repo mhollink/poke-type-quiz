@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
-import { gameReducer, initialGameState } from "../state/gameReducer";
-import type { GameConfig, UsedAnswersByChallenge } from "../types/game";
-import type { Pokemon } from "../types/pokemon";
+import { classicGameReducer, initialGameState } from "../state/classicGameReducer.ts";
+import type { GameConfig, UsedAnswersByChallenge } from "../../../types/game";
+import type { Pokemon } from "../../../types/pokemon";
 import {
 	createChallenges,
 	getAvailablePokemonIds,
 	selectRandomChallenge,
-} from "../utils/challenge";
-import { calculateScore, defaultGameConfig } from "../utils/scoring";
-import { useNow } from "./useNow";
+} from "../../../utils/challenge";
+import { calculateScore, defaultGameConfig } from "../../../utils/scoring";
+import { useNow } from "../../../hooks/useNow";
 
 type UseGameResult = {
 	state: ReturnType<typeof useGameState>;
@@ -29,7 +29,7 @@ export function useGame(
 	pokemon: readonly Pokemon[],
 	config: GameConfig = defaultGameConfig,
 ): UseGameResult {
-	const [state, dispatch] = useReducer(gameReducer, initialGameState);
+	const [state, dispatch] = useReducer(classicGameReducer, initialGameState);
 
 	const challenges = useMemo(() => createChallenges(pokemon), [pokemon]);
 

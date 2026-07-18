@@ -1,9 +1,10 @@
 import { Alert, Avatar, Button, Paper, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import type { GameOverReason } from "../../types/game";
-import type { Pokemon } from "../../types/pokemon.ts";
-import { type ShareResult, shareGameResult } from "../../utils/share";
-import { getPokemonSpriteUrl } from "../../utils/sprite.ts";
+import type {GameOverReason} from "../../../types/game.ts";
+import type {Pokemon} from "../../../types/pokemon.ts";
+import type {ShareResult} from "../../../utils/share.ts";
+import {shareGameResult} from "../../../utils/share.ts";
+import {getPokemonSpriteUrl} from "../../../utils/sprite.ts";
 
 type GameOverProps = {
 	score: number;

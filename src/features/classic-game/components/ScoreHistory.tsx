@@ -8,8 +8,8 @@ import {
 	TableRow,
 	Typography,
 } from "@mui/material";
-import type { DailyScore } from "../../types/game";
-import { formatDate } from "../../utils/date";
+import type { DailyScore } from "../../../types/game";
+import { formatDate } from "../../../utils/date";
 
 type ScoreHistoryProps = {
 	scores: readonly DailyScore[];

@@ -7,9 +7,9 @@ import {
 	Typography,
 } from "@mui/material";
 import { useState } from "react";
-import type { Pokemon } from "../../types/pokemon";
-import { filterPokemonByName } from "../../utils/pokemonSearch";
-import { getPokemonSpriteUrl } from "../../utils/sprite.ts";
+import type { Pokemon } from "../../../types/pokemon";
+import { filterPokemonByName } from "../../../utils/pokemonSearch";
+import { getPokemonSpriteUrl } from "../../../utils/sprite.ts";
 
 type PokemonAutocompleteProps = {
 	pokemon: readonly Pokemon[];
