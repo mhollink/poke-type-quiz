@@ -24,29 +24,34 @@ export type GameAction =
 			reason: GameOverReason;
 	  };
 
-export const initialGameState: GameState = {
-	sessionId: "",
-	status: "idle",
-	score: 0,
-	correctAnswers: 0,
-	currentChallenge: null,
-	roundEndsAt: null,
-	usedAnswersByChallenge: {},
-	completedRounds: [],
-	lastAwardedPoints: 0,
-	highestMultiplier: 1,
-	gameOverReason: null,
-};
+export function createInitialGameState(
+	challenge: TypeChallenge,
+	roundEndsAt: number,
+): GameState {
+	return {
+		sessionId: crypto.randomUUID(),
+		status: "playing",
+		score: 0,
+		correctAnswers: 0,
+		currentChallenge: challenge,
+		roundEndsAt,
+		usedAnswersByChallenge: {},
+		completedRounds: [],
+		lastAwardedPoints: 0,
+		highestMultiplier: 1,
+		gameOverReason: null,
+	};
+}
 
 export function classicGameReducer(state: GameState, action: GameAction): GameState {
 	switch (action.type) {
 		case "START_GAME":
 			return {
-				...initialGameState,
+				...createInitialGameState(
+					action.challenge,
+					action.roundEndsAt,
+				),
 				sessionId: action.sessionId,
-				status: "playing",
-				currentChallenge: action.challenge,
-				roundEndsAt: action.roundEndsAt,
 			};
 
 		case "CORRECT_ANSWER": {
