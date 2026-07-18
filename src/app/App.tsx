@@ -3,6 +3,7 @@ import {EntryScreen} from "../screens/EntryScreen.tsx";
 import {appReducer} from "./appReducer.ts";
 import {initialAppState} from "./appState.ts";
 import {GameScreen} from "../screens/GameScreen.tsx";
+import {assertNever} from "../utils/assert.ts";
 
 export function App() {
     const [state, dispatch] = useReducer(appReducer, initialAppState);
@@ -22,10 +23,10 @@ export function App() {
         case "playing":
             return (
                 <GameScreen
-                    gameMode={state.selectedMode}
+                    gameMode={state.selectedMode!!}
                     onExit={() =>
                         dispatch({
-                            type: "RETURN_TO_ENTRY",
+                            type: "RETURN_HOME",
                         })
                     }
                 />

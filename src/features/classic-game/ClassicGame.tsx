@@ -1,4 +1,4 @@
-import {Button, Container, Paper, Stack, Typography} from "@mui/material";
+import {Container, Paper, Stack, Typography} from "@mui/material";
 import {useEffect, useMemo, useRef, useState} from "react";
 import type {Pokemon} from "../../types/pokemon.ts";
 import {getValidPokemonForChallenge} from "../../utils/challenge.ts";
@@ -15,6 +15,7 @@ import {PokemonAutocomplete} from "./components/PokemonAutocomplete.tsx";
 import {GameOver} from "./components/GameOver.tsx";
 import {ScoreHistory} from "./components/ScoreHistory.tsx";
 import {useSoundPreference} from "../../hooks/useSoundPreference.ts";
+import {GameHeader} from "./components/GameHeader.tsx";
 
 interface ClassicGameProps {
     onExit: () => void;
@@ -87,10 +88,12 @@ export function ClassicGame({onExit}: ClassicGameProps) {
     return (
         <Container component="main" maxWidth="sm" sx={{py: {xs: 4, md: 8}}}>
             <Stack spacing={4}>
-                {game.state.status === "idle" && <StartGame onStart={game.startGame}/>}
-
                 {game.state.status === "playing" && game.state.currentChallenge && (
                     <>
+                        <GameHeader title={"Classic"}
+                                    description={"Name Pokémon matching the exact displayed type combination."}
+                                    onExit={onExit}/>
+
                         <GameScore
                             score={game.state.score}
                             correctAnswers={game.state.correctAnswers}
@@ -141,38 +144,5 @@ export function ClassicGame({onExit}: ClassicGameProps) {
 
             </Stack>
         </Container>
-    );
-}
-
-type StartGameProps = {
-    onStart: () => void;
-};
-
-function StartGame({onStart}: StartGameProps) {
-    return (
-        <Paper variant="outlined" sx={{p: 4}}>
-            <Stack spacing={3} sx={{alignItems: "center"}}>
-                <div>
-                    <Typography
-                        component="h1"
-                        variant="h3"
-                        sx={{fontWeight: 800, alignItems: "center"}}
-                    >
-                        Type Quiz
-                    </Typography>
-
-                    <Typography
-                        color="text.secondary"
-                        sx={{mt: 1, textAlign: "center"}}
-                    >
-                        Name a Pokémon matching the requested type before time runs out.
-                    </Typography>
-                </div>
-
-                <Button variant="contained" size="large" onClick={onStart}>
-                    Start game
-                </Button>
-            </Stack>
-        </Paper>
     );
 }
