@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-const STORAGE_KEY = "pokemon-type-quiz-sound";
+const STORAGE_KEY = "ptq:sound";
 
 export function useSoundPreference() {
 	const [soundEnabled, setSoundEnabled] = useState(() => {

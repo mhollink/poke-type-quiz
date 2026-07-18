@@ -35,11 +35,7 @@ export function PokemonAutocomplete({
 			openOnFocus={false}
 			clearOnBlur={false}
 			filterOptions={(availableOptions, state) =>
-				filterPokemonByName(
-					availableOptions as Pokemon[],
-					state.inputValue,
-					5,
-				)
+				filterPokemonByName(availableOptions as Pokemon[], state.inputValue, 5)
 			}
 			getOptionLabel={(option) => option.name}
 			isOptionEqualToValue={(option, value) => option.id === value.id}

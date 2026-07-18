@@ -5,7 +5,7 @@ import type {
 } from "../types/game";
 import { getLocalDateKey } from "./date";
 
-const STORAGE_KEY = "poke-type-quiz";
+const STORAGE_KEY = "ptq:classic";
 const MAXIMUM_STORED_DAYS = 90;
 
 const emptyScoreData: StoredScoreData = {
