@@ -15,23 +15,25 @@ import {
 	defaultGameConfig,
 	getLocalDateKey,
 	getScoreHistory,
-	getValidPokemonForChallenge,
 	playPokemonCry,
 	pokemonData,
 	saveGameAttempt,
 	takeRandom,
 } from "../../utils";
-import { useGame } from "./useGame";
+import { getValidPokemonForSingleTypeChallenge } from "./singleTypeGameUtils";
+import { useSingleTypeGame } from "./useSingleTypeGame";
 
-interface ClassicGameProps {
+interface SingleTypeGameProps {
 	onExit: () => void;
 }
 
-export function ClassicGame({ onExit }: ClassicGameProps) {
-	const game = useGame(pokemonData, defaultGameConfig);
+const gameMode = "single-type" as const;
+
+export function SingleTypeGame({ onExit }: SingleTypeGameProps) {
+	const game = useSingleTypeGame(pokemonData, defaultGameConfig);
 	const { soundEnabled } = useSoundPreference();
 
-	const [scoreHistory, setScoreHistory] = useState(getScoreHistory("classic"));
+	const [scoreHistory, setScoreHistory] = useState(getScoreHistory(gameMode));
 
 	const savedSessionId = useRef<string | null>(null);
 
@@ -49,7 +51,7 @@ export function ClassicGame({ onExit }: ClassicGameProps) {
 		game.state.currentChallenge === null
 			? []
 			: takeRandom(
-					getValidPokemonForChallenge(
+					getValidPokemonForSingleTypeChallenge(
 						game.availablePokemon,
 						game.state.currentChallenge,
 					),
@@ -58,6 +60,7 @@ export function ClassicGame({ onExit }: ClassicGameProps) {
 
 	function handlePokemonSubmit(pokemon: Pokemon): void {
 		const wasCorrect = game.submitPokemon(pokemon);
+
 		if (wasCorrect && soundEnabled) {
 			void playPokemonCry(pokemon);
 		}
@@ -84,10 +87,10 @@ export function ClassicGame({ onExit }: ClassicGameProps) {
 				completedAt: new Date().toISOString(),
 				gameOverReason: game.state.gameOverReason,
 			},
-			"classic",
+			gameMode,
 		);
 
-		setScoreHistory(getScoreHistory("classic"));
+		setScoreHistory(getScoreHistory(gameMode));
 	}, [
 		game.state.status,
 		game.state.gameOverReason,
@@ -101,10 +104,8 @@ export function ClassicGame({ onExit }: ClassicGameProps) {
 		<Container component="main" maxWidth="sm" sx={{ py: { xs: 4, md: 8 } }}>
 			<Stack spacing={4}>
 				<GameHeader
-					title={"Classic"}
-					description={
-						"Name Pokémon matching the exact displayed type combination."
-					}
+					title="Single type"
+					description="Name any Pokémon containing the displayed type."
 					onExit={onExit}
 				/>
 

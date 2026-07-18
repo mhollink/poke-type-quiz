@@ -1,5 +1,6 @@
 import { ClassicGame } from "../features/classic-game/ClassicGame.tsx";
 import type { GameMode } from "../features/game-modes/gameModeTypes.ts";
+import { SingleTypeGame } from "../features/single-type-game/SingleTypeGame.tsx";
 
 interface GameScreenProps {
 	gameMode: GameMode;
@@ -11,8 +12,10 @@ export function GameScreen({ gameMode, onExit }: GameScreenProps) {
 		case "classic":
 			return <ClassicGame onExit={onExit} />;
 
-		case "daily":
 		case "single-type":
+			return <SingleTypeGame onExit={onExit} />;
+
+		case "daily":
 			throw new Error(`Game mode "${gameMode}" is not implemented.`);
 
 		default:

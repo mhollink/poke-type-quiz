@@ -23,6 +23,5 @@ export const gameModes: GameModeOption[] = [
 		title: "Single Type",
 		description: "Name any Pokémon that contains the displayed type.",
 		icon: <CategoryRoundedIcon fontSize="inherit" />,
-		disabled: true,
 	},
 ];

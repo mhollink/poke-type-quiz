@@ -9,7 +9,6 @@ import type {
 } from "../../types";
 import {
 	calculateScore,
-	createChallenges,
 	defaultGameConfig,
 	getAvailablePokemonIds,
 	pokemonData,
@@ -18,9 +17,10 @@ import {
 import {
 	classicGameReducer,
 	createInitialGameState,
-} from "./classicGameReducer.ts";
+} from "../classic-game/classicGameReducer.ts";
+import { createSingleTypeChallenges } from "./singleTypeGameUtils";
 
-type UseGameResult = {
+type UseSingleTypeGameResult = {
 	state: GameState;
 	timeRemainingMs: number;
 	timeRemainingSeconds: number;
@@ -50,11 +50,14 @@ function initializeGame({
 	return createInitialGameState(challenge, performance.now() + roundDurationMs);
 }
 
-export function useGame(
+export function useSingleTypeGame(
 	pokemon: readonly Pokemon[],
 	config: GameConfig = defaultGameConfig,
-): UseGameResult {
-	const challenges = useMemo(() => createChallenges(pokemon), [pokemon]);
+): UseSingleTypeGameResult {
+	const challenges = useMemo(
+		() => createSingleTypeChallenges(pokemon),
+		[pokemon],
+	);
 
 	const [state, dispatch] = useReducer(
 		classicGameReducer,
@@ -64,6 +67,13 @@ export function useGame(
 		},
 		initializeGame,
 	);
+
+	const availablePokemon = useMemo(() => {
+		const usedIds = new Set(
+			state.completedRounds.map((round) => round.pokemonId),
+		);
+		return pokemonData.filter((candidate) => !usedIds.has(candidate.id));
+	}, [state.completedRounds]);
 
 	const now = useNow(state.status === "playing");
 
@@ -88,13 +98,6 @@ export function useGame(
 			state.usedAnswersByChallenge[state.currentChallenge.key] ?? [],
 		);
 	}, [state.currentChallenge, state.usedAnswersByChallenge]);
-
-	const availablePokemon = useMemo(() => {
-		const usedIds = new Set(
-			state.completedRounds.map((round) => round.pokemonId),
-		);
-		return pokemonData.filter((candidate) => !usedIds.has(candidate.id));
-	}, [state.completedRounds]);
 
 	const availableAnswerCount = useMemo(() => {
 		if (!state.currentChallenge) {
@@ -148,9 +151,7 @@ export function useGame(
 				state.usedAnswersByChallenge,
 			);
 
-			const isCorrect = availableIds.includes(selectedPokemon.id);
-
-			if (!isCorrect) {
+			if (!availableIds.includes(selectedPokemon.id)) {
 				dispatch({
 					type: "END_GAME",
 					reason: "incorrect-answer",
