@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
-import { TypeBadge } from "../../components/TypeBadge";
-import type { TypeChallenge as Challenge } from "../../types/game";
+import { TypeBadge } from "../../../components/TypeBadge";
+import type { TypeChallenge as Challenge } from "../../../types/game";
 
 type TypeChallengeProps = {
 	challenge: Challenge;

@@ -40,7 +40,7 @@ export function GameModeGrid({ onSelect }: GameModeGridProps) {
 				>
 					<GameModeCard
 						gameMode={gameMode}
-						onSelect={() => onSelectGameMode(gameMode.id)}
+						onSelect={() => onSelect(gameMode.id)}
 					/>
 				</Box>
 			))}

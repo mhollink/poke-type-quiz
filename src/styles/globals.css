@@ -56,21 +56,21 @@ input {
 	);
 }
 
-@media (prefers-color-scheme: dark) {
-	#root {
-		background: #090d17;
-	}
+/*@media (prefers-color-scheme: dark) {*/
+/*	#root {*/
+/*		background: #090d17;*/
+/*	}*/
 
-	#root::before {
-		filter: saturate(0.7) brightness(0.62);
-	}
+/*	#root::before {*/
+/*		filter: saturate(0.7) brightness(0.62);*/
+/*	}*/
 
-	#root::after {
-		background: radial-gradient(
-			circle at center,
-			rgba(8, 12, 24, 0.82) 0%,
-			rgba(8, 12, 24, 0.68) 48%,
-			rgba(8, 12, 24, 0.42) 100%
-		);
-	}
-}
+/*	#root::after {*/
+/*		background: radial-gradient(*/
+/*			circle at center,*/
+/*			rgba(8, 12, 24, 0.82) 0%,*/
+/*			rgba(8, 12, 24, 0.68) 48%,*/
+/*			rgba(8, 12, 24, 0.42) 100%*/
+/*		);*/
+/*	}*/
+/*}*/
