@@ -7,39 +7,29 @@ import {
 	Typography,
 } from "@mui/material";
 import { useState } from "react";
-import type { Pokemon } from "../../../types/pokemon";
-import { filterPokemonByName } from "../../../utils/pokemonSearch";
-import { getPokemonSpriteUrl } from "../../../utils/sprite.ts";
+import type { Pokemon } from "../types/pokemon";
+import { filterPokemonByName } from "../utils/pokemonSearch";
+import { getPokemonSpriteUrl } from "../utils/sprite";
 
 type PokemonAutocompleteProps = {
 	pokemon: readonly Pokemon[];
-	excludedPokemonIds: ReadonlySet<string>;
-	minimumSearchLength: number;
-	maximumSuggestions: number;
 	disabled?: boolean;
 	onSubmit: (pokemon: Pokemon) => void;
 };
 
 export function PokemonAutocomplete({
 	pokemon,
-	excludedPokemonIds,
-	minimumSearchLength,
-	maximumSuggestions,
 	disabled = false,
 	onSubmit,
 }: PokemonAutocompleteProps) {
 	const [selectedValue, setSelectedValue] = useState<Pokemon | null>(null);
 	const [inputValue, setInputValue] = useState("");
 
-	const options = pokemon.filter(
-		(candidate) => !excludedPokemonIds.has(candidate.id),
-	);
-
 	return (
 		<Autocomplete
 			value={selectedValue}
 			inputValue={inputValue}
-			options={options}
+			options={pokemon}
 			disabled={disabled}
 			autoHighlight
 			openOnFocus={false}
@@ -48,7 +38,7 @@ export function PokemonAutocomplete({
 				filterPokemonByName(
 					availableOptions as Pokemon[],
 					state.inputValue,
-					maximumSuggestions,
+					5,
 				)
 			}
 			getOptionLabel={(option) => option.name}
@@ -124,7 +114,7 @@ export function PokemonAutocomplete({
 					{...params}
 					autoFocus
 					label="Pokémon"
-					placeholder={`Enter at least ${minimumSearchLength} characters`}
+					placeholder={`Type to search the Pokedex`}
 				/>
 			)}
 		/>
