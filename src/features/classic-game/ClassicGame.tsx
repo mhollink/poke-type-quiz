@@ -88,12 +88,13 @@ export function ClassicGame({onExit}: ClassicGameProps) {
     return (
         <Container component="main" maxWidth="sm" sx={{py: {xs: 4, md: 8}}}>
             <Stack spacing={4}>
+
+                <GameHeader title={"Classic"}
+                            description={"Name Pokémon matching the exact displayed type combination."}
+                            onExit={onExit}/>
+
                 {game.state.status === "playing" && game.state.currentChallenge && (
                     <>
-                        <GameHeader title={"Classic"}
-                                    description={"Name Pokémon matching the exact displayed type combination."}
-                                    onExit={onExit}/>
-
                         <GameScore
                             score={game.state.score}
                             correctAnswers={game.state.correctAnswers}
