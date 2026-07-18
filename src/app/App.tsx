@@ -1,15 +1,46 @@
-import { AppHeader } from "../components/AppHeader";
-import { Game } from "../features/game/Game";
-import { useSoundPreference } from "../hooks/useSoundPreference.ts";
+import { useReducer } from "react";
+import { EntryScreen } from "../screens/EntryScreen.tsx";
+import { appReducer } from "./appReducer.ts";
+import { initialAppState } from "./appState.ts";
 
 export function App() {
-	const { soundEnabled, toggleSound } = useSoundPreference();
+	const [state, dispatch] = useReducer(appReducer, initialAppState);
 
-	return (
-		<>
-			<AppHeader soundEnabled={soundEnabled} onToggleSound={toggleSound} />
+	switch (state.screen) {
+		case "home":
+			return (
+				<EntryScreen
+					version={__APP_VERSION__}
+					onSelectGameMode={(gameMode) => {
+						dispatch({
+							type: "START_GAME",
+							mode: gameMode,
+						});
+					}}
+				/>
+			);
 
-			<Game soundEnabled={soundEnabled} />
-		</>
-	);
+		case "settings":
+			return (
+				<SettingsScreen onBack={() => dispatch({ type: "RETURN_HOME" })} />
+			);
+
+		case "playing":
+			return state.game ? (
+				<GameScreen
+					mode={state.selectedMode!}
+					game={state.game}
+					onGameOver={() => dispatch({ type: "FINISH_GAME" })}
+				/>
+			) : null;
+
+		case "game-over":
+			return (
+				<GameOverScreen
+					game={state.game}
+					onPlayAgain={() => dispatch({ type: "PLAY_AGAIN" })}
+					onHome={() => dispatch({ type: "RETURN_HOME" })}
+				/>
+			);
+	}
 }
