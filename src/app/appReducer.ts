@@ -19,7 +19,7 @@ export function appReducer(state: AppState, action: AppAction): AppState {
 			return {
 				...state,
 				screen: "home",
-				selectedMode: null
+				selectedMode: null,
 			};
 
 		default:

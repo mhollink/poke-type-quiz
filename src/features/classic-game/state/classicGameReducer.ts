@@ -43,14 +43,14 @@ export function createInitialGameState(
 	};
 }
 
-export function classicGameReducer(state: GameState, action: GameAction): GameState {
+export function classicGameReducer(
+	state: GameState,
+	action: GameAction,
+): GameState {
 	switch (action.type) {
 		case "START_GAME":
 			return {
-				...createInitialGameState(
-					action.challenge,
-					action.roundEndsAt,
-				),
+				...createInitialGameState(action.challenge, action.roundEndsAt),
 				sessionId: action.sessionId,
 			};
 

@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import type { GameMode } from "../app/appState.ts";
 import { GameModeGrid } from "../features/game-modes/components/GameModeGrid.tsx";
+import type {GameMode} from "../features/game-modes/gameModeTypes.ts";
 
 interface EntryPageProps {
 	version: string;
