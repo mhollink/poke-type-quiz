@@ -25,7 +25,7 @@ export function ClassicGame({ onExit }: ClassicGameProps) {
 	const game = useGame(pokemonData, defaultGameConfig);
 	const { soundEnabled } = useSoundPreference();
 
-	const [scoreHistory, setScoreHistory] = useState(getScoreHistory);
+	const [scoreHistory, setScoreHistory] = useState(getScoreHistory("classic"));
 
 	const savedSessionId = useRef<string | null>(null);
 
@@ -66,16 +66,19 @@ export function ClassicGame({ onExit }: ClassicGameProps) {
 
 		savedSessionId.current = game.state.sessionId;
 
-		saveGameAttempt({
-			id: game.state.sessionId,
-			score: game.state.score,
-			correctAnswers: game.state.correctAnswers,
-			highestMultiplier: game.state.highestMultiplier,
-			completedAt: new Date().toISOString(),
-			gameOverReason: game.state.gameOverReason,
-		});
+		saveGameAttempt(
+			{
+				id: game.state.sessionId,
+				score: game.state.score,
+				correctAnswers: game.state.correctAnswers,
+				highestMultiplier: game.state.highestMultiplier,
+				completedAt: new Date().toISOString(),
+				gameOverReason: game.state.gameOverReason,
+			},
+			"classic",
+		);
 
-		setScoreHistory(getScoreHistory());
+		setScoreHistory(getScoreHistory("classic"));
 	}, [
 		game.state.status,
 		game.state.gameOverReason,

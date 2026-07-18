@@ -1,3 +1,4 @@
+import type { GameMode } from "../features/game-modes/gameModeTypes.ts";
 import type {
 	DailyScore,
 	StoredGameAttempt,
@@ -5,7 +6,7 @@ import type {
 } from "../types/game";
 import { getLocalDateKey } from "./date";
 
-const STORAGE_KEY = "ptq:classic";
+const STORAGE_KEY = "ptq:games";
 const MAXIMUM_STORED_DAYS = 90;
 
 const emptyScoreData: StoredScoreData = {
@@ -13,8 +14,8 @@ const emptyScoreData: StoredScoreData = {
 	scoresByDate: {},
 };
 
-export function loadScoreData(): StoredScoreData {
-	const storedValue = localStorage.getItem(STORAGE_KEY);
+export function loadScoreData(mode: GameMode): StoredScoreData {
+	const storedValue = localStorage.getItem(`${STORAGE_KEY}:${mode}`);
 
 	if (!storedValue) {
 		return emptyScoreData;
@@ -35,9 +36,10 @@ export function loadScoreData(): StoredScoreData {
 
 export function saveGameAttempt(
 	attempt: StoredGameAttempt,
+	mode: GameMode,
 	date = getLocalDateKey(),
 ): DailyScore {
-	const currentData = loadScoreData();
+	const currentData = loadScoreData(mode);
 	const currentDailyScore = currentData.scoresByDate[date];
 
 	const attempts = [...(currentDailyScore?.attempts ?? []), attempt];
@@ -58,7 +60,7 @@ export function saveGameAttempt(
 	});
 
 	localStorage.setItem(
-		STORAGE_KEY,
+		`${STORAGE_KEY}:${mode}`,
 		JSON.stringify({
 			version: 1,
 			scoresByDate,
@@ -68,10 +70,11 @@ export function saveGameAttempt(
 	return updatedDailyScore;
 }
 
-export function getScoreHistory(): DailyScore[] {
-	return Object.values(loadScoreData().scoresByDate).sort((left, right) =>
-		right.date.localeCompare(left.date),
-	);
+export function getScoreHistory(mode: GameMode): () => DailyScore[] {
+	return () =>
+		Object.values(loadScoreData(mode).scoresByDate).sort((left, right) =>
+			right.date.localeCompare(left.date),
+		);
 }
 
 function retainRecentDays(

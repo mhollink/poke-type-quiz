@@ -59,13 +59,6 @@ export function selectRandomChallenge(
 	return eligibleChallenges[index];
 }
 
-export function pokemonMatchesChallenge(
-	pokemon: Pokemon,
-	challenge: TypeChallenge,
-): boolean {
-	return createChallengeKey(pokemon.types) === challenge.key;
-}
-
 export function getValidPokemonForChallenge(
 	pokemon: readonly Pokemon[],
 	challenge: TypeChallenge,
