@@ -25,12 +25,12 @@ export function calculateReversedScore({
 	const speedMultiplier = 1 + remainingRatio;
 
 	const typeMultiplier =
-		typeCount === 2 ? reversedGameConfig.dualTypeMultiplier : 1;
+		typeCount > 1 ? reversedGameConfig.dualTypeMultiplier : 1;
 
 	const difficultyMultiplier = typeMultiplier * (1 + challengeDifficulty);
 
 	const precisionMultiplier =
-		typeCount === 2 && canonicalOrder
+		typeCount > 1 && canonicalOrder
 			? reversedGameConfig.canonicalOrderMultiplier
 			: 1;
 

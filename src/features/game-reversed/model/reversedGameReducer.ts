@@ -77,7 +77,11 @@ export function reversedGameReducer(
 					combinedMultiplier,
 				),
 				canonicalOrderAnswers:
-					state.canonicalOrderAnswers + (action.round.canonicalOrder ? 1 : 0),
+					state.canonicalOrderAnswers +
+					(action.round.challenge.pokemon.types.length > 1 &&
+					action.round.canonicalOrder
+						? 1
+						: 0),
 			};
 		}
 
