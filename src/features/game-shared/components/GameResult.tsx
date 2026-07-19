@@ -1,6 +1,6 @@
-import ArrowBackRounded from "@mui/icons-material/ArrowBackRounded";
-import EmojiEventsRounded from "@mui/icons-material/EmojiEventsRounded";
-import ReplayRounded from "@mui/icons-material/ReplayRounded";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
+import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -12,14 +12,20 @@ export interface GameResultAction {
 	readonly onClick: () => void;
 }
 
+export interface GameResultStatistic {
+	readonly label: string;
+	readonly value: string;
+}
+
 export interface GameResultProps {
 	readonly title: string;
 	readonly message: string;
 	readonly score: number;
 	readonly correctAnswers: number;
 	readonly highestMultiplier: number;
+	readonly statistics?: readonly GameResultStatistic[];
 	readonly primaryAction: GameResultAction;
-	readonly secondaryAction: GameResultAction;
+	readonly secondaryAction?: GameResultAction;
 }
 
 export function GameResult({
@@ -28,9 +34,26 @@ export function GameResult({
 	score,
 	correctAnswers,
 	highestMultiplier,
+	statistics = [],
 	primaryAction,
 	secondaryAction,
 }: GameResultProps) {
+	const displayedStatistics: readonly GameResultStatistic[] = [
+		{
+			label: "Final score",
+			value: score.toLocaleString(),
+		},
+		{
+			label: "Correct answers",
+			value: correctAnswers.toLocaleString(),
+		},
+		{
+			label: "Best multiplier",
+			value: `${highestMultiplier.toFixed(2)}×`,
+		},
+		...statistics,
+	];
+
 	return (
 		<Paper
 			variant="outlined"
@@ -42,12 +65,7 @@ export function GameResult({
 				textAlign: "center",
 			}}
 		>
-			<Stack
-				spacing={4}
-				sx={{
-					alignItems: "center",
-				}}
-			>
+			<Stack spacing={4} sx={{ alignItems: "center" }}>
 				<Box
 					sx={{
 						display: "grid",
@@ -58,67 +76,59 @@ export function GameResult({
 						bgcolor: "action.hover",
 					}}
 				>
-					<EmojiEventsRounded
+					<EmojiEventsRoundedIcon
 						sx={{
 							fontSize: 40,
 						}}
 					/>
 				</Box>
 
-				<Stack spacing={1}>
+				<Stack spacing={1} sx={{ alignItems: "center" }}>
 					<Typography
 						component="h1"
 						variant="h4"
-						sx={{
-							fontWeight: 700,
-						}}
+						sx={{ fontWeight: 700, textWrap: "pretty" }}
 					>
 						{title}
 					</Typography>
 
 					<Typography
-						color="text.secondary"
+						color="textSecondary"
 						sx={{
-							maxWidth: 420,
+							maxWidth: 440,
+							textWrap: "pretty",
 						}}
 					>
 						{message}
 					</Typography>
 				</Stack>
 
-				<Stack
-					direction={{
-						xs: "column",
-						sm: "row",
-					}}
+				<Box
 					sx={{
+						display: "grid",
+						gridTemplateColumns: {
+							xs: "repeat(2, minmax(0, 1fr))",
+							sm: `repeat(${Math.min(
+								displayedStatistics.length,
+								5,
+							)}, minmax(0, 1fr))`,
+						},
 						width: "100%",
+						border: 1,
+						borderColor: "divider",
+						borderRadius: 1,
+						overflow: "hidden",
 					}}
-					divider={
-						<Box
-							sx={{
-								borderColor: "divider",
-								borderStyle: "solid",
-								borderWidth: {
-									xs: "1px 0 0",
-									sm: "0 0 0 1px",
-								},
-							}}
-						/>
-					}
 				>
-					<ResultMetric label="Final score" value={score.toLocaleString()} />
-
-					<ResultMetric
-						label="Correct answers"
-						value={correctAnswers.toLocaleString()}
-					/>
-
-					<ResultMetric
-						label="Best multiplier"
-						value={`${highestMultiplier.toFixed(2)}×`}
-					/>
-				</Stack>
+					{displayedStatistics.map((statistic, index) => (
+						<ResultMetric
+							key={statistic.label}
+							label={statistic.label}
+							value={statistic.value}
+							showLeftBorder={index > 0}
+						/>
+					))}
+				</Box>
 
 				<Stack
 					direction={{
@@ -134,20 +144,24 @@ export function GameResult({
 					<Button
 						variant="contained"
 						size="large"
-						startIcon={<ReplayRounded />}
+						startIcon={
+							secondaryAction ? <ReplayRoundedIcon /> : <ArrowBackRoundedIcon />
+						}
 						onClick={primaryAction.onClick}
 					>
 						{primaryAction.label}
 					</Button>
 
-					<Button
-						variant="outlined"
-						size="large"
-						startIcon={<ArrowBackRounded />}
-						onClick={secondaryAction.onClick}
-					>
-						{secondaryAction.label}
-					</Button>
+					{secondaryAction && (
+						<Button
+							variant="outlined"
+							size="large"
+							startIcon={<ArrowBackRoundedIcon />}
+							onClick={secondaryAction.onClick}
+						>
+							{secondaryAction.label}
+						</Button>
+					)}
 				</Stack>
 			</Stack>
 		</Paper>
@@ -157,26 +171,47 @@ export function GameResult({
 interface ResultMetricProps {
 	readonly label: string;
 	readonly value: string;
+	readonly showLeftBorder: boolean;
 }
 
-function ResultMetric({ label, value }: ResultMetricProps) {
+function ResultMetric({ label, value, showLeftBorder }: ResultMetricProps) {
 	return (
 		<Stack
 			spacing={0.5}
 			sx={{
-				px: 2,
-				py: {
-					xs: 2,
+				minWidth: 0,
+				px: 1.5,
+				py: 2,
+				borderLeft: {
+					xs: 0,
+					sm: showLeftBorder ? 1 : 0,
+				},
+				borderTop: {
+					xs: showLeftBorder ? 1 : 0,
 					sm: 0,
 				},
-				flex: 1,
+				borderColor: "divider",
+				justifyContent: "center",
+				alignItems: "center",
 			}}
 		>
-			<Typography variant="h5" sx={{ fontWeight: 700 }}>
+			<Typography
+				variant="h6"
+				noWrap
+				sx={{
+					fontWeight: 700,
+				}}
+			>
 				{value}
 			</Typography>
 
-			<Typography variant="caption" color="text.secondary">
+			<Typography
+				variant="caption"
+				color="textSecondary"
+				sx={{
+					textAlign: "center",
+				}}
+			>
 				{label}
 			</Typography>
 		</Stack>
