@@ -5,8 +5,5 @@ export * from "./levenshtein";
 export * from "./pokemon";
 export * from "./pokemonCry";
 export * from "./pokemonSearch";
-export * from "./random";
-export * from "./scoring";
 export * from "./share";
 export * from "./sprite";
-export * from "./storage";

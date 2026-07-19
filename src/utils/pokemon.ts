@@ -1,9 +1,6 @@
 import pokemonJson from "../assets/pokemon.json";
-import {
-	POKEMON_TYPES,
-	type Pokemon,
-	type PokemonType,
-} from "../types/pokemon";
+import type { Pokemon, PokemonType } from "../types";
+import { POKEMON_TYPES } from "../types";
 
 const validTypes = new Set<string>(POKEMON_TYPES);
 

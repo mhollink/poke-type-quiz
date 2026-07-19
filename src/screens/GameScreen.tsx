@@ -1,6 +1,8 @@
-import { ClassicGame } from "../features/classic-game/ClassicGame.tsx";
-import type { GameMode } from "../features/game-modes/gameModeTypes.ts";
-import { SingleTypeGame } from "../features/single-type-game/SingleTypeGame.tsx";
+import { ClassicGame } from "../features/game-classic";
+import { DailyGame } from "../features/game-daily";
+import { ReversedGame } from "../features/game-reversed";
+import type { GameMode } from "../features/gamemode-selection/gameModeTypes.ts";
+import { assertNever } from "../utils";
 
 interface GameScreenProps {
 	gameMode: GameMode;
@@ -9,20 +11,16 @@ interface GameScreenProps {
 
 export function GameScreen({ gameMode, onExit }: GameScreenProps) {
 	switch (gameMode) {
+		case "daily":
+			return <DailyGame onExit={onExit} />;
+
 		case "classic":
 			return <ClassicGame onExit={onExit} />;
 
-		case "single-type":
-			return <SingleTypeGame onExit={onExit} />;
-
-		case "daily":
-			throw new Error(`Game mode "${gameMode}" is not implemented.`);
+		case "reversed":
+			return <ReversedGame onExit={onExit} />;
 
 		default:
 			return assertNever(gameMode);
 	}
-}
-
-function assertNever(value: never): never {
-	throw new Error(`Unsupported game mode: ${String(value)}`);
 }

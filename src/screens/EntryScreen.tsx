@@ -2,8 +2,8 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import logo from "../assets/poketype-logo.webp";
-import { GameModeGrid } from "../features/game-modes/components/GameModeGrid.tsx";
-import type { GameMode } from "../features/game-modes/gameModeTypes.ts";
+import { GameModeGrid } from "../features/gamemode-selection/components/GameModeGrid.tsx";
+import type { GameMode } from "../features/gamemode-selection/gameModeTypes.ts";
 
 interface EntryPageProps {
 	version: string;
