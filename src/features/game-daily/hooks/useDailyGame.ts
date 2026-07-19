@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import type { Pokemon } from "../../../types";
+import { playPokemonCry } from "../../../utils";
 import { createDailyChallenge } from "../challenge/createDailyChallenge";
 import {
 	createDailyDateKey,
@@ -261,6 +262,8 @@ export function useDailyGame(
 				},
 				nextChallenge,
 			});
+
+			void playPokemonCry(knownPokemon);
 
 			if (!nextChallenge) {
 				runResolvedRef.current = true;
