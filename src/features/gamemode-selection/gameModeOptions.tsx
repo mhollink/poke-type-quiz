@@ -12,7 +12,6 @@ export const gameModes: GameModeOption[] = [
 			"Race against a five-minute timer in one scored attempt each day.",
 		icon: <CalendarMonthRoundedIcon fontSize="inherit" />,
 		badge: "New every day",
-		disabled: true,
 	},
 	{
 		id: "classic",
