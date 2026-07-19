@@ -7,6 +7,7 @@ import {
 	useState,
 } from "react";
 import type { Pokemon, PokemonType } from "../../../types";
+import { playPokemonCry } from "../../../utils";
 import { createSessionId } from "../../game-shared/utils/createSessionId";
 import { createClassicChallenge } from "../challenge/createClassicChallenges.ts";
 import { classicGameConfig } from "../classicGameConfig";
@@ -210,6 +211,8 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 					nextRoundEndsAt: null,
 				});
 
+				void playPokemonCry(answer);
+
 				dispatch({
 					type: "END_GAME",
 					reason: "no-challenges-left",
@@ -231,6 +234,8 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				nextChallenge: nextChallenge.challenge,
 				nextRoundEndsAt,
 			});
+
+			void playPokemonCry(answer);
 
 			setNow(submittedAt);
 			roundResolvedRef.current = false;

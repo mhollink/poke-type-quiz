@@ -1,33 +1,46 @@
 import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
+import { reversedGameConfig } from "../reversedGameConfig";
 
 export interface CalculateReversedScoreInput {
-	readonly roundDurationMs: number;
 	readonly timeRemainingMs: number;
 	readonly typeCount: number;
 	readonly canonicalOrder: boolean;
 	readonly correctAnswersBeforeRound: number;
+	readonly challengeDifficulty: number;
 }
 
 export function calculateReversedScore({
-	roundDurationMs,
 	timeRemainingMs,
 	typeCount,
 	canonicalOrder,
 	correctAnswersBeforeRound,
+	challengeDifficulty,
 }: CalculateReversedScoreInput): ScoreBreakdown {
-	const remainingRatio = Math.max(
+	const remainingRatio = clamp(
+		timeRemainingMs / reversedGameConfig.roundDurationMs,
 		0,
-		Math.min(1, timeRemainingMs / roundDurationMs),
+		1,
 	);
 
-	const basePoints = 100;
 	const speedMultiplier = 1 + remainingRatio;
-	const difficultyMultiplier = typeCount === 2 ? 1.25 : 1;
-	const precisionMultiplier = typeCount === 2 && canonicalOrder ? 1.15 : 1;
-	const streakMultiplier = 1 + Math.min(correctAnswersBeforeRound, 20) * 0.025;
+
+	const typeMultiplier =
+		typeCount === 2 ? reversedGameConfig.dualTypeMultiplier : 1;
+
+	const difficultyMultiplier = typeMultiplier * (1 + challengeDifficulty);
+
+	const precisionMultiplier =
+		typeCount === 2 && canonicalOrder
+			? reversedGameConfig.canonicalOrderMultiplier
+			: 1;
+
+	const streakMultiplier = Math.min(
+		reversedGameConfig.maximumStreakMultiplier,
+		1 + correctAnswersBeforeRound * reversedGameConfig.streakMultiplierStep,
+	);
 
 	const totalPoints = Math.round(
-		basePoints *
+		reversedGameConfig.basePoints *
 			speedMultiplier *
 			difficultyMultiplier *
 			precisionMultiplier *
@@ -35,11 +48,15 @@ export function calculateReversedScore({
 	);
 
 	return {
-		basePoints,
+		basePoints: reversedGameConfig.basePoints,
 		speedMultiplier,
 		difficultyMultiplier,
 		streakMultiplier,
 		precisionMultiplier,
 		totalPoints,
 	};
+}
+
+function clamp(value: number, minimum: number, maximum: number): number {
+	return Math.min(maximum, Math.max(minimum, value));
 }

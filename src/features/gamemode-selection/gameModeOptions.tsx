@@ -26,6 +26,5 @@ export const gameModes: GameModeOption[] = [
 		description:
 			"Identify the correct type or type combination for the displayed Pokémon.",
 		icon: <SwapHorizRoundedIcon fontSize="inherit" />,
-		disabled: true,
 	},
 ];
