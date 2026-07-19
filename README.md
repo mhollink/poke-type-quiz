@@ -1,9 +1,6 @@
-# Pokémon: Type Quiz
+# PokéType Quiz
 
-A fast-paced Pokémon typing game where your knowledge is put to the test. Given a Pokémon type (or type combination),
-your goal is to name as many matching Pokémon as possible before the timer runs out.
-
-Built with **React**, **TypeScript**, **Vite**, and **Material UI**.
+A fast-paced Pokémon type game where your knowledge is put to the test. Given a Pokémon type (or type combination),
 
 ## Features
 

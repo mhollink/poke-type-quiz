@@ -976,8 +976,8 @@
 	},
 	{
 		"nr": 386,
-		"id": "deoxys-normal",
-		"name": "Deoxys-normal",
+		"id": "deoxys",
+		"name": "Deoxys",
 		"types": ["psychic"]
 	},
 	{ "nr": 387, "id": "turtwig", "name": "Turtwig", "types": ["grass"] },
@@ -1064,8 +1064,20 @@
 	{
 		"nr": 413,
 		"id": "wormadam-plant",
-		"name": "Wormadam-plant",
+		"name": "Wormadam (Plant Cloak)",
 		"types": ["bug", "grass"]
+	},
+	{
+		"nr": 10004,
+		"id": "wormadam-sandy",
+		"name": "Wormadam (Sandy Cloak)",
+		"types": ["bug", "ground"]
+	},
+	{
+		"nr": 10005,
+		"id": "wormadam-trash",
+		"name": "Wormadam (Trash Cloak)",
+		"types": ["bug", "steel"]
 	},
 	{ "nr": 414, "id": "mothim", "name": "Mothim", "types": ["bug", "flying"] },
 	{ "nr": 415, "id": "combee", "name": "Combee", "types": ["bug", "flying"] },
@@ -1282,8 +1294,8 @@
 	{ "nr": 486, "id": "regigigas", "name": "Regigigas", "types": ["normal"] },
 	{
 		"nr": 487,
-		"id": "giratina-altered",
-		"name": "Giratina-altered",
+		"id": "giratina",
+		"name": "Giratina",
 		"types": ["ghost", "dragon"]
 	},
 	{ "nr": 488, "id": "cresselia", "name": "Cresselia", "types": ["psychic"] },
@@ -1293,7 +1305,13 @@
 	{
 		"nr": 492,
 		"id": "shaymin-land",
-		"name": "Shaymin-land",
+		"name": "Shaymin (Land forme)",
+		"types": ["grass"]
+	},
+	{
+		"nr": 10006,
+		"id": "shaymin-sky",
+		"name": "Shaymin (Sky forme)",
 		"types": ["grass"]
 	},
 	{ "nr": 493, "id": "arceus", "name": "Arceus", "types": ["normal"] },
@@ -1455,8 +1473,8 @@
 	{ "nr": 549, "id": "lilligant", "name": "Lilligant", "types": ["grass"] },
 	{
 		"nr": 550,
-		"id": "basculin-red-striped",
-		"name": "Basculin-red-striped",
+		"id": "basculin",
+		"name": "Basculin",
 		"types": ["water"]
 	},
 	{
@@ -1480,9 +1498,27 @@
 	{ "nr": 554, "id": "darumaka", "name": "Darumaka", "types": ["fire"] },
 	{
 		"nr": 555,
-		"id": "darmanitan-standard",
-		"name": "Darmanitan-standard",
+		"id": "darmanitan",
+		"name": "Darmanitan",
 		"types": ["fire"]
+	},
+	{
+		"nr": 10017,
+		"id": "darmanitan-zen",
+		"name": "Darmanitan (Zen Mode)",
+		"types": ["fire", "psychic"]
+	},
+	{
+		"nr": 10177,
+		"id": "darmanitan-galar",
+		"name": "Darmanitan (Galarian Form)",
+		"types": ["fire", "psychic"]
+	},
+	{
+		"nr": 10178,
+		"id": "darmanitan-galar-zen",
+		"name": "Darmanitan (Galarian Zen)",
+		"types": ["ice", "fire"]
 	},
 	{ "nr": 556, "id": "maractus", "name": "Maractus", "types": ["grass"] },
 	{ "nr": 557, "id": "dwebble", "name": "Dwebble", "types": ["bug", "rock"] },
@@ -1587,14 +1623,14 @@
 	},
 	{
 		"nr": 592,
-		"id": "frillish-male",
-		"name": "Frillish-male",
+		"id": "frillish",
+		"name": "Frillish",
 		"types": ["water", "ghost"]
 	},
 	{
 		"nr": 593,
-		"id": "jellicent-male",
-		"name": "Jellicent-male",
+		"id": "jellicent",
+		"name": "Jellicent",
 		"types": ["water", "ghost"]
 	},
 	{ "nr": 594, "id": "alomomola", "name": "Alomomola", "types": ["water"] },
@@ -1731,14 +1767,14 @@
 	},
 	{
 		"nr": 641,
-		"id": "tornadus-incarnate",
-		"name": "Tornadus-incarnate",
+		"id": "tornadus",
+		"name": "Tornadus",
 		"types": ["flying"]
 	},
 	{
 		"nr": 642,
-		"id": "thundurus-incarnate",
-		"name": "Thundurus-incarnate",
+		"id": "thundurus",
+		"name": "Thundurus",
 		"types": ["electric", "flying"]
 	},
 	{
@@ -1755,21 +1791,27 @@
 	},
 	{
 		"nr": 645,
-		"id": "landorus-incarnate",
-		"name": "Landorus-incarnate",
+		"id": "landorus",
+		"name": "Landorus",
 		"types": ["ground", "flying"]
 	},
 	{ "nr": 646, "id": "kyurem", "name": "Kyurem", "types": ["dragon", "ice"] },
 	{
 		"nr": 647,
-		"id": "keldeo-ordinary",
-		"name": "Keldeo-ordinary",
+		"id": "keldeo",
+		"name": "Keldeo",
 		"types": ["water", "fighting"]
 	},
 	{
 		"nr": 648,
 		"id": "meloetta-aria",
-		"name": "Meloetta-aria",
+		"name": "Meloetta (Aria)",
+		"types": ["normal", "psychic"]
+	},
+	{
+		"nr": 10018,
+		"id": "meloetta-pirouette",
+		"name": "Meloetta (Pirouette)",
 		"types": ["normal", "psychic"]
 	},
 	{
@@ -1838,8 +1880,8 @@
 	{ "nr": 667, "id": "litleo", "name": "Litleo", "types": ["fire", "normal"] },
 	{
 		"nr": 668,
-		"id": "pyroar-male",
-		"name": "Pyroar-male",
+		"id": "pyroar",
+		"name": "Pyroar",
 		"types": ["fire", "normal"]
 	},
 	{ "nr": 669, "id": "flabebe", "name": "Flabebe", "types": ["fairy"] },
@@ -1858,8 +1900,8 @@
 	{ "nr": 677, "id": "espurr", "name": "Espurr", "types": ["psychic"] },
 	{
 		"nr": 678,
-		"id": "meowstic-male",
-		"name": "Meowstic-male",
+		"id": "meowstic",
+		"name": "Meowstic",
 		"types": ["psychic"]
 	},
 	{
@@ -1876,8 +1918,8 @@
 	},
 	{
 		"nr": 681,
-		"id": "aegislash-shield",
-		"name": "Aegislash-shield",
+		"id": "aegislash",
+		"name": "Aegislash",
 		"types": ["steel", "ghost"]
 	},
 	{ "nr": 682, "id": "spritzee", "name": "Spritzee", "types": ["fairy"] },
@@ -1960,14 +2002,14 @@
 	},
 	{
 		"nr": 710,
-		"id": "pumpkaboo-average",
-		"name": "Pumpkaboo-average",
+		"id": "pumpkaboo",
+		"name": "Pumpkaboo",
 		"types": ["ghost", "grass"]
 	},
 	{
 		"nr": 711,
-		"id": "gourgeist-average",
-		"name": "Gourgeist-average",
+		"id": "gourgeist",
+		"name": "Gourgeist",
 		"types": ["ghost", "grass"]
 	},
 	{ "nr": 712, "id": "bergmite", "name": "Bergmite", "types": ["ice"] },
@@ -1993,8 +2035,8 @@
 	},
 	{
 		"nr": 718,
-		"id": "zygarde-50",
-		"name": "Zygarde-50",
+		"id": "zygarde",
+		"name": "Zygarde",
 		"types": ["dragon", "ground"]
 	},
 	{ "nr": 719, "id": "diancie", "name": "Diancie", "types": ["rock", "fairy"] },
@@ -2082,8 +2124,26 @@
 	{
 		"nr": 741,
 		"id": "oricorio-baile",
-		"name": "Oricorio-baile",
+		"name": "Oricorio (Baile)",
 		"types": ["fire", "flying"]
+	},
+	{
+		"nr": 10123,
+		"id": "oricorio-pom-pom",
+		"name": "Oricorio (Pom-Pom)",
+		"types": ["electric", "flying"]
+	},
+	{
+		"nr": 10124,
+		"id": "oricorio-pau",
+		"name": "Oricorio (Pa'u)",
+		"types": ["psychic", "flying"]
+	},
+	{
+		"nr": 10125,
+		"id": "oricorio-sensu",
+		"name": "Oricorio (Sensu)",
+		"types": ["ghost", "flying"]
 	},
 	{
 		"nr": 742,
@@ -2100,14 +2160,14 @@
 	{ "nr": 744, "id": "rockruff", "name": "Rockruff", "types": ["rock"] },
 	{
 		"nr": 745,
-		"id": "lycanroc-midday",
-		"name": "Lycanroc-midday",
+		"id": "lycanroc",
+		"name": "Lycanroc",
 		"types": ["rock"]
 	},
 	{
 		"nr": 746,
-		"id": "wishiwashi-solo",
-		"name": "Wishiwashi-solo",
+		"id": "wishiwashi",
+		"name": "Wishiwashi",
 		"types": ["water"]
 	},
 	{
@@ -2209,8 +2269,8 @@
 	{ "nr": 773, "id": "silvally", "name": "Silvally", "types": ["normal"] },
 	{
 		"nr": 774,
-		"id": "minior-red-meteor",
-		"name": "Minior-red-meteor",
+		"id": "minior",
+		"name": "Minior",
 		"types": ["rock", "flying"]
 	},
 	{ "nr": 775, "id": "komala", "name": "Komala", "types": ["normal"] },
@@ -2228,8 +2288,8 @@
 	},
 	{
 		"nr": 778,
-		"id": "mimikyu-disguised",
-		"name": "Mimikyu-disguised",
+		"id": "mimikyu",
+		"name": "Mimikyu",
 		"types": ["ghost", "fairy"]
 	},
 	{
@@ -2459,8 +2519,8 @@
 	},
 	{
 		"nr": 849,
-		"id": "toxtricity-amped",
-		"name": "Toxtricity-amped",
+		"id": "toxtricity",
+		"name": "Toxtricity",
 		"types": ["electric", "poison"]
 	},
 	{
@@ -2536,14 +2596,14 @@
 	{ "nr": 875, "id": "eiscue-ice", "name": "Eiscue-ice", "types": ["ice"] },
 	{
 		"nr": 876,
-		"id": "indeedee-male",
-		"name": "Indeedee-male",
+		"id": "indeedee",
+		"name": "Indeedee",
 		"types": ["psychic", "normal"]
 	},
 	{
 		"nr": 877,
-		"id": "morpeko-full-belly",
-		"name": "Morpeko-full-belly",
+		"id": "morpeko",
+		"name": "Morpeko",
 		"types": ["electric", "dark"]
 	},
 	{ "nr": 878, "id": "cufant", "name": "Cufant", "types": ["steel"] },
@@ -2602,8 +2662,8 @@
 	{ "nr": 891, "id": "kubfu", "name": "Kubfu", "types": ["fighting"] },
 	{
 		"nr": 892,
-		"id": "urshifu-single-strike",
-		"name": "Urshifu-single-strike",
+		"id": "urshifu",
+		"name": "Urshifu",
 		"types": ["fighting", "dark"]
 	},
 	{ "nr": 893, "id": "zarude", "name": "Zarude", "types": ["dark", "grass"] },
@@ -2632,8 +2692,8 @@
 	},
 	{
 		"nr": 902,
-		"id": "basculegion-male",
-		"name": "Basculegion-male",
+		"id": "basculegion",
+		"name": "Basculegion",
 		"types": ["water", "ghost"]
 	},
 	{
@@ -2650,8 +2710,8 @@
 	},
 	{
 		"nr": 905,
-		"id": "enamorus-incarnate",
-		"name": "Enamorus-incarnate",
+		"id": "enamorus",
+		"name": "Enamorus",
 		"types": ["fairy", "flying"]
 	},
 	{ "nr": 906, "id": "sprigatito", "name": "Sprigatito", "types": ["grass"] },
@@ -2681,8 +2741,8 @@
 	{ "nr": 915, "id": "lechonk", "name": "Lechonk", "types": ["normal"] },
 	{
 		"nr": 916,
-		"id": "oinkologne-male",
-		"name": "Oinkologne-male",
+		"id": "oinkologne",
+		"name": "Oinkologne",
 		"types": ["normal"]
 	},
 	{ "nr": 917, "id": "tarountula", "name": "Tarountula", "types": ["bug"] },
@@ -2705,8 +2765,8 @@
 	{ "nr": 924, "id": "tandemaus", "name": "Tandemaus", "types": ["normal"] },
 	{
 		"nr": 925,
-		"id": "maushold-family-of-four",
-		"name": "Maushold-family-of-four",
+		"id": "maushold",
+		"name": "Maushold",
 		"types": ["normal"]
 	},
 	{ "nr": 926, "id": "fidough", "name": "Fidough", "types": ["fairy"] },
@@ -2721,8 +2781,8 @@
 	},
 	{
 		"nr": 931,
-		"id": "squawkabilly-green-plumage",
-		"name": "Squawkabilly-green-plumage",
+		"id": "squawkabilly",
+		"name": "Squawkabilly",
 		"types": ["normal", "flying"]
 	},
 	{ "nr": 932, "id": "nacli", "name": "Nacli", "types": ["rock"] },
@@ -2834,8 +2894,8 @@
 	{ "nr": 963, "id": "finizen", "name": "Finizen", "types": ["water"] },
 	{
 		"nr": 964,
-		"id": "palafin-zero",
-		"name": "Palafin-zero",
+		"id": "palafin",
+		"name": "Palafin",
 		"types": ["water"]
 	},
 	{ "nr": 965, "id": "varoom", "name": "Varoom", "types": ["steel", "poison"] },
@@ -2883,8 +2943,8 @@
 	{ "nr": 977, "id": "dondozo", "name": "Dondozo", "types": ["water"] },
 	{
 		"nr": 978,
-		"id": "tatsugiri-curly",
-		"name": "Tatsugiri-curly",
+		"id": "tatsugiri",
+		"name": "Tatsugiri",
 		"types": ["dragon", "water"]
 	},
 	{
@@ -2907,8 +2967,8 @@
 	},
 	{
 		"nr": 982,
-		"id": "dudunsparce-two-segment",
-		"name": "Dudunsparce-two-segment",
+		"id": "dudunsparce",
+		"name": "Dudunsparce",
 		"types": ["normal"]
 	},
 	{
@@ -3036,13 +3096,13 @@
 	{
 		"nr": 1005,
 		"id": "roaring-moon",
-		"name": "Roaring-moon",
+		"name": "Roaring moon",
 		"types": ["dragon", "dark"]
 	},
 	{
 		"nr": 1006,
 		"id": "iron-valiant",
-		"name": "Iron-valiant",
+		"name": "Iron valiant",
 		"types": ["fairy", "fighting"]
 	},
 	{
@@ -3060,13 +3120,13 @@
 	{
 		"nr": 1009,
 		"id": "walking-wake",
-		"name": "Walking-wake",
+		"name": "Walking wake",
 		"types": ["water", "dragon"]
 	},
 	{
 		"nr": 1010,
 		"id": "iron-leaves",
-		"name": "Iron-leaves",
+		"name": "Iron leaves",
 		"types": ["grass", "psychic"]
 	},
 	{
@@ -3121,25 +3181,25 @@
 	{
 		"nr": 1020,
 		"id": "gouging-fire",
-		"name": "Gouging-fire",
+		"name": "Gouging fire",
 		"types": ["fire", "dragon"]
 	},
 	{
 		"nr": 1021,
 		"id": "raging-bolt",
-		"name": "Raging-bolt",
+		"name": "Raging bolt",
 		"types": ["electric", "dragon"]
 	},
 	{
 		"nr": 1022,
 		"id": "iron-boulder",
-		"name": "Iron-boulder",
+		"name": "Iron boulder",
 		"types": ["rock", "psychic"]
 	},
 	{
 		"nr": 1023,
 		"id": "iron-crown",
-		"name": "Iron-crown",
+		"name": "Iron crown",
 		"types": ["steel", "psychic"]
 	},
 	{ "nr": 1024, "id": "terapagos", "name": "Terapagos", "types": ["normal"] },

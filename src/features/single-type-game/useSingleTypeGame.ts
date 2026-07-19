@@ -72,7 +72,7 @@ export function useSingleTypeGame(
 		const usedIds = new Set(
 			state.completedRounds.map((round) => round.pokemonId),
 		);
-        return pokemonData.filter((candidate) => !usedIds.has(candidate.id));
+		return pokemonData.filter((candidate) => !usedIds.has(candidate.id));
 	}, [state.completedRounds]);
 
 	const now = useNow(state.status === "playing");
