@@ -1,0 +1,67 @@
+name: Pokémon data issue
+description: Report an incorrect Pokémon name, Pokédex number, generation, type, sprite, or related data.
+title: "[Data]: "
+body:
+  - type: dropdown
+    id: data_type
+    attributes:
+      label: Data type
+      options:
+        - Pokémon name
+        - National Pokédex number
+        - Generation
+        - Primary or secondary type
+        - Form or variant
+        - Sprite or image
+        - Cry or audio
+        - Autocomplete or search matching
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: pokemon
+    attributes:
+      label: Pokémon or form
+      placeholder: For example, Rotom Wash or Nidoran♀
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current data or behaviour
+      description: State exactly what the game currently displays or accepts.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected data or behaviour
+      description: State the correct value or behaviour.
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Supporting source
+      description: Link to PokéAPI, an official Pokédex, or another reliable source when possible.
+      placeholder: https://...
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Mention the affected game mode, generation filter, or reproduction steps.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked that this is not already reported.
+          required: true
+        - label: I identified the exact Pokémon or form involved.
+          required: true

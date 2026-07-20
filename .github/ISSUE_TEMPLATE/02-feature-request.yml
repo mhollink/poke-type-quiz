@@ -1,0 +1,78 @@
+name: Feature request
+description: Suggest a new capability or a meaningful improvement.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the user problem first. This makes it easier to compare possible solutions.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Daily Challenge
+        - Classic mode
+        - Reversed mode
+        - New game mode
+        - Scoring and progression
+        - Accessibility
+        - Visual design
+        - Audio
+        - Sharing and social features
+        - Installation or PWA
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What user need, frustration, or opportunity would this address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Explain the desired behaviour without requiring a specific implementation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe other approaches, workarounds, or trade-offs you considered.
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Expected impact
+      options:
+        - Small quality-of-life improvement
+        - Meaningful improvement for many players
+        - Important for a specific group of players
+        - Major new capability
+        - Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add examples, mock-ups, comparable games, or other useful context.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for similar requests.
+          required: true
+        - label: This request describes the user value, not only a technical implementation.
+          required: true

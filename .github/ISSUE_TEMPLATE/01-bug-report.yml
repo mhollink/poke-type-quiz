@@ -1,0 +1,100 @@
+name: Bug report
+description: Report broken or unexpected behaviour in the game.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Clear reproduction steps help us investigate it quickly.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Daily Challenge
+        - Classic mode
+        - Reversed mode
+        - Game selection and navigation
+        - Score, streak, or timer
+        - Pokémon autocomplete
+        - Audio
+        - Visual design or theming
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the behaviour you observed.
+      placeholder: Tell us what went wrong and when it occurred.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: Describe the behaviour you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include the exact actions needed to reproduce the problem.
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. Enter ...
+        4. Observe ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this happen?
+      options:
+        - Every time
+        - Often
+        - Sometimes
+        - Once
+        - I could not reproduce it
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: For example, Chrome 128 or Safari 18
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device and operating system
+      placeholder: For example, Windows 11 desktop or iPhone 15 with iOS 18
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots, recordings, or console output
+      description: Add anything that makes the problem easier to diagnose. Remove sensitive information first.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and did not find the same problem.
+          required: true
+        - label: I have included enough information to reproduce or investigate the problem.
+          required: true
