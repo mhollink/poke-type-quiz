@@ -50,7 +50,7 @@ export function classicGameReducer(
 				sessionId: action.sessionId,
 				currentChallenge: action.challenge,
 				roundEndsAt: action.roundEndsAt,
-				startedAt: action.startedAt
+				startedAt: action.startedAt,
 			};
 
 		case "CORRECT_ANSWER": {

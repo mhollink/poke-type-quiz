@@ -8,6 +8,12 @@ import {
 } from "react";
 
 import type { Pokemon } from "../../../types/pokemon";
+import { playPokemonCry } from "../../../utils";
+import {
+	analytics,
+	trackGameCompleted,
+	trackGameStarted,
+} from "../../analytics";
 import { createReversedChallenge } from "../challenge/createReversedChallenge";
 import {
 	createInitialReversedGameState,
@@ -22,8 +28,6 @@ import type {
 import { validateReversedAnswer } from "../model/validateReversedAnswer";
 import { reversedGameConfig } from "../reversedGameConfig";
 import { calculateReversedScore } from "../scoring/calculateReversedScore";
-import {analytics, trackGameCompleted, trackGameStarted} from "../../analytics";
-import {playPokemonCry} from "../../../utils";
 
 const timerIntervalMs = 100;
 
@@ -93,26 +97,29 @@ export function useReversedGame(
 		1,
 	);
 
-	const endGame = useCallback((reason: ReversedGameOverReason): void => {
-		if (roundResolvedRef.current) {
-			return;
-		}
+	const endGame = useCallback(
+		(reason: ReversedGameOverReason): void => {
+			if (roundResolvedRef.current) {
+				return;
+			}
 
-		roundResolvedRef.current = true;
+			roundResolvedRef.current = true;
 
-		dispatch({
-			type: "END_GAME",
-			reason,
-		});
-		trackGameCompleted(analytics, {
-			mode: "reversed",
-			startedAt: state.startedAt ?? now,
-			completedAt: now,
-			correctAnswers: state.correctAnswers,
-			mistakes: reason === "incorrect-answer" ? 1 : 0,
-			score: state.score
-		})
-	}, [now, state.startedAt, state.correctAnswers, state.score]);
+			dispatch({
+				type: "END_GAME",
+				reason,
+			});
+			trackGameCompleted(analytics, {
+				mode: "reversed",
+				startedAt: state.startedAt ?? now,
+				completedAt: now,
+				correctAnswers: state.correctAnswers,
+				mistakes: reason === "incorrect-answer" ? 1 : 0,
+				score: state.score,
+			});
+		},
+		[now, state.startedAt, state.correctAnswers, state.score],
+	);
 
 	const startGame = useCallback((): void => {
 		const firstChallenge = createReversedChallenge({
@@ -134,7 +141,7 @@ export function useReversedGame(
 				completedAt: 0,
 				correctAnswers: 0,
 				mistakes: 0,
-				score: 0
+				score: 0,
 			});
 			return;
 		}
@@ -151,7 +158,7 @@ export function useReversedGame(
 			startedAt,
 			roundEndsAt: startedAt + reversedGameConfig.roundDurationMs,
 		});
-		trackGameStarted(analytics, {mode: "reversed", startedAt })
+		trackGameStarted(analytics, { mode: "reversed", startedAt });
 	}, [dependencies, pokemon]);
 
 	const submitAnswer = useCallback(
@@ -238,13 +245,13 @@ export function useReversedGame(
 					completedAt: now,
 					correctAnswers: state.correctAnswers,
 					mistakes: 0,
-					score: state.score
+					score: state.score,
 				});
 				return;
 			}
 
 			setNow(submittedAt);
-			void playPokemonCry(nextChallenge.pokemon)
+			void playPokemonCry(nextChallenge.pokemon);
 			roundResolvedRef.current = false;
 		},
 		[

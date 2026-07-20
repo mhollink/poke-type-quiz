@@ -3,6 +3,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import logo from "../assets/poketype-logo.webp";
 import { GameModeGrid } from "../features/gamemode-selection/components/GameModeGrid.tsx";
+import { usePwaInstallPrompt } from "../hooks/usePwaInstallation.ts";
 import type { GameMode } from "../types";
 
 interface EntryPageProps {
@@ -116,6 +117,39 @@ export function EntryScreen({ version, onSelectGameMode }: EntryPageProps) {
 					<GameModeGrid onSelect={onSelectGameMode} />
 				</Box>
 			</Stack>
+			<PwaInstallSnackbar />
 		</Box>
+	);
+}
+
+function PwaInstallSnackbar() {
+	const { isVisible, install, dismiss } = usePwaInstallPrompt();
+
+	if (!isVisible) {
+		return null;
+	}
+
+	return (
+		<aside aria-label="Install Poketype" className="pwa-install-snackbar">
+			<div className="pwa-install-snackbar__content">
+				<strong>Install Poketype</strong>
+
+				<span>Add Poketype to your home screen for quicker access.</span>
+			</div>
+
+			<div className="pwa-install-snackbar__actions">
+				<button type="button" onClick={() => void install()}>
+					Install
+				</button>
+
+				<button
+					type="button"
+					aria-label="Dismiss installation message"
+					onClick={dismiss}
+				>
+					Not now
+				</button>
+			</div>
+		</aside>
 	);
 }

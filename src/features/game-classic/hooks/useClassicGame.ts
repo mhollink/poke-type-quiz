@@ -8,6 +8,11 @@ import {
 } from "react";
 import type { Pokemon, PokemonType } from "../../../types";
 import { playPokemonCry } from "../../../utils";
+import {
+	analytics,
+	trackGameCompleted,
+	trackGameStarted,
+} from "../../analytics";
 import { createSessionId } from "../../game-shared/utils/createSessionId";
 import { createClassicChallenge } from "../challenge/createClassicChallenges.ts";
 import { classicGameConfig } from "../classicGameConfig";
@@ -20,7 +25,6 @@ import type {
 	TypeChallenge,
 } from "../model/classicGameTypes";
 import { calculateClassicScore } from "../scoring/calculateClassicScore";
-import {analytics, trackGameCompleted, trackGameStarted} from "../../analytics";
 
 const timerIntervalMs = 100;
 
@@ -90,26 +94,29 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 		Math.min(1, timeRemainingMs / classicGameConfig.roundDurationMs),
 	);
 
-	const endGame = useCallback((reason: ClassicGameOverReason): void => {
-		if (roundResolvedRef.current) {
-			return;
-		}
+	const endGame = useCallback(
+		(reason: ClassicGameOverReason): void => {
+			if (roundResolvedRef.current) {
+				return;
+			}
 
-		roundResolvedRef.current = true;
+			roundResolvedRef.current = true;
 
-		dispatch({
-			type: "END_GAME",
-			reason,
-		});
-		trackGameCompleted(analytics, {
-			mode: "classic",
-			startedAt: state.startedAt ?? now,
-			completedAt: now,
-			correctAnswers: state.correctAnswers,
-			mistakes: reason === "incorrect-answer" ? 1 : 0,
-			score: state.score
-		})
-	}, [state]);
+			dispatch({
+				type: "END_GAME",
+				reason,
+			});
+			trackGameCompleted(analytics, {
+				mode: "classic",
+				startedAt: state.startedAt ?? now,
+				completedAt: now,
+				correctAnswers: state.correctAnswers,
+				mistakes: reason === "incorrect-answer" ? 1 : 0,
+				score: state.score,
+			});
+		},
+		[state],
+	);
 
 	const startGame = useCallback((): void => {
 		if (pokemon.length === 0 || eligibleTypes.length === 0) {
@@ -123,8 +130,8 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				completedAt: 0,
 				correctAnswers: 0,
 				mistakes: 0,
-				score: 0
-			})
+				score: 0,
+			});
 			return;
 		}
 
@@ -145,8 +152,8 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				completedAt: 0,
 				correctAnswers: 0,
 				mistakes: 0,
-				score: 0
-			})
+				score: 0,
+			});
 			return;
 		}
 
@@ -162,7 +169,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 			startedAt,
 			roundEndsAt: startedAt + classicGameConfig.roundDurationMs,
 		});
-		trackGameStarted(analytics, {mode: "classic", startedAt })
+		trackGameStarted(analytics, { mode: "classic", startedAt });
 	}, [eligibleTypes, pokemon]);
 
 	const submitAnswer = useCallback(
@@ -248,8 +255,8 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 					completedAt: now,
 					correctAnswers: state.correctAnswers,
 					mistakes: 0,
-					score: state.score
-				})
+					score: state.score,
+				});
 				return;
 			}
 
