@@ -4,7 +4,7 @@ export {
 	trackGameCompleted,
 	trackGameStarted,
 } from "./application/gameAnalytics";
-export { AnalyticsRoot } from "./components/AnalyticsRoot";
+export { WithAnalytics } from "./components/WithAnalytics.tsx";
 export type { Analytics } from "./model/Analytics";
 export type {
 	AbandonmentStage,

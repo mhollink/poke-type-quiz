@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./app/App";
-import { AnalyticsRoot } from "./features/analytics";
+import { WithAnalytics } from "./features/analytics";
 import { theme } from "./theme/theme";
 import "./styles/globals.css";
 
@@ -14,11 +14,11 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
 	<StrictMode>
-		<AnalyticsRoot>
+		<WithAnalytics>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<App />
 			</ThemeProvider>
-		</AnalyticsRoot>
+		</WithAnalytics>
 	</StrictMode>,
 );
