@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-
-export type GameMode = "daily" | "classic" | "reversed";
+import type { GameMode } from "../../types";
 
 export interface GameModeOption {
 	id: GameMode;

@@ -1,7 +1,7 @@
 import { ClassicGame } from "../features/game-classic";
 import { DailyGame } from "../features/game-daily";
 import { ReversedGame } from "../features/game-reversed";
-import type { GameMode } from "../features/gamemode-selection/gameModeTypes.ts";
+import type { GameMode } from "../types";
 import { assertNever } from "../utils";
 
 interface GameScreenProps {

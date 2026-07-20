@@ -1,5 +1,7 @@
 import type { PokemonType } from "./pokemon";
 
+export type GameMode = "daily" | "classic" | "reversed";
+
 export type GameStatus = "idle" | "playing" | "gameOver";
 
 export type ChallengeKey = string;
