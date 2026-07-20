@@ -30,6 +30,7 @@ import {
 	type DailyAttemptRepository,
 	localDailyAttemptRepository,
 } from "../storage/dailyAttemptRepository";
+import {analytics, trackGameCompleted, trackGameStarted} from "../../analytics";
 
 const timerIntervalMs = 100;
 
@@ -143,6 +144,8 @@ export function useDailyGame(
 			challenge: firstChallenge,
 			runEndsAt: startedAt + dailyGameConfig.durationMs,
 		});
+		trackGameStarted(analytics, {mode: "daily", startedAt })
+
 	}, [dateKey, dependencies, pokemon]);
 
 	useEffect(() => {
@@ -179,6 +182,14 @@ export function useDailyGame(
 			type: "END_GAME",
 			reason: "time-expired",
 		});
+		trackGameCompleted(analytics, {
+			mode: "classic",
+			startedAt: -1,
+			completedAt: now,
+			correctAnswers: state.correctAnswers,
+			mistakes: state.mistakes,
+			score: state.score
+		})
 	}, []);
 
 	const submitAnswer = useCallback(
@@ -272,6 +283,14 @@ export function useDailyGame(
 					type: "END_GAME",
 					reason: "no-challenges-left",
 				});
+				trackGameCompleted(analytics, {
+					mode: "classic",
+					startedAt: -1,
+					completedAt: now,
+					correctAnswers: state.correctAnswers,
+					mistakes: state.mistakes,
+					score: state.score
+				})
 			}
 		},
 		[
