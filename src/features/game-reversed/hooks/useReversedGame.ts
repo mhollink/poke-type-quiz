@@ -22,6 +22,7 @@ import type {
 import { validateReversedAnswer } from "../model/validateReversedAnswer";
 import { reversedGameConfig } from "../reversedGameConfig";
 import { calculateReversedScore } from "../scoring/calculateReversedScore";
+import {analytics, trackGameCompleted, trackGameStarted} from "../../analytics";
 
 const timerIntervalMs = 100;
 
@@ -102,6 +103,14 @@ export function useReversedGame(
 			type: "END_GAME",
 			reason,
 		});
+		trackGameCompleted(analytics, {
+			mode: "reversed",
+			startedAt: -1,
+			completedAt: now,
+			correctAnswers: state.correctAnswers,
+			mistakes: reason === "incorrect-answer" ? 1 : 0,
+			score: state.score
+		})
 	}, []);
 
 	const startGame = useCallback((): void => {
@@ -118,7 +127,14 @@ export function useReversedGame(
 				type: "END_GAME",
 				reason: "no-challenges-left",
 			});
-
+			trackGameCompleted(analytics, {
+				mode: "reversed",
+				startedAt: -1,
+				completedAt: now,
+				correctAnswers: state.correctAnswers,
+				mistakes: 0,
+				score: state.score
+			});
 			return;
 		}
 
@@ -133,6 +149,7 @@ export function useReversedGame(
 			challenge: firstChallenge,
 			roundEndsAt: startedAt + reversedGameConfig.roundDurationMs,
 		});
+		trackGameStarted(analytics, {mode: "reversed", startedAt })
 	}, [dependencies, pokemon]);
 
 	const submitAnswer = useCallback(
@@ -213,7 +230,14 @@ export function useReversedGame(
 					type: "END_GAME",
 					reason: "no-challenges-left",
 				});
-
+				trackGameCompleted(analytics, {
+					mode: "reversed",
+					startedAt: -1,
+					completedAt: now,
+					correctAnswers: state.correctAnswers,
+					mistakes: 0,
+					score: state.score
+				});
 				return;
 			}
 

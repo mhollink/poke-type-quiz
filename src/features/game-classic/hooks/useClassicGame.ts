@@ -20,6 +20,7 @@ import type {
 	TypeChallenge,
 } from "../model/classicGameTypes";
 import { calculateClassicScore } from "../scoring/calculateClassicScore";
+import {analytics, trackGameCompleted, trackGameStarted} from "../../analytics";
 
 const timerIntervalMs = 100;
 
@@ -100,6 +101,14 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 			type: "END_GAME",
 			reason,
 		});
+		trackGameCompleted(analytics, {
+			mode: "classic",
+			startedAt: -1,
+			completedAt: now,
+			correctAnswers: state.correctAnswers,
+			mistakes: reason === "incorrect-answer" ? 1 : 0,
+			score: state.score
+		})
 	}, []);
 
 	const startGame = useCallback((): void => {
@@ -108,7 +117,14 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				type: "END_GAME",
 				reason: "no-challenges-left",
 			});
-
+			trackGameCompleted(analytics, {
+				mode: "classic",
+				startedAt: -1,
+				completedAt: now,
+				correctAnswers: state.correctAnswers,
+				mistakes: 0,
+				score: state.score
+			})
 			return;
 		}
 
@@ -123,7 +139,14 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				type: "END_GAME",
 				reason: "no-challenges-left",
 			});
-
+			trackGameCompleted(analytics, {
+				mode: "classic",
+				startedAt: -1,
+				completedAt: now,
+				correctAnswers: state.correctAnswers,
+				mistakes: 0,
+				score: state.score
+			})
 			return;
 		}
 
@@ -138,6 +161,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 			challenge: firstChallenge.challenge,
 			roundEndsAt: startedAt + classicGameConfig.roundDurationMs,
 		});
+		trackGameStarted(analytics, {mode: "classic", startedAt })
 	}, [eligibleTypes, pokemon]);
 
 	const submitAnswer = useCallback(
@@ -217,7 +241,14 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 					type: "END_GAME",
 					reason: "no-challenges-left",
 				});
-
+				trackGameCompleted(analytics, {
+					mode: "classic",
+					startedAt: -1,
+					completedAt: now,
+					correctAnswers: state.correctAnswers,
+					mistakes: 0,
+					score: state.score
+				})
 				return;
 			}
 
