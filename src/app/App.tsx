@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { analytics } from "../features/analytics";
 import { EntryScreen } from "../screens/EntryScreen.tsx";
 import { GameScreen } from "../screens/GameScreen.tsx";
 import { assertNever } from "../utils";
@@ -17,6 +18,7 @@ export function App() {
 						type: "START_GAME",
 						mode: gameMode,
 					});
+					analytics.track("mode_selected", { game_mode: gameMode });
 				}}
 			/>
 		);

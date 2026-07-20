@@ -1,4 +1,4 @@
-import type { GameMode } from "../features/gamemode-selection/gameModeTypes.ts";
+import type { GameMode } from "../types";
 
 export type AppScreen = "home" | "settings" | "playing";
 

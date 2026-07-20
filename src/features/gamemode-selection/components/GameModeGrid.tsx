@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
-
+import type { GameMode } from "../../../types";
 import { gameModes } from "../gameModeOptions";
-import type { GameMode } from "../gameModeTypes";
 import { GameModeCard } from "./GameModeCard";
 
 interface GameModeGridProps {
