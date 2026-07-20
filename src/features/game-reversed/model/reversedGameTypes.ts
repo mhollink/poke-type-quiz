@@ -45,6 +45,7 @@ export interface ReversedGameState {
 	readonly score: number;
 	readonly correctAnswers: number;
 	readonly currentChallenge: ReversedChallenge | null;
+	readonly startedAt: number | null;
 	readonly roundEndsAt: number | null;
 	readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
 	readonly completedRounds: readonly CompletedReversedRound[];

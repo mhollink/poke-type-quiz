@@ -23,6 +23,7 @@ import { validateReversedAnswer } from "../model/validateReversedAnswer";
 import { reversedGameConfig } from "../reversedGameConfig";
 import { calculateReversedScore } from "../scoring/calculateReversedScore";
 import {analytics, trackGameCompleted, trackGameStarted} from "../../analytics";
+import {playPokemonCry} from "../../../utils";
 
 const timerIntervalMs = 100;
 
@@ -105,13 +106,13 @@ export function useReversedGame(
 		});
 		trackGameCompleted(analytics, {
 			mode: "reversed",
-			startedAt: -1,
+			startedAt: state.startedAt ?? now,
 			completedAt: now,
 			correctAnswers: state.correctAnswers,
 			mistakes: reason === "incorrect-answer" ? 1 : 0,
 			score: state.score
 		})
-	}, [state.correctAnswers, state.score]);
+	}, [now, state.startedAt, state.correctAnswers, state.score]);
 
 	const startGame = useCallback((): void => {
 		const firstChallenge = createReversedChallenge({
@@ -129,11 +130,11 @@ export function useReversedGame(
 			});
 			trackGameCompleted(analytics, {
 				mode: "reversed",
-				startedAt: -1,
-				completedAt: now,
-				correctAnswers: state.correctAnswers,
+				startedAt: 0,
+				completedAt: 0,
+				correctAnswers: 0,
 				mistakes: 0,
-				score: state.score
+				score: 0
 			});
 			return;
 		}
@@ -147,6 +148,7 @@ export function useReversedGame(
 			type: "START_GAME",
 			sessionId: dependencies.createId(),
 			challenge: firstChallenge,
+			startedAt,
 			roundEndsAt: startedAt + reversedGameConfig.roundDurationMs,
 		});
 		trackGameStarted(analytics, {mode: "reversed", startedAt })
@@ -232,7 +234,7 @@ export function useReversedGame(
 				});
 				trackGameCompleted(analytics, {
 					mode: "reversed",
-					startedAt: -1,
+					startedAt: state.startedAt ?? now,
 					completedAt: now,
 					correctAnswers: state.correctAnswers,
 					mistakes: 0,
@@ -242,6 +244,7 @@ export function useReversedGame(
 			}
 
 			setNow(submittedAt);
+			void playPokemonCry(nextChallenge.pokemon)
 			roundResolvedRef.current = false;
 		},
 		[
@@ -251,6 +254,8 @@ export function useReversedGame(
 			state.correctAnswers,
 			state.currentChallenge,
 			state.roundEndsAt,
+			state.startedAt,
+			state.score,
 			state.status,
 			state.usedPokemonIds,
 		],

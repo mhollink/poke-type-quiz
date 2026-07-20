@@ -10,6 +10,7 @@ export type ReversedGameAction =
 			readonly type: "START_GAME";
 			readonly sessionId: string;
 			readonly challenge: ReversedChallenge;
+			readonly startedAt: number;
 			readonly roundEndsAt: number;
 	  }
 	| {
@@ -30,6 +31,7 @@ export function createInitialReversedGameState(): ReversedGameState {
 		score: 0,
 		correctAnswers: 0,
 		currentChallenge: null,
+		startedAt: null,
 		roundEndsAt: null,
 		usedPokemonIds: new Set(),
 		completedRounds: [],
@@ -50,6 +52,7 @@ export function reversedGameReducer(
 				...createInitialReversedGameState(),
 				sessionId: action.sessionId,
 				currentChallenge: action.challenge,
+				startedAt: action.startedAt,
 				roundEndsAt: action.roundEndsAt,
 			};
 
