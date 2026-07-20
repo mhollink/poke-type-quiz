@@ -10,6 +10,7 @@ export type DailyGameAction =
 			readonly type: "START_GAME";
 			readonly dateKey: string;
 			readonly challenge: DailyChallenge;
+			readonly startedAt: number;
 			readonly runEndsAt: number;
 	  }
 	| {
@@ -35,6 +36,7 @@ export function createInitialDailyGameState(): DailyGameState {
 		streak: 0,
 		highestStreak: 0,
 		currentChallenge: null,
+		startedAt: null,
 		runEndsAt: null,
 		usedPokemonIds: new Set(),
 		completedAnswers: [],
@@ -53,6 +55,7 @@ export function dailyGameReducer(
 				...createInitialDailyGameState(),
 				dateKey: action.dateKey,
 				currentChallenge: action.challenge,
+				startedAt: action.startedAt,
 				runEndsAt: action.runEndsAt,
 			};
 

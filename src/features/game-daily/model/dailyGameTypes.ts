@@ -27,6 +27,7 @@ export interface DailyGameState {
 	readonly streak: number;
 	readonly highestStreak: number;
 	readonly currentChallenge: DailyChallenge | null;
+	readonly startedAt: number | null;
 	readonly runEndsAt: number | null;
 	readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
 	readonly completedAnswers: readonly CompletedDailyAnswer[];
