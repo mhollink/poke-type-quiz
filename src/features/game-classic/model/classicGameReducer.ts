@@ -10,6 +10,7 @@ export type ClassicGameAction =
 			readonly type: "START_GAME";
 			readonly sessionId: string;
 			readonly challenge: TypeChallenge;
+			readonly startedAt: number;
 			readonly roundEndsAt: number;
 	  }
 	| {
@@ -29,6 +30,7 @@ export const createInitialClassicGameState = (): ClassicGameState => ({
 	score: 0,
 	correctAnswers: 0,
 	currentChallenge: null,
+	startedAt: null,
 	roundEndsAt: null,
 	usedPokemonIds: new Set<string>(),
 	completedRounds: [],
@@ -48,6 +50,7 @@ export function classicGameReducer(
 				sessionId: action.sessionId,
 				currentChallenge: action.challenge,
 				roundEndsAt: action.roundEndsAt,
+				startedAt: action.startedAt
 			};
 
 		case "CORRECT_ANSWER": {

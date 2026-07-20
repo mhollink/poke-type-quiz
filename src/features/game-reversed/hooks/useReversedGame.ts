@@ -111,7 +111,7 @@ export function useReversedGame(
 			mistakes: reason === "incorrect-answer" ? 1 : 0,
 			score: state.score
 		})
-	}, []);
+	}, [state.correctAnswers, state.score]);
 
 	const startGame = useCallback((): void => {
 		const firstChallenge = createReversedChallenge({

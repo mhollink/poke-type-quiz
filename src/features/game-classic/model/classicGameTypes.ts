@@ -25,6 +25,7 @@ export interface ClassicGameState {
 	readonly score: number;
 	readonly correctAnswers: number;
 	readonly currentChallenge: TypeChallenge | null;
+	readonly startedAt: number | null;
 	readonly roundEndsAt: number | null;
 	readonly usedPokemonIds: ReadonlySet<string>;
 	readonly completedRounds: readonly CompletedClassicRound[];

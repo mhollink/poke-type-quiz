@@ -103,13 +103,13 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 		});
 		trackGameCompleted(analytics, {
 			mode: "classic",
-			startedAt: -1,
+			startedAt: state.startedAt ?? now,
 			completedAt: now,
 			correctAnswers: state.correctAnswers,
 			mistakes: reason === "incorrect-answer" ? 1 : 0,
 			score: state.score
 		})
-	}, []);
+	}, [state]);
 
 	const startGame = useCallback((): void => {
 		if (pokemon.length === 0 || eligibleTypes.length === 0) {
@@ -119,11 +119,11 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 			});
 			trackGameCompleted(analytics, {
 				mode: "classic",
-				startedAt: -1,
-				completedAt: now,
-				correctAnswers: state.correctAnswers,
+				startedAt: 0,
+				completedAt: 0,
+				correctAnswers: 0,
 				mistakes: 0,
-				score: state.score
+				score: 0
 			})
 			return;
 		}
@@ -141,11 +141,11 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 			});
 			trackGameCompleted(analytics, {
 				mode: "classic",
-				startedAt: -1,
-				completedAt: now,
-				correctAnswers: state.correctAnswers,
+				startedAt: 0,
+				completedAt: 0,
+				correctAnswers: 0,
 				mistakes: 0,
-				score: state.score
+				score: 0
 			})
 			return;
 		}
@@ -159,6 +159,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 			type: "START_GAME",
 			sessionId: createSessionId(),
 			challenge: firstChallenge.challenge,
+			startedAt,
 			roundEndsAt: startedAt + classicGameConfig.roundDurationMs,
 		});
 		trackGameStarted(analytics, {mode: "classic", startedAt })
