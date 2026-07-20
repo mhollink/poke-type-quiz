@@ -41,6 +41,8 @@ jobs:
 
       - name: Build application
         run: pnpm build --mode github-pages
+        env:
+          VITE_GA_MEASUREMENT_ID: ${{ env.VITE_GA_MEASUREMENT_ID }}
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
