@@ -1,0 +1,82 @@
+name: Performance issue
+description: Report slow loading, delayed input, animation problems, excessive resource use, or crashes.
+title: "[Performance]: "
+body:
+  - type: dropdown
+    id: symptom
+    attributes:
+      label: Main symptom
+      options:
+        - Slow initial load
+        - Delayed typing or input
+        - Stuttering animation
+        - Slow navigation
+        - High CPU or battery use
+        - High memory use
+        - Browser tab crash or freeze
+        - Audio delay
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What did you observe?
+      description: Describe the slowdown, freeze, or resource problem and when it occurs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Start ...
+        3. Continue for ...
+        4. Observe ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequency
+      options:
+        - Every time
+        - Often
+        - Sometimes
+        - Once
+        - Only after playing for a while
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, device, and operating system
+      placeholder: For example, Chrome on a mid-range Android phone
+    validations:
+      required: true
+
+  - type: input
+    id: network
+    attributes:
+      label: Network conditions
+      description: Optional. Mention Wi-Fi, mobile data, offline/PWA use, or throttling.
+      placeholder: For example, 4G mobile data
+
+  - type: textarea
+    id: measurements
+    attributes:
+      label: Measurements or profiling
+      description: Optional. Include timings, screenshots, browser performance traces, or resource usage.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing performance issues.
+          required: true

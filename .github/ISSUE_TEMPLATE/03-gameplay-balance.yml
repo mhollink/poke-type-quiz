@@ -1,0 +1,67 @@
+name: Gameplay and balance feedback
+description: Suggest changes to rules, difficulty, scoring, timers, or progression.
+title: "[Gameplay]: "
+body:
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Game mode
+      options:
+        - Daily Challenge
+        - Classic mode
+        - Reversed mode
+        - Multiple modes
+        - General gameplay
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current experience
+      description: Explain what currently feels confusing, unfair, too easy, too difficult, or unrewarding.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested adjustment
+      description: Describe the rule, timing, scoring, difficulty, or progression change you propose.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why would this improve the game?
+      description: Explain the player behaviour or experience the change should encourage.
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or scenarios
+      description: Include concrete rounds, scores, streaks, Pokémon, or edge cases where useful.
+
+  - type: dropdown
+    id: experience
+    attributes:
+      label: How much have you played this mode?
+      options:
+        - A few rounds
+        - Several sessions
+        - Regularly
+        - Extensively
+        - The mode is not yet available to me
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing gameplay and balance issues.
+          required: true

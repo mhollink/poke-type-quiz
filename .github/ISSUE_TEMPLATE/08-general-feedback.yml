@@ -1,0 +1,43 @@
+name: General feedback
+description: Share feedback that does not fit the other issue categories.
+title: "[Feedback]: "
+body:
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - Overall game experience
+        - Visual design
+        - Usability
+        - Mobile experience
+        - Audio
+        - Community or sharing
+        - Project direction
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+      description: Explain what you noticed, why it matters, and who it affects.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe what a successful improvement would feel like.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked whether a more specific issue template fits this feedback.
+          required: true
+        - label: I searched existing issues for related feedback.
+          required: true

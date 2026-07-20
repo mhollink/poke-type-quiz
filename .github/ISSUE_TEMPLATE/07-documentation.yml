@@ -1,0 +1,57 @@
+name: Documentation improvement
+description: Report unclear, missing, outdated, or incorrect project documentation.
+title: "[Docs]: "
+body:
+  - type: dropdown
+    id: location
+    attributes:
+      label: Documentation area
+      options:
+        - README
+        - Local development setup
+        - Gameplay instructions
+        - Contribution guidance
+        - Code comments or developer documentation
+        - In-game help or copy
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Type of improvement
+      options:
+        - Missing information
+        - Incorrect information
+        - Outdated information
+        - Unclear wording
+        - Broken link or example
+        - Structural improvement
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current problem
+      description: Quote or link to the affected section and explain what is unclear or incorrect.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed improvement
+      description: Suggest replacement wording, added detail, or a better structure.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked the current default branch for the latest documentation.
+          required: true
