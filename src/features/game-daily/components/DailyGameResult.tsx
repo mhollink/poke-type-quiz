@@ -2,7 +2,8 @@ import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useMemo, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
+import {lazy, Suspense, useMemo, useState} from "react";
 import { type ShareResult, shareGameResult } from "../../../utils";
 import { GameResult } from "../../game-shared/components/GameResult";
 import { dailyGameConfig } from "../dailyGameConfig";
@@ -10,7 +11,6 @@ import type {
 	DailyAttemptRecord,
 	DailyGameOverReason,
 } from "../model/dailyGameTypes";
-import { DailyScoreHistory } from "./DailyScoreHistory.tsx";
 
 export interface DailyGameResultProps {
 	readonly attempt: Pick<
@@ -20,6 +20,10 @@ export interface DailyGameResultProps {
 	readonly reason: DailyGameOverReason | "already-played";
 	readonly onExit: () => void;
 }
+
+const DailyScoreHistory = lazy(() =>
+	import("./DailyScoreHistory")
+);
 
 export function DailyGameResult({
 	attempt,
@@ -88,7 +92,17 @@ export function DailyGameResult({
 				}}
 			/>
 
-			<DailyScoreHistory />
+			<Suspense
+				fallback={
+					<Skeleton
+						variant="rounded"
+						animation="wave"
+						height={260}
+					/>
+				}
+			>
+				<DailyScoreHistory />
+			</Suspense>
 		</Stack>
 	);
 }

@@ -88,7 +88,7 @@ export function buildLast30DaysScoreData(
     });
 }
 
-export function DailyScoreHistory() {
+function DailyScoreHistory() {
     const theme = useTheme();
 
     const dailyAttemptRecords = useMemo(
@@ -271,3 +271,5 @@ export function DailyScoreHistory() {
         </Paper>
     );
 }
+
+export default DailyScoreHistory;
