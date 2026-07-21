@@ -97,4 +97,4 @@ function getGameOverMessage(
 	}
 }
 
-export default ClassicGame
+export default ClassicGame;

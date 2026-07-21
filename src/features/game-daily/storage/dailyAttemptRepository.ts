@@ -4,6 +4,7 @@ const storageKey = "poketype.daily-attempts.v1";
 
 export interface DailyAttemptRepository {
 	readonly findByDate: (dateKey: string) => DailyAttemptRecord | null;
+	readonly findAll: () => readonly DailyAttemptRecord[];
 
 	readonly save: (attempt: DailyAttemptRecord) => void;
 }
@@ -13,6 +14,10 @@ export const localDailyAttemptRepository: DailyAttemptRepository = {
 		return (
 			readAttempts().find((attempt) => attempt.dateKey === dateKey) ?? null
 		);
+	},
+
+	findAll() {
+		return readAttempts();
 	},
 
 	save(attempt) {

@@ -93,4 +93,4 @@ function ReversedGame({ onExit }: ReversedGameProps) {
 	);
 }
 
-export default ReversedGame
+export default ReversedGame;

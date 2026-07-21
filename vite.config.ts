@@ -14,17 +14,22 @@ export default defineConfig(({ mode }) => ({
 				codeSplitting: {
 					groups: [
 						{
-							name: 'mui',
-							test: /node_modules[\\/](?:@mui|@emotion)[\\/]/,
+							name: "mui-x",
+							test: /node_modules.*[\\/]@mui[\\/]x-/,
 							priority: 30,
 						},
 						{
-							name: 'react',
+							name: "mui",
+							test: /node_modules[\\/](?:@mui|@emotion)[\\/]/,
+							priority: 20,
+						},
+						{
+							name: "react",
 							test: /node_modules[\\/](?:react|react-dom|scheduler)[\\/]/,
 							priority: 20,
 						},
 						{
-							name: 'vendor',
+							name: "vendor",
 							test: /node_modules/,
 							priority: 10,
 						},
