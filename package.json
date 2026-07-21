@@ -7,8 +7,7 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"format": "biome check --write .",
-		"preview": "vite preview",
-		"pokeapi:scrape": "node tools/pokeapi-scraper.js"
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.14.0",

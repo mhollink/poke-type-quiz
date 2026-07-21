@@ -1,6 +1,10 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Snackbar from "@mui/material/Snackbar";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 import logo from "../assets/poketype-logo.webp";
 import { GameModeGrid } from "../features/gamemode-selection/components/GameModeGrid.tsx";
 import { usePwaInstallPrompt } from "../hooks/usePwaInstallation.ts";
@@ -122,34 +126,70 @@ export function EntryScreen({ version, onSelectGameMode }: EntryPageProps) {
 	);
 }
 
-function PwaInstallSnackbar() {
-	const { isVisible, install, dismiss } = usePwaInstallPrompt();
+const SNACKBAR_DURATION_MS = 20_000;
 
-	if (!isVisible) {
-		return null;
-	}
+export function PwaInstallSnackbar() {
+	const {
+		isVisible,
+		install,
+		dismiss,
+	} = usePwaInstallPrompt();
 
 	return (
-		<aside aria-label="Install Poketype" className="pwa-install-snackbar">
-			<div className="pwa-install-snackbar__content">
-				<strong>Install Poketype</strong>
+		<Snackbar
+			open={isVisible}
+			autoHideDuration={SNACKBAR_DURATION_MS}
+			anchorOrigin={{
+				vertical: 'bottom',
+				horizontal: 'center',
+			}}
+			onClose={(_, reason) => {
+				// Prevent accidental dismissal when the user clicks elsewhere.
+				if (reason === 'clickaway') {
+					return;
+				}
 
-				<span>Add Poketype to your home screen for quicker access.</span>
-			</div>
+				dismiss();
+			}}
+		>
+			<Alert
+				severity="info"
+				variant="standard"
+				sx={{
+					width: '100%',
+					alignItems: 'center',
+				}}
+				action={
+					<Stack
+						direction="row"
+						spacing={0.5}
+						sx={{
+							alignItems: "center"
+						}}
+					>
+						<Button
+							color="inherit"
+							size="small"
+							onClick={() => void install()}
+						>
+							Install
+						</Button>
 
-			<div className="pwa-install-snackbar__actions">
-				<button type="button" onClick={() => void install()}>
-					Install
-				</button>
-
-				<button
-					type="button"
-					aria-label="Dismiss installation message"
-					onClick={dismiss}
-				>
-					Not now
-				</button>
-			</div>
-		</aside>
+						<Button
+							color="inherit"
+							size="small"
+							onClick={dismiss}
+						>
+							Not now
+						</Button>
+					</Stack>
+				}
+			>
+				<AlertTitle>Install Poketype</AlertTitle>
+				<Typography variant="body2" color="textSecondary">
+					Add Poketype to your home screen for quicker access.
+				</Typography>
+			</Alert>
+		</Snackbar>
 	);
 }
