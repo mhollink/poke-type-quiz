@@ -2,7 +2,7 @@ import {GameResult} from "../../game-shared/components/GameResult";
 import {dailyGameConfig} from "../dailyGameConfig";
 import type {DailyAttemptRecord, DailyGameOverReason,} from "../model/dailyGameTypes";
 import {shareGameResult, type ShareResult} from "../../../utils";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
@@ -22,12 +22,13 @@ export function DailyGameResult({
                                     onExit,
                                 }: DailyGameResultProps) {
     const [shareResult, setShareResult] = useState<ShareResult | null>(null);
+    const highestMultiplier = useMemo(() => calculateHighestMultiplier(attempt.highestStreak), [attempt.highestStreak]);
 
     async function handleShare(): Promise<void> {
         const result = await       shareGameResult({
             score: attempt.score,
             correctAnswers: attempt.correctAnswers,
-            highestMultiplier: attempt.highestStreak,
+            highestMultiplier: highestMultiplier,
         });
 
         setShareResult(result);
@@ -62,7 +63,7 @@ export function DailyGameResult({
                 message={getMessage(reason)}
                 score={attempt.score}
                 correctAnswers={attempt.correctAnswers}
-                highestMultiplier={calculateHighestMultiplier(attempt.highestStreak)}
+                highestMultiplier={highestMultiplier}
                 statistics={[
                     {
                         label: "Best streak",

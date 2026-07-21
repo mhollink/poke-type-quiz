@@ -16,7 +16,6 @@ const gameComponents: Record<GameMode, GameComponent> = {
 
 
 export function GameScreen({gameMode, onExit}: GameScreenProps) {
-
     const Game = gameComponents[gameMode];
 
     return (

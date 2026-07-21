@@ -11,7 +11,7 @@ export function createShareText(result: ShareGameResultInput): string {
 		"PokeType Quiz\n",
 		`Fial score: ${result.score.toLocaleString()}`,
 		`Correct answers: ${result.correctAnswers}`,
-		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
+		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}\n`,
 	].join("\n");
 }
 
@@ -24,7 +24,7 @@ export async function shareGameResult(
 	if (navigator.share) {
 		try {
 			await navigator.share({
-				title: "Pokemon Type Quiz",
+				title: "Poketype Quiz",
 				text,
 				url,
 			});
