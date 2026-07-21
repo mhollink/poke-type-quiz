@@ -1,6 +1,7 @@
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
 import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -8,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 export interface GameResultAction {
-	readonly label: string;
+	readonly label: "Play again" | "Exit" | "Share";
 	readonly onClick: () => void;
 }
 
@@ -107,7 +108,7 @@ export function GameResult({
 					sx={{
 						display: "grid",
 						gridTemplateColumns: {
-							xs: "repeat(2, minmax(0, 1fr))",
+							xs: "repeat(1, minmax(0, 1fr))",
 							sm: `repeat(${Math.min(
 								displayedStatistics.length,
 								5,
@@ -120,12 +121,11 @@ export function GameResult({
 						overflow: "hidden",
 					}}
 				>
-					{displayedStatistics.map((statistic, index) => (
+					{displayedStatistics.map((statistic) => (
 						<ResultMetric
 							key={statistic.label}
 							label={statistic.label}
 							value={statistic.value}
-							showLeftBorder={index > 0}
 						/>
 					))}
 				</Box>
@@ -145,7 +145,13 @@ export function GameResult({
 						variant="contained"
 						size="large"
 						startIcon={
-							secondaryAction ? <ReplayRoundedIcon /> : <ArrowBackRoundedIcon />
+							primaryAction.label === "Share" ? (
+								<SendRoundedIcon />
+							) : primaryAction.label === "Play again" ? (
+								<ReplayRoundedIcon />
+							) : (
+								<ArrowBackRoundedIcon />
+							)
 						}
 						onClick={primaryAction.onClick}
 					>
@@ -171,25 +177,15 @@ export function GameResult({
 interface ResultMetricProps {
 	readonly label: string;
 	readonly value: string;
-	readonly showLeftBorder: boolean;
 }
 
-function ResultMetric({ label, value, showLeftBorder }: ResultMetricProps) {
+function ResultMetric({ label, value }: ResultMetricProps) {
 	return (
 		<Stack
-			spacing={0.5}
 			sx={{
 				minWidth: 0,
-				px: 1.5,
-				py: 2,
-				borderLeft: {
-					xs: 0,
-					sm: showLeftBorder ? 1 : 0,
-				},
-				borderTop: {
-					xs: showLeftBorder ? 1 : 0,
-					sm: 0,
-				},
+				py: 1,
+				border: 1,
 				borderColor: "divider",
 				justifyContent: "center",
 				alignItems: "center",
@@ -200,6 +196,7 @@ function ResultMetric({ label, value, showLeftBorder }: ResultMetricProps) {
 				noWrap
 				sx={{
 					fontWeight: 700,
+					mb: -0.5,
 				}}
 			>
 				{value}

@@ -8,8 +8,8 @@ export type ShareResult = "shared" | "copied" | "cancelled";
 
 export function createShareText(result: ShareGameResultInput): string {
 	return [
-		"Pokemon Type Quiz\n",
-		`Score: ${result.score.toLocaleString()}`,
+		"PokeType Quiz\n",
+		`Fial score: ${result.score.toLocaleString()}`,
 		`Correct answers: ${result.correctAnswers}`,
 		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
 	].join("\n");

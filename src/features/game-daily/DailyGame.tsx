@@ -12,11 +12,11 @@ import { DailyChallenge } from "./components/DailyChallenge";
 import { DailyGameResult } from "./components/DailyGameResult.tsx";
 import { useDailyGame } from "./hooks/useDailyGame";
 
-export interface DailyGameProps {
+interface DailyGameProps {
 	readonly onExit: () => void;
 }
 
-export function DailyGame({ onExit }: DailyGameProps) {
+function DailyGame({ onExit }: DailyGameProps) {
 	const game = useDailyGame(pokemonData);
 
 	if (game.existingAttempt !== null && game.state.status !== "game-over") {
@@ -190,3 +190,5 @@ function DailyStat({ label, value }: DailyStatProps) {
 		</Stack>
 	);
 }
+
+export default DailyGame;

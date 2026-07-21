@@ -1,10 +1,10 @@
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Snackbar from "@mui/material/Snackbar";
-import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import logo from "../assets/poketype-logo.webp";
 import { GameModeGrid } from "../features/gamemode-selection/components/GameModeGrid.tsx";
 import { usePwaInstallPrompt } from "../hooks/usePwaInstallation.ts";
@@ -129,23 +129,19 @@ export function EntryScreen({ version, onSelectGameMode }: EntryPageProps) {
 const SNACKBAR_DURATION_MS = 20_000;
 
 export function PwaInstallSnackbar() {
-	const {
-		isVisible,
-		install,
-		dismiss,
-	} = usePwaInstallPrompt();
+	const { isVisible, install, dismiss } = usePwaInstallPrompt();
 
 	return (
 		<Snackbar
 			open={isVisible}
 			autoHideDuration={SNACKBAR_DURATION_MS}
 			anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'center',
+				vertical: "bottom",
+				horizontal: "center",
 			}}
 			onClose={(_, reason) => {
 				// Prevent accidental dismissal when the user clicks elsewhere.
-				if (reason === 'clickaway') {
+				if (reason === "clickaway") {
 					return;
 				}
 
@@ -156,30 +152,22 @@ export function PwaInstallSnackbar() {
 				severity="info"
 				variant="standard"
 				sx={{
-					width: '100%',
-					alignItems: 'center',
+					width: "100%",
+					alignItems: "center",
 				}}
 				action={
 					<Stack
 						direction="row"
 						spacing={0.5}
 						sx={{
-							alignItems: "center"
+							alignItems: "center",
 						}}
 					>
-						<Button
-							color="inherit"
-							size="small"
-							onClick={() => void install()}
-						>
+						<Button color="inherit" size="small" onClick={() => void install()}>
 							Install
 						</Button>
 
-						<Button
-							color="inherit"
-							size="small"
-							onClick={dismiss}
-						>
+						<Button color="inherit" size="small" onClick={dismiss}>
 							Not now
 						</Button>
 					</Stack>

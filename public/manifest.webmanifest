@@ -4,7 +4,7 @@
 	"name": "Poketype Quiz",
 	"short_name": "Poketype",
 	"description": "Test your Pokémon type knowledge in fast-paced typing challenges.",
-	"start_url": "./poke-type-quiz/",
+	"start_url": "https://mhollink.github.io/poke-type-quiz/",
 	"scope": ".",
 	"display": "standalone",
 	"background_color": "#121212",
@@ -12,55 +12,55 @@
 	"orientation": "any",
 	"categories": ["games", "education"],
 	"icons": [
-	    {
-          "src": "/poke-type-quiz/icons/icon-72x72.png",
-          "type": "image/png",
-          "sizes": "72x72"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-96x96.png",
-          "type": "image/png",
-          "sizes": "96x96"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-120x120.png",
-          "type": "image/png",
-          "sizes": "120x120"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-128x128.png",
-          "type": "image/png",
-          "sizes": "128x128"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-144x144.png",
-          "type": "image/png",
-          "sizes": "144x144"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-152x152.png",
-          "type": "image/png",
-          "sizes": "152x152"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-180x180.png",
-          "type": "image/png",
-          "sizes": "180x180"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-192x192.png",
-          "type": "image/png",
-          "sizes": "192x192"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-384x384.png",
-          "type": "image/png",
-          "sizes": "384x384"
-        },
-        {
-          "src": "/poke-type-quiz/icons/icon-512x512.png",
-          "type": "image/png",
-          "sizes": "512x512"
-        }
+		{
+			"src": "/poke-type-quiz/icons/icon-72x72.png",
+			"type": "image/png",
+			"sizes": "72x72"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-96x96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-120x120.png",
+			"type": "image/png",
+			"sizes": "120x120"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-128x128.png",
+			"type": "image/png",
+			"sizes": "128x128"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-144x144.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-152x152.png",
+			"type": "image/png",
+			"sizes": "152x152"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-180x180.png",
+			"type": "image/png",
+			"sizes": "180x180"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-384x384.png",
+			"type": "image/png",
+			"sizes": "384x384"
+		},
+		{
+			"src": "/poke-type-quiz/icons/icon-512x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
 	]
 }

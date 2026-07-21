@@ -1,4 +1,3 @@
-// storage/dailyAttemptRepository.ts
 import type { DailyAttemptRecord } from "../model/dailyGameTypes";
 
 const storageKey = "poketype.daily-attempts.v1";

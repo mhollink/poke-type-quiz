@@ -3,18 +3,18 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { pokemonData } from "../../utils/pokemon";
+import { pokemonData } from "../../utils";
 import { GameScore } from "../game-shared/components/GameScore";
 import { PokemonChallenge } from "./components/PokemonChallenge";
 import { ReversedGameResult } from "./components/ReversedGameResult";
 import { TypeAnswerInput } from "./components/TypeAnswerInput";
 import { useReversedGame } from "./hooks/useReversedGame";
 
-export interface ReversedGameProps {
+interface ReversedGameProps {
 	readonly onExit: () => void;
 }
 
-export function ReversedGame({ onExit }: ReversedGameProps) {
+function ReversedGame({ onExit }: ReversedGameProps) {
 	const game = useReversedGame(pokemonData);
 
 	return (
@@ -92,3 +92,5 @@ export function ReversedGame({ onExit }: ReversedGameProps) {
 		</Container>
 	);
 }
+
+export default ReversedGame

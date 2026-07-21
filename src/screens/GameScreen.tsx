@@ -1,26 +1,35 @@
-import { ClassicGame } from "../features/game-classic";
-import { DailyGame } from "../features/game-daily";
-import { ReversedGame } from "../features/game-reversed";
-import type { GameMode } from "../types";
-import { assertNever } from "../utils";
+import {type ComponentType, lazy, Suspense} from 'react';
+import type {GameMode} from "../types";
 
 interface GameScreenProps {
-	gameMode: GameMode;
-	onExit: () => void;
+    gameMode: GameMode;
+    onExit: () => void;
 }
 
-export function GameScreen({ gameMode, onExit }: GameScreenProps) {
-	switch (gameMode) {
-		case "daily":
-			return <DailyGame onExit={onExit} />;
+type GameComponent = ComponentType<Pick<GameScreenProps, "onExit">>;
 
-		case "classic":
-			return <ClassicGame onExit={onExit} />;
+const gameComponents: Record<GameMode, GameComponent> = {
+    daily: lazy(() => import('../features/game-daily/DailyGame')),
+    classic: lazy(() => import('../features/game-classic/ClassicGame')),
+    reversed: lazy(() => import('../features/game-reversed/ReversedGame')),
+};
 
-		case "reversed":
-			return <ReversedGame onExit={onExit} />;
 
-		default:
-			return assertNever(gameMode);
-	}
+export function GameScreen({gameMode, onExit}: GameScreenProps) {
+
+    const Game = gameComponents[gameMode];
+
+    return (
+        <Suspense fallback={<GameLoadingFallback/>}>
+            <Game onExit={onExit}/>
+        </Suspense>
+    )
+}
+
+function GameLoadingFallback() {
+    return (
+        <div className="game-loading" role="status" aria-live="polite">
+            Loading game…
+        </div>
+    );
 }

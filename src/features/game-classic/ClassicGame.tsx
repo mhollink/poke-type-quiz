@@ -8,11 +8,11 @@ import { ClassicChallenge } from "./components/ClassicChallenge";
 import { PokemonAutocomplete } from "./components/PokemonAutocomplete";
 import { useClassicGame } from "./hooks/useClassicGame";
 
-export interface ClassicGameProps {
+interface ClassicGameProps {
 	readonly onExit: () => void;
 }
 
-export function ClassicGame({ onExit }: ClassicGameProps) {
+function ClassicGame({ onExit }: ClassicGameProps) {
 	const game = useClassicGame(pokemonData);
 
 	function handleSubmit(pokemon: Pokemon): void {
@@ -96,3 +96,5 @@ function getGameOverMessage(
 			return "You completed every available challenge.";
 	}
 }
+
+export default ClassicGame
