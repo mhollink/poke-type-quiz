@@ -1,6 +1,6 @@
-import pokemonJson from "../assets/pokemon.json";
 import type { Pokemon, PokemonType } from "../types";
 import { POKEMON_TYPES } from "../types";
+import {loadPokemonData} from "./loadPokemonData.ts";
 
 const validTypes = new Set<string>(POKEMON_TYPES);
 
@@ -45,7 +45,7 @@ function parsePokemon(value: unknown): Pokemon {
 	};
 }
 
-export const pokemonData: readonly Pokemon[] = (pokemonJson as unknown[])
+export const pokemonData: readonly Pokemon[] = (await loadPokemonData() as unknown[])
 	.map(parsePokemon)
 	.filter(
 		(pokemon, index, self) =>
