@@ -8,4 +8,29 @@ export default defineConfig(({ mode }) => ({
 	define: {
 		__APP_VERSION__: JSON.stringify(packageJson.version),
 	},
+	build: {
+		rolldownOptions: {
+			output: {
+				codeSplitting: {
+					groups: [
+						{
+							name: 'mui',
+							test: /node_modules[\\/](?:@mui|@emotion)[\\/]/,
+							priority: 30,
+						},
+						{
+							name: 'react',
+							test: /node_modules[\\/](?:react|react-dom|scheduler)[\\/]/,
+							priority: 20,
+						},
+						{
+							name: 'vendor',
+							test: /node_modules/,
+							priority: 10,
+						},
+					],
+				},
+			},
+		},
+	},
 }));
