@@ -26,4 +26,6 @@ export type Pokemon = {
 	id: string;
 	name: string;
 	types: PokemonType[];
+	gen: number;
+	origin?: number;
 };

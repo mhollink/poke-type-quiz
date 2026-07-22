@@ -4,9 +4,12 @@ import type { GameMode } from "../types";
 interface GameScreenProps {
 	gameMode: GameMode;
 	onExit: () => void;
+	onOpenPokedex: () => void;
 }
 
-type GameComponent = ComponentType<Pick<GameScreenProps, "onExit">>;
+type GameComponent = ComponentType<
+	Pick<GameScreenProps, "onExit" | "onOpenPokedex">
+>;
 
 const gameComponents: Record<GameMode, GameComponent> = {
 	daily: lazy(() => import("../features/game-daily/DailyGame")),
@@ -14,12 +17,16 @@ const gameComponents: Record<GameMode, GameComponent> = {
 	reversed: lazy(() => import("../features/game-reversed/ReversedGame")),
 };
 
-export function GameScreen({ gameMode, onExit }: GameScreenProps) {
+export function GameScreen({
+	gameMode,
+	onExit,
+	onOpenPokedex,
+}: GameScreenProps) {
 	const Game = gameComponents[gameMode];
 
 	return (
 		<Suspense fallback={<GameLoadingFallback />}>
-			<Game onExit={onExit} />
+			<Game onExit={onExit} onOpenPokedex={onOpenPokedex} />
 		</Suspense>
 	);
 }

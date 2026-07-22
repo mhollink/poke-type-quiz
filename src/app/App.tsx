@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { analytics } from "../features/analytics";
 import { EntryScreen } from "../screens/EntryScreen.tsx";
 import { GameScreen } from "../screens/GameScreen.tsx";
+import { PokedexScreen } from "../screens/PokedexScreen.tsx";
 import { assertNever } from "../utils";
 import { appReducer } from "./appReducer.ts";
 import { initialAppState } from "./appState.ts";
@@ -20,6 +21,12 @@ export function App() {
 					});
 					analytics.track("mode_selected", { game_mode: gameMode });
 				}}
+				onOpenPokedex={() => {
+					dispatch({
+						type: "OPEN_POKEDEX",
+					});
+					analytics.track("open_pokedex", {});
+				}}
 			/>
 		);
 	}
@@ -34,8 +41,18 @@ export function App() {
 						type: "RETURN_HOME",
 					})
 				}
+				onOpenPokedex={() => {
+					dispatch({
+						type: "OPEN_POKEDEX",
+					});
+					analytics.track("open_pokedex", {});
+				}}
 			/>
 		);
+	}
+
+	if (state.screen === "pokedex") {
+		return <PokedexScreen onExit={() => dispatch({ type: "RETURN_HOME" })} />;
 	}
 
 	if (state.screen === "settings") {

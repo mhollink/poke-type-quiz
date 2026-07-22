@@ -29,6 +29,8 @@ export interface AnalyticsEventMap {
 	game_restarted: {
 		game_mode: GameMode;
 	};
+
+	open_pokedex: {};
 }
 
 export type AnalyticsEventName = keyof AnalyticsEventMap;

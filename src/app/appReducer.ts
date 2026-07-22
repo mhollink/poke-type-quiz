@@ -8,6 +8,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
 				screen: "settings",
 			};
 
+		case "OPEN_POKEDEX":
+			return {
+				...state,
+				screen: "pokedex",
+				selectedMode: null,
+			};
+
 		case "START_GAME":
 			return {
 				...state,

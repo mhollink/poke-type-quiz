@@ -1,5 +1,5 @@
+import BoltIcon from "@mui/icons-material/Bolt";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import CatchingPokemonTwoToneIcon from "@mui/icons-material/CatchingPokemonTwoTone";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 
 import type { GameModeOption } from "./gameModeTypes.ts";
@@ -18,7 +18,7 @@ export const gameModes: GameModeOption[] = [
 		title: "Classic",
 		description:
 			"Name any Pokémon matching the displayed type before time runs out.",
-		icon: <CatchingPokemonTwoToneIcon fontSize="inherit" />,
+		icon: <BoltIcon fontSize="inherit" />,
 	},
 	{
 		id: "reversed",

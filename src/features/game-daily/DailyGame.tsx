@@ -14,9 +14,10 @@ import { useDailyGame } from "./hooks/useDailyGame";
 
 interface DailyGameProps {
 	readonly onExit: () => void;
+	readonly onOpenPokedex: () => void;
 }
 
-function DailyGame({ onExit }: DailyGameProps) {
+function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 	const game = useDailyGame(pokemonData);
 
 	if (game.existingAttempt !== null && game.state.status !== "game-over") {
@@ -26,6 +27,7 @@ function DailyGame({ onExit }: DailyGameProps) {
 					attempt={game.existingAttempt}
 					reason="already-played"
 					onExit={onExit}
+					onOpenPokedex={onOpenPokedex}
 				/>
 			</Container>
 		);
@@ -121,6 +123,7 @@ function DailyGame({ onExit }: DailyGameProps) {
 							}}
 							reason={game.state.gameOverReason}
 							onExit={onExit}
+							onOpenPokedex={onOpenPokedex}
 						/>
 					)}
 			</Stack>

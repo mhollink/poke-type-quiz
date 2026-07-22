@@ -1,7 +1,9 @@
+import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -13,9 +15,14 @@ import type { GameMode } from "../types";
 interface EntryPageProps {
 	version: string;
 	onSelectGameMode: (gameMode: GameMode) => void;
+	onOpenPokedex: () => void;
 }
 
-export function EntryScreen({ version, onSelectGameMode }: EntryPageProps) {
+export function EntryScreen({
+	version,
+	onSelectGameMode,
+	onOpenPokedex,
+}: EntryPageProps) {
 	return (
 		<Box
 			component="main"
@@ -121,6 +128,16 @@ export function EntryScreen({ version, onSelectGameMode }: EntryPageProps) {
 					<GameModeGrid onSelect={onSelectGameMode} />
 				</Box>
 			</Stack>
+			<Fab
+				variant="extended"
+				onClick={onOpenPokedex}
+				color="secondary"
+				size="large"
+				sx={{ position: "absolute", bottom: 16, left: 16 }}
+			>
+				<CatchingPokemonIcon sx={{ mr: 1 }} />
+				Pokedex
+			</Fab>
 			<PwaInstallSnackbar />
 		</Box>
 	);

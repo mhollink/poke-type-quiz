@@ -17,10 +17,13 @@ function parsePokemon(value: unknown): Pokemon {
 
 	if (
 		typeof candidate.nr !== "number" ||
+		typeof candidate.gen !== "number" ||
+		(candidate.origin !== undefined && typeof candidate.origin !== "number") ||
 		typeof candidate.id !== "string" ||
 		typeof candidate.name !== "string" ||
 		!Array.isArray(candidate.types)
 	) {
+		console.warn("Invalid Pokémon entry:", candidate);
 		throw new Error("Invalid Pokémon entry");
 	}
 
@@ -42,6 +45,8 @@ function parsePokemon(value: unknown): Pokemon {
 		id: candidate.id,
 		name: candidate.name,
 		types,
+		gen: candidate.gen,
+		origin: candidate.origin,
 	};
 }
 

@@ -1,9 +1,10 @@
 import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Skeleton from "@mui/material/Skeleton";
-import {lazy, Suspense, useMemo, useState} from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { type ShareResult, shareGameResult } from "../../../utils";
 import { GameResult } from "../../game-shared/components/GameResult";
 import { dailyGameConfig } from "../dailyGameConfig";
@@ -19,16 +20,16 @@ export interface DailyGameResultProps {
 	>;
 	readonly reason: DailyGameOverReason | "already-played";
 	readonly onExit: () => void;
+	readonly onOpenPokedex: () => void;
 }
 
-const DailyScoreHistory = lazy(() =>
-	import("./DailyScoreHistory")
-);
+const DailyScoreHistory = lazy(() => import("./DailyScoreHistory"));
 
 export function DailyGameResult({
 	attempt,
 	reason,
 	onExit,
+	onOpenPokedex,
 }: DailyGameResultProps) {
 	const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 	const highestMultiplier = useMemo(
@@ -92,14 +93,12 @@ export function DailyGameResult({
 				}}
 			/>
 
+			<Button onClick={onOpenPokedex} color="primary">
+				Go to pokedex
+			</Button>
+
 			<Suspense
-				fallback={
-					<Skeleton
-						variant="rounded"
-						animation="wave"
-						height={260}
-					/>
-				}
+				fallback={<Skeleton variant="rounded" animation="wave" height={260} />}
 			>
 				<DailyScoreHistory />
 			</Suspense>

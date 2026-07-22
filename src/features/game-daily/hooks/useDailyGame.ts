@@ -14,6 +14,7 @@ import {
 	trackGameCompleted,
 	trackGameStarted,
 } from "../../analytics";
+import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { createDailyChallenge } from "../challenge/createDailyChallenge";
 import {
 	createDailyDateKey,
@@ -194,6 +195,7 @@ export function useDailyGame(
 			mistakes: state.mistakes,
 			score: state.score,
 		});
+		localPokedexRepository.unlock(state.usedPokemonIds);
 	}, [now, state]);
 
 	const submitAnswer = useCallback(
