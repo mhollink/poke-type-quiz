@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { Pokemon } from "../../types";
-import { getPokemonSpriteUrl } from "../../utils";
+import {getPokemonSpriteUrl, pokemonData} from "../../utils";
 import { TypeBadge } from "../game-shared/components/TypeBadge.tsx";
 import { localPokedexRepository } from "./storage/pokedexRepository.ts";
 
@@ -19,7 +19,14 @@ interface PokedexProps {
 
 function Pokedex({ entries, onExit }: PokedexProps) {
 	const unlockables = entries.filter((pokemon) => !pokemon.origin);
-	const unlockedPokemonIds = localPokedexRepository.findUnlockedIds();
+	const unlockedPokemonIds = new Set([...localPokedexRepository.findUnlockedIds()]
+		.map((pid) => pokemonData.find(p => p.id === pid))
+		.map(pokemon => {
+			if (!pokemon?.origin) return pokemon?.id;
+			return pokemonData.find(p => p.nr === pokemon.origin)?.id;
+		})
+		.filter(pokemon => !!pokemon));
+
 
 	return (
 		<Stack spacing={3}>
@@ -134,7 +141,7 @@ function Pokedex({ entries, onExit }: PokedexProps) {
 											{pokemon.types.map((type) => (
 												<TypeBadge key={type} type={type} size="small" />
 											))}
-										</Stack>g
+										</Stack>
 									</>
 								) : (
 									<>
