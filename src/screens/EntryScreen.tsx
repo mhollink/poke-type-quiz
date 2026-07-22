@@ -64,7 +64,7 @@ export function EntryScreen({
 				}}
 				sx={{
 					width: "100%",
-					maxWidth: 1040,
+					maxWidth: 1150,
 				}}
 			>
 				<Box
@@ -94,7 +94,7 @@ export function EntryScreen({
 					<Typography
 						component="p"
 						variant="body1"
-						color="text.secondary"
+						color="textSecondary"
 						sx={{
 							mt: 1.5,
 							fontWeight: 500,

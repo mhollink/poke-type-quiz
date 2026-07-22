@@ -64,7 +64,7 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 									</Typography>
 								</Stack>
 
-								<Typography variant="body2" color="text.secondary">
+								<Typography variant="body2" color="textSecondary">
 									One attempt. Five minutes. Build the longest streak you can.
 								</Typography>
 							</Stack>
@@ -185,7 +185,7 @@ function DailyStat({ label, value }: DailyStatProps) {
 
 			<Typography
 				variant="caption"
-				color="text.secondary"
+				color="textSecondary"
 				sx={{ textAlign: "center" }}
 			>
 				{label}

@@ -17,7 +17,7 @@ export function DailyChallenge({ challenge }: DailyChallengeProps) {
 			}}
 		>
 			<Stack spacing={0.5}>
-				<Typography component="p" variant="overline" color="text.secondary">
+				<Typography component="p" variant="overline" color="textSecondary">
 					Name a Pokémon with exactly
 				</Typography>
 

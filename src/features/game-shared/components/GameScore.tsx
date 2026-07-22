@@ -104,7 +104,7 @@ function ScoreMetric({ icon, label, value }: ScoreMetricProps) {
 			}}
 		>
 			<Box
-				color="text.secondary"
+				color="textSecondary"
 				sx={{
 					display: "flex",
 					flexShrink: 0,
@@ -116,7 +116,7 @@ function ScoreMetric({ icon, label, value }: ScoreMetricProps) {
 			<Box sx={{ minWidth: 0 }}>
 				<Typography
 					variant="caption"
-					color="text.secondary"
+					color="textSecondary"
 					sx={{
 						display: "block",
 					}}
@@ -175,7 +175,7 @@ function LastScoreBreakdown({ score }: LastScoreBreakdownProps) {
 			>
 				<LocalFireDepartmentRounded fontSize="small" color="action" />
 
-				<Typography variant="body2" color="text.secondary">
+				<Typography variant="body2" color="textSecondary">
 					Last answer
 				</Typography>
 			</Stack>

@@ -111,7 +111,7 @@ export function PokemonAutocomplete({
 								{option.name}
 							</Typography>
 
-							<Typography variant="caption" color="text.secondary">
+							<Typography variant="caption" color="textSecondary">
 								#{String(option.nr).padStart(4, "0")}
 							</Typography>
 						</Stack>

@@ -224,7 +224,7 @@ function AnswerSlots({ selectedTypes, requiredTypeCount }: AnswerSlotsProps) {
 			</Stack>
 
 			{requiredTypeCount === 2 && (
-				<Typography variant="caption" color="text.secondary">
+				<Typography variant="caption" color="textSecondary">
 					Selecting both types in canonical order earns a bonus.
 				</Typography>
 			)}

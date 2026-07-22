@@ -128,7 +128,7 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
 
 					<Typography
 						variant="body2"
-						color="text.secondary"
+						color="textecondary"
 						sx={{
 							maxWidth: 260,
 							lineHeight: 1.6,

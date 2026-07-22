@@ -19,7 +19,7 @@ export function PokemonChallenge({ challenge }: PokemonChallengeProps) {
 				textAlign: "center",
 			}}
 		>
-			<Typography component="p" variant="overline" color="text.secondary">
+			<Typography component="p" variant="overline" color="textSecondary">
 				Select this Pokémon&apos;s type
 			</Typography>
 

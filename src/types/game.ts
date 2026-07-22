@@ -1,6 +1,6 @@
 import type { PokemonType } from "./pokemon";
 
-export type GameMode = "daily" | "classic" | "reversed";
+export type GameMode = "daily" | "classic" | "reversed" | "moves";
 
 export type GameStatus = "idle" | "playing" | "gameOver";
 

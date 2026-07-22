@@ -11,7 +11,7 @@ export function ClassicChallenge({ challenge }: ClassicChallengeProps) {
 		<Stack spacing={2} sx={{ alignItems: "center" }}>
 			<Typography
 				component="p"
-				color="text.secondary"
+				color="textSecondary"
 				sx={{ fontWeight: 900, fontSize: "1.25rem" }}
 			>
 				Enter a Pokémon matching

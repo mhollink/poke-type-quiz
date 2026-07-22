@@ -1,0 +1,11 @@
+{
+	"version": 1,
+	"complete": false,
+	"pageSize": 100,
+	"currentPage": 1,
+	"lastCompletedPage": 0,
+	"nextMoveIndex": 80,
+	"pageUrl": "https://pokeapi.co/api/v2/move?offset=0&limit=100",
+	"fetchedMoves": 44,
+	"updatedAt": "2026-07-22T18:53:55.972Z"
+}
