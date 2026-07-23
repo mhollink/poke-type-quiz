@@ -17,7 +17,7 @@ const gameComponents: Record<GameMode, GameComponent> = {
 	daily: lazy(() => import("../features/game-daily/DailyGame")),
 	classic: lazy(() => import("../features/game-classic/ClassicGame")),
 	reversed: lazy(() => import("../features/game-reversed/ReversedGame")),
-	moves: lazy(() => import("../features/game-moves/./DailyMoveGame.tsx")),
+	moves: lazy(() => import("../features/game-moves/DailyMoveGame")),
 };
 
 export function GameScreen({

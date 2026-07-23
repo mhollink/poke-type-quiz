@@ -369,15 +369,19 @@ async function run(options) {
 			const moveResponse = await fetchJson(moveReference.url, options);
 			checkpoint.nextMoveIndex = index + 1;
 
-			if (moveResponse.meta?.category?.name !== "damage") {
+			let category = moveResponse.meta?.category?.name ?? "unknown-or-null";
+			if (!category.includes("damage")) {
 				console.log(
-					`[page ${checkpoint.currentPage}, move ${progress}] Skipping ${moveReference.name}: not a damage move`,
+					`[page ${checkpoint.currentPage}, move ${progress}] Skipping ${moveReference.name}: not a damage move (${category})`,
 				);
 				await persistProgress({ movesByNumber, checkpoint, options });
 			} else {
 				const move = toMove(moveResponse);
 				movesByNumber.set(move.nr, move);
 				await persistProgress({ movesByNumber, checkpoint, options });
+				console.log(
+					`[page ${checkpoint.currentPage}, move ${progress}] Added ${moveReference.name} (cat: ${category})`,
+				);
 			}
 			const hasAnotherMoveOnPage = index + 1 < page.results.length;
 			const hasAnotherPage = Boolean(page.next);
