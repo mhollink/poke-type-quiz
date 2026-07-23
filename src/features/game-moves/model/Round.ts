@@ -1,6 +1,11 @@
 import type { Move, Pokemon } from "../../../types";
 import type { MoveScoreBreakdown } from "./Score.ts";
 
+export type DailyMoveOptionSelection = {
+	options: readonly DailyMoveOption[];
+	bestMoveId: string;
+};
+
 export type DailyMoveOption = {
 	move: Move;
 	hitCount: number;

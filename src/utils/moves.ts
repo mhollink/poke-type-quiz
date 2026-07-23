@@ -27,13 +27,19 @@ function parseMove(value: unknown): Move {
 		typeof candidate.name !== "string" ||
 		typeof candidate.classifier !== "string" ||
 		typeof candidate.type !== "string" ||
-		typeof candidate.accuracy !== "number" ||
 		typeof candidate.power !== "number" ||
 		typeof candidate.crit !== "number" ||
 		typeof candidate.minHits !== "number" ||
 		typeof candidate.maxHits !== "number"
 	) {
 		console.warn("Invalid Move entry:", candidate);
+		throw new Error("Invalid Move entry");
+	}
+
+	if (!candidate.accuracy) {
+		console.warn("Move accuracy was empty, will use default value of 100.");
+	} else if (typeof candidate.accuracy !== "number") {
+		console.warn("Invalid Move accuracy:", candidate);
 		throw new Error("Invalid Move entry");
 	}
 
@@ -53,7 +59,7 @@ function parseMove(value: unknown): Move {
 		classifier: candidate.classifier,
 		type: candidate.type,
 		power: candidate.power,
-		accuracy: candidate.accuracy,
+		accuracy: typeof candidate.accuracy === "number" ? candidate.accuracy : 100,
 		crit: candidate.crit,
 		maxHits: candidate.maxHits,
 		minHits: candidate.minHits,

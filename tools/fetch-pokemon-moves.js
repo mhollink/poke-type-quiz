@@ -369,7 +369,7 @@ async function run(options) {
 			const moveResponse = await fetchJson(moveReference.url, options);
 			checkpoint.nextMoveIndex = index + 1;
 
-			let category = moveResponse.meta?.category?.name ?? "unknown-or-null";
+			const category = moveResponse.meta?.category?.name ?? "unknown-or-null";
 			if (!category.includes("damage")) {
 				console.log(
 					`[page ${checkpoint.currentPage}, move ${progress}] Skipping ${moveReference.name}: not a damage move (${category})`,

@@ -31,15 +31,47 @@ export function randomIntegerInclusive(
 		throw new Error("Hit boundaries must be integers");
 	}
 
-	if (minimum < 1) {
-		throw new Error("Minimum hits must be at least 1");
-	}
-
 	if (maximum < minimum) {
 		throw new Error(
 			"Maximum hits must be greater than or equal to minimum hits",
 		);
 	}
 
+	if (minimum === maximum) {
+		return minimum;
+	}
+
 	return Math.floor(random() * (maximum - minimum + 1)) + minimum;
+}
+
+export function pickRandomItem<T>(
+	items: readonly T[],
+	random: RandomSource,
+): T {
+	if (items.length === 0) {
+		throw new Error("Cannot select from an empty collection");
+	}
+
+	if (items.length === 1) {
+		return items[0];
+	}
+
+	const index = randomIntegerInclusive(0, items.length - 1, random);
+
+	return items[index];
+}
+
+export function shuffle<T>(items: readonly T[], random: RandomSource): T[] {
+	const shuffled = [...items];
+
+	for (let index = shuffled.length - 1; index > 0; index -= 1) {
+		const swapIndex = randomIntegerInclusive(0, index, random);
+
+		[shuffled[index], shuffled[swapIndex]] = [
+			shuffled[swapIndex],
+			shuffled[index],
+		];
+	}
+
+	return shuffled;
 }
