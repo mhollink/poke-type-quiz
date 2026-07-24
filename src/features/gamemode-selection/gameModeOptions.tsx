@@ -1,13 +1,15 @@
 import BoltIcon from "@mui/icons-material/Bolt";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
+import SvgIcon, { type SvgIconProps } from "@mui/material/SvgIcon";
+import {dailyGameConfig} from "../game-moves/dailyMoveGameConfig.ts";
 
 import type { GameModeOption } from "./gameModeTypes.ts";
 
 export const gameModes: GameModeOption[] = [
 	{
 		id: "daily",
-		title: "Daily Challenge",
+		title: "Daily Types",
 		description:
 			"Race against a five-minute timer in one scored attempt each day.",
 		icon: <CalendarMonthRoundedIcon fontSize="inherit" />,
@@ -33,11 +35,9 @@ export const gameModes: GameModeOption[] = [
 		description:
 			"Choose the strongest move for 25 Pokémon and chase the daily maximum score.",
 		icon: <MoveBattleRoundedIcon fontSize="inherit" />,
-		badge: "25 battles daily",
+		badge: `${dailyGameConfig.rounds} battles daily`,
 	},
 ];
-
-import SvgIcon, { type SvgIconProps } from "@mui/material/SvgIcon";
 
 export function MoveBattleRoundedIcon(props: SvgIconProps) {
 	return (

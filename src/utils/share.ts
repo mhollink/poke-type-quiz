@@ -1,30 +1,50 @@
+import {dailyGameConfig} from "../features/game-moves/dailyMoveGameConfig.ts";
+
 type ShareGameResultInput = {
 	score: number;
 	correctAnswers: number;
+};
+
+type DailyChallengeResultInput = ShareGameResultInput & {
 	highestMultiplier: number;
+};
+
+type DailyBattleResultInput = ShareGameResultInput & {
+	percentage: number;
 };
 
 export type ShareResult = "shared" | "copied" | "cancelled";
 
-export function createShareText(result: ShareGameResultInput): string {
+export function createDailyChallengeShareText(result: DailyChallengeResultInput): string {
 	return [
-		"PokeType Quiz\n",
-		`Fial score: ${result.score.toLocaleString()}`,
+		'PokeType: Daily Types',
+		'',
+		`Final score: ${result.score.toLocaleString()}`,
 		`Correct answers: ${result.correctAnswers}`,
-		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}\n`,
+		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
+	].join("\n");
+}
+
+export function createDailyBattleShareText(result: DailyBattleResultInput): string {
+	return [
+		'PokeType: Daily Battle',
+		'',
+		`Final score: ${result.score.toLocaleString()}`,
+		`Optimal moves chosen: ${result.correctAnswers}/${dailyGameConfig.rounds}`,
+		`Percentage ${result.percentage}%`,
 	].join("\n");
 }
 
 export async function shareGameResult(
-	result: ShareGameResultInput,
+	text: string,
+	title: string = "Poketype Quiz",
 ): Promise<ShareResult> {
-	const text = createShareText(result);
 	const url = window.location.href;
 
 	if (navigator.share) {
 		try {
 			await navigator.share({
-				title: "Poketype Quiz",
+				title,
 				text,
 				url,
 			});
