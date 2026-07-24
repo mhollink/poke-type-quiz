@@ -47,7 +47,7 @@ export function createDailyMoveChallenge(
 
 	return {
 		dateKey,
-		rounds,
+		rounds: shuffle(rounds, () => Math.random()),
 		maxScore: rounds.reduce((total, round) => total + round.maxScore, 0),
 	};
 }
@@ -109,9 +109,6 @@ function selectDailyMoveOptions(
 
 	return {
 		bestMoveId: best.move.id,
-		options: shuffle(
-			selected,
-			createScopedRandom(dateKey, `round:${roundIndex}:option-order`),
-		),
+		options: shuffle(selected, () => Math.random()),
 	};
 }

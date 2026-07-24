@@ -17,6 +17,7 @@ import { DailyMoveGameScore } from "./components/DailyMoveGameScore.tsx";
 import { DailyMoveOptionCard } from "./components/DailyMoveOption.tsx";
 import { DailyMoveResult } from "./components/DailyMoveResult.tsx";
 import { useDailyMoveGame } from "./hooks/useDailyMoveGame.ts";
+import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
 
 type DailyMoveGameProps = {
@@ -25,6 +26,7 @@ type DailyMoveGameProps = {
 
 function DailyMoveGame({ onExit }: DailyMoveGameProps) {
 	const dateKey = useMemo(() => createDailyDateKey(new Date()), []);
+	const exitingResult = localDailyBattleRepository.findByDate(dateKey);
 	const challenge = useMemo(
 		() =>
 			createDailyMoveChallenge(
@@ -38,8 +40,29 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
 
 	const game = useDailyMoveGame(challenge);
 
+	if (exitingResult) {
+		return <DailyMoveGameResult state={exitingResult} onExit={onExit} />;
+	}
+
 	if (game.state.status === "completed") {
-		return <DailyMoveGameResult state={game.state} onExit={onExit} />;
+		const state = game.state;
+		return (
+			<DailyMoveGameResult
+				state={{
+					dateKey: state.challenge.dateKey,
+					completedAt: Date.now(),
+					correctAnswers: state.optimalSelections,
+					totalRounds: state.challenge.rounds.length,
+					score: state.score,
+					percentage:
+						state.challenge.maxScore === 0
+							? 0
+							: Math.round((state.score / state.challenge.maxScore) * 100),
+					maxScore: state.challenge.maxScore,
+				}}
+				onExit={onExit}
+			/>
+		);
 	}
 
 	if (game.currentRound === null) {

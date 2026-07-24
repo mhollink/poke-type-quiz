@@ -1,3 +1,4 @@
+import { localDailyBattleRepository } from "../storage/dailyAttemptRepository.ts";
 import type { DailyMoveChallenge } from "./Round";
 
 export type DailyMoveSelection = {
@@ -102,6 +103,18 @@ export function dailyMoveGameReducer(
 				state.roundIndex === state.challenge.rounds.length - 1;
 
 			if (isLastRound) {
+				localDailyBattleRepository.save({
+					dateKey: state.challenge.dateKey,
+					completedAt: Date.now(),
+					correctAnswers: state.optimalSelections,
+					totalRounds: state.challenge.rounds.length,
+					score: state.score,
+					percentage:
+						state.challenge.maxScore === 0
+							? 0
+							: Math.round((state.score / state.challenge.maxScore) * 100),
+					maxScore: state.challenge.maxScore,
+				});
 				return {
 					...state,
 					status: "completed",

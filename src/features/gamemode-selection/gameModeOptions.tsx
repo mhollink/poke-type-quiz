@@ -2,7 +2,7 @@ import BoltIcon from "@mui/icons-material/Bolt";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 import SvgIcon, { type SvgIconProps } from "@mui/material/SvgIcon";
-import {dailyGameConfig} from "../game-moves/dailyMoveGameConfig.ts";
+import { dailyGameConfig } from "../game-moves/dailyMoveGameConfig.ts";
 
 import type { GameModeOption } from "./gameModeTypes.ts";
 

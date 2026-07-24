@@ -1,4 +1,4 @@
-import {dailyGameConfig} from "../features/game-moves/dailyMoveGameConfig.ts";
+import { dailyGameConfig } from "../features/game-moves/dailyMoveGameConfig.ts";
 
 type ShareGameResultInput = {
 	score: number;
@@ -15,20 +15,24 @@ type DailyBattleResultInput = ShareGameResultInput & {
 
 export type ShareResult = "shared" | "copied" | "cancelled";
 
-export function createDailyChallengeShareText(result: DailyChallengeResultInput): string {
+export function createDailyChallengeShareText(
+	result: DailyChallengeResultInput,
+): string {
 	return [
-		'PokeType: Daily Types',
-		'',
+		"PokeType: Daily Types",
+		"",
 		`Final score: ${result.score.toLocaleString()}`,
 		`Correct answers: ${result.correctAnswers}`,
 		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
 	].join("\n");
 }
 
-export function createDailyBattleShareText(result: DailyBattleResultInput): string {
+export function createDailyBattleShareText(
+	result: DailyBattleResultInput,
+): string {
 	return [
-		'PokeType: Daily Battle',
-		'',
+		"PokeType: Daily Battle",
+		"",
 		`Final score: ${result.score.toLocaleString()}`,
 		`Optimal moves chosen: ${result.correctAnswers}/${dailyGameConfig.rounds}`,
 		`Percentage ${result.percentage}%`,
