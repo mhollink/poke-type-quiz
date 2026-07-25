@@ -4,6 +4,7 @@ import type {
 	DailyGameOverReason,
 	DailyGameState,
 } from "./dailyGameTypes";
+import {dailyGameConfig} from "../dailyGameConfig.ts";
 
 export type DailyGameAction =
 	| {
@@ -64,6 +65,7 @@ export function dailyGameReducer(
 			usedPokemonIds.add(action.answer.pokemon.id);
 
 			const nextStreak = state.streak + 1;
+			const nextEndTime = Math.min((state.runEndsAt ?? Date.now()) + (10 * 1000), Date.now() + dailyGameConfig.durationMs - 1000)
 
 			return {
 				...state,
@@ -75,15 +77,19 @@ export function dailyGameReducer(
 				usedPokemonIds,
 				completedAnswers: [...state.completedAnswers, action.answer],
 				lastScore: action.answer.score,
+				runEndsAt:nextEndTime
 			};
 		}
 
 		case "INCORRECT_ANSWER":
+			const nextEndTime = ((state.runEndsAt ?? Date.now()) - (15 * 1000))
+
 			return {
 				...state,
 				mistakes: state.mistakes + 1,
 				streak: 0,
 				lastScore: null,
+				runEndsAt: nextEndTime
 			};
 
 		case "END_GAME":
