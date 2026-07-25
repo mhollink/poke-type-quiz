@@ -133,7 +133,13 @@ export function EntryScreen({
 				onClick={onOpenPokedex}
 				color="secondary"
 				size="large"
-				sx={{ position: "absolute", bottom: 16, left: 16 }}
+				sx={{
+					position: "fixed",
+					top: { xs: 16, md: "auto" },
+					right: { xs: 16, md: "auto" },
+					bottom: { xs: "auto", md: 16 },
+					left: { xs: "auto", md: 16 },
+				}}
 			>
 				<CatchingPokemonIcon sx={{ mr: 1 }} />
 				Pokedex

@@ -16,6 +16,14 @@ export const gameModes: GameModeOption[] = [
 		badge: "New every day",
 	},
 	{
+		id: "moves",
+		title: "Daily Battle",
+		description:
+			"Choose the strongest move for 25 Pokémon and chase the daily maximum score.",
+		icon: <MoveBattleRoundedIcon fontSize="inherit" />,
+		badge: `${dailyGameConfig.rounds} battles daily`,
+	},
+	{
 		id: "classic",
 		title: "Classic",
 		description:
@@ -28,14 +36,6 @@ export const gameModes: GameModeOption[] = [
 		description:
 			"Identify the correct type or type combination for the displayed Pokémon.",
 		icon: <SwapHorizRoundedIcon fontSize="inherit" />,
-	},
-	{
-		id: "moves",
-		title: "Daily Battle",
-		description:
-			"Choose the strongest move for 25 Pokémon and chase the daily maximum score.",
-		icon: <MoveBattleRoundedIcon fontSize="inherit" />,
-		badge: `${dailyGameConfig.rounds} battles daily`,
 	},
 ];
 
