@@ -1,320 +1,317 @@
-import {
-	useCallback,
-	useEffect,
-	useMemo,
-	useReducer,
-	useRef,
-	useState,
-} from "react";
+import {useCallback, useEffect, useMemo, useReducer, useRef, useState,} from "react";
 
-import type { Pokemon } from "../../../types/pokemon";
-import { playPokemonCry } from "../../../utils";
-import {
-	analytics,
-	trackGameCompleted,
-	trackGameStarted,
-} from "../../analytics";
-import { createReversedChallenge } from "../challenge/createReversedChallenge";
-import {
-	createInitialReversedGameState,
-	reversedGameReducer,
-} from "../model/reversedGameReducer";
-import type {
-	PokemonType,
-	ReversedAnswer,
-	ReversedGameOverReason,
-	ReversedGameState,
-} from "../model/reversedGameTypes";
-import { validateReversedAnswer } from "../model/validateReversedAnswer";
-import { reversedGameConfig } from "../reversedGameConfig";
-import { calculateReversedScore } from "../scoring/calculateReversedScore";
+import type {Pokemon} from "../../../types/pokemon";
+import {playPokemonCry} from "../../../utils";
+import {analytics, trackGameCompleted, trackGameStarted,} from "../../analytics";
+import {createReversedChallenge} from "../challenge/createReversedChallenge";
+import {createInitialReversedGameState, reversedGameReducer,} from "../model/reversedGameReducer";
+import type {PokemonType, ReversedAnswer, ReversedGameOverReason, ReversedGameState,} from "../model/reversedGameTypes";
+import {validateReversedAnswer} from "../model/validateReversedAnswer";
+import {reversedGameConfig} from "../reversedGameConfig";
+import {calculateReversedScore} from "../scoring/calculateReversedScore";
+import {localDailyAttemptRepository} from "../storage/dailyAttemptRepository.ts";
+import {createDailyDateKey} from "../../game-daily/challenge/createDailySeed.ts";
 
 const timerIntervalMs = 100;
 
 export interface ReversedGameDependencies {
-	readonly now: () => number;
-	readonly random: () => number;
-	readonly createId: () => string;
+    readonly now: () => number;
+    readonly random: () => number;
+    readonly createId: () => string;
 }
 
 const defaultDependencies: ReversedGameDependencies = {
-	now: Date.now,
-	random: Math.random,
-	createId: createId,
+    now: Date.now,
+    random: Math.random,
+    createId: createId,
 };
 
 export interface UseReversedGameResult {
-	readonly state: ReversedGameState;
-	readonly availableTypes: readonly PokemonType[];
-	readonly timeRemainingMs: number;
-	readonly timeRemainingSeconds: number;
-	readonly timerProgress: number;
+    readonly state: ReversedGameState;
+    readonly availableTypes: readonly PokemonType[];
+    readonly timeRemainingMs: number;
+    readonly timeRemainingSeconds: number;
+    readonly timerProgress: number;
 
-	readonly submitAnswer: (types: readonly PokemonType[]) => void;
+    readonly submitAnswer: (types: readonly PokemonType[]) => void;
 
-	readonly startGame: () => void;
+    readonly startGame: () => void;
 }
 
 export function useReversedGame(
-	pokemon: readonly Pokemon[],
-	dependencies: ReversedGameDependencies = defaultDependencies,
+    pokemon: readonly Pokemon[],
+    dependencies: ReversedGameDependencies = defaultDependencies,
 ): UseReversedGameResult {
-	const [state, dispatch] = useReducer(
-		reversedGameReducer,
-		undefined,
-		createInitialReversedGameState,
-	);
+    const [state, dispatch] = useReducer(
+        reversedGameReducer,
+        undefined,
+        createInitialReversedGameState,
+    );
 
-	const [now, setNow] = useState(dependencies.now);
+    const [now, setNow] = useState(dependencies.now);
 
-	const roundResolvedRef = useRef(false);
+    const roundResolvedRef = useRef(false);
 
-	const availableTypes = useMemo(
-		() =>
-			Array.from(new Set(pokemon.flatMap((candidate) => candidate.types))).sort(
-				(left, right) => left.localeCompare(right),
-			),
-		[pokemon],
-	);
+    const availableTypes = useMemo(
+        () =>
+            Array.from(new Set(pokemon.flatMap((candidate) => candidate.types))).sort(
+                (left, right) => left.localeCompare(right),
+            ),
+        [pokemon],
+    );
 
-	const timeRemainingMs = useMemo(() => {
-		if (
-			state.status !== "playing" ||
-			state.roundEndsAt === null ||
-			state.currentChallenge === null
-		) {
-			return 0;
-		}
+    const timeRemainingMs = useMemo(() => {
+        if (
+            state.status !== "playing" ||
+            state.roundEndsAt === null ||
+            state.currentChallenge === null
+        ) {
+            return 0;
+        }
 
-		return Math.max(0, state.roundEndsAt - now);
-	}, [now, state.currentChallenge, state.roundEndsAt, state.status]);
+        return Math.max(0, state.roundEndsAt - now);
+    }, [now, state.currentChallenge, state.roundEndsAt, state.status]);
 
-	const timeRemainingSeconds = Math.ceil(timeRemainingMs / 1_000);
+    const timeRemainingSeconds = Math.ceil(timeRemainingMs / 1_000);
 
-	const timerProgress = clamp(
-		timeRemainingMs / reversedGameConfig.roundDurationMs,
-		0,
-		1,
-	);
+    const timerProgress = clamp(
+        timeRemainingMs / reversedGameConfig.roundDurationMs,
+        0,
+        1,
+    );
 
-	const endGame = useCallback(
-		(reason: ReversedGameOverReason): void => {
-			if (roundResolvedRef.current) {
-				return;
-			}
+    const saveGameResult = useCallback(() => {
+        localDailyAttemptRepository.save({
+            dateKey: createDailyDateKey(state.startedAt ? new Date(state.startedAt) : new Date()),
+            completedAt: state.roundEndsAt ?? Date.now(),
+            score: state.score,
+            correctAnswers: state.correctAnswers,
+            canonicalOrderAnswers: state.canonicalOrderAnswers,
+            highestMultiplier: state.highestMultiplier
+        })
+    }, [state])
 
-			roundResolvedRef.current = true;
+    const endGame = useCallback(
+        (reason: ReversedGameOverReason): void => {
+            if (roundResolvedRef.current) {
+                return;
+            }
 
-			dispatch({
-				type: "END_GAME",
-				reason,
-			});
-			trackGameCompleted(analytics, {
-				mode: "reversed",
-				startedAt: state.startedAt ?? now,
-				completedAt: now,
-				correctAnswers: state.correctAnswers,
-				mistakes: reason === "incorrect-answer" ? 1 : 0,
-				score: state.score,
-			});
-		},
-		[now, state.startedAt, state.correctAnswers, state.score],
-	);
+            roundResolvedRef.current = true;
 
-	const startGame = useCallback((): void => {
-		const firstChallenge = createReversedChallenge({
-			pokemon,
-			usedPokemonIds: new Set(),
-			challengeIndex: 0,
-			random: dependencies.random,
-			createId: dependencies.createId,
-		});
+            dispatch({
+                type: "END_GAME",
+                reason,
+            });
+            saveGameResult();
+            trackGameCompleted(analytics, {
+                mode: "reversed",
+                startedAt: state.startedAt ?? now,
+                completedAt: now,
+                correctAnswers: state.correctAnswers,
+                mistakes: reason === "incorrect-answer" ? 1 : 0,
+                score: state.score,
+            });
+        },
+        [now, state.startedAt, state.correctAnswers, state.score],
+    );
 
-		if (!firstChallenge) {
-			dispatch({
-				type: "END_GAME",
-				reason: "no-challenges-left",
-			});
-			trackGameCompleted(analytics, {
-				mode: "reversed",
-				startedAt: 0,
-				completedAt: 0,
-				correctAnswers: 0,
-				mistakes: 0,
-				score: 0,
-			});
-			return;
-		}
+    const startGame = useCallback((): void => {
+        const firstChallenge = createReversedChallenge({
+            pokemon,
+            usedPokemonIds: new Set(),
+            challengeIndex: 0,
+            random: dependencies.random,
+            createId: dependencies.createId,
+        });
 
-		const startedAt = dependencies.now();
+        if (!firstChallenge) {
+            dispatch({
+                type: "END_GAME",
+                reason: "no-challenges-left",
+            });
+            saveGameResult();
+            trackGameCompleted(analytics, {
+                mode: "reversed",
+                startedAt: 0,
+                completedAt: 0,
+                correctAnswers: 0,
+                mistakes: 0,
+                score: 0,
+            });
+            return;
+        }
 
-		roundResolvedRef.current = false;
-		setNow(startedAt);
+        const startedAt = dependencies.now();
 
-		dispatch({
-			type: "START_GAME",
-			sessionId: dependencies.createId(),
-			challenge: firstChallenge,
-			startedAt,
-			roundEndsAt: startedAt + reversedGameConfig.roundDurationMs,
-		});
-		trackGameStarted(analytics, { mode: "reversed", startedAt });
-	}, [dependencies, pokemon]);
+        roundResolvedRef.current = false;
+        setNow(startedAt);
 
-	const submitAnswer = useCallback(
-		(types: readonly PokemonType[]): void => {
-			if (
-				state.status !== "playing" ||
-				state.currentChallenge === null ||
-				state.roundEndsAt === null ||
-				roundResolvedRef.current
-			) {
-				return;
-			}
+        dispatch({
+            type: "START_GAME",
+            sessionId: dependencies.createId(),
+            challenge: firstChallenge,
+            startedAt,
+            roundEndsAt: startedAt + reversedGameConfig.roundDurationMs,
+        });
+        trackGameStarted(analytics, {mode: "reversed", startedAt});
+    }, [dependencies, pokemon]);
 
-			const submittedAt = dependencies.now();
-			const remainingMs = Math.max(0, state.roundEndsAt - submittedAt);
+    const submitAnswer = useCallback(
+        (types: readonly PokemonType[]): void => {
+            if (
+                state.status !== "playing" ||
+                state.currentChallenge === null ||
+                state.roundEndsAt === null ||
+                roundResolvedRef.current
+            ) {
+                return;
+            }
 
-			if (remainingMs <= 0) {
-				endGame("time-expired");
-				return;
-			}
+            const submittedAt = dependencies.now();
+            const remainingMs = Math.max(0, state.roundEndsAt - submittedAt);
 
-			const answer: ReversedAnswer = {
-				types,
-			};
+            if (remainingMs <= 0) {
+                endGame("time-expired");
+                return;
+            }
 
-			const validation = validateReversedAnswer(
-				answer,
-				state.currentChallenge.pokemon.types,
-			);
+            const answer: ReversedAnswer = {
+                types,
+            };
 
-			if (!validation.correct) {
-				endGame("incorrect-answer");
-				return;
-			}
+            const validation = validateReversedAnswer(
+                answer,
+                state.currentChallenge.pokemon.types,
+            );
 
-			roundResolvedRef.current = true;
+            if (!validation.correct) {
+                endGame("incorrect-answer");
+                return;
+            }
 
-			const score = calculateReversedScore({
-				timeRemainingMs: remainingMs,
-				typeCount: state.currentChallenge.pokemon.types.length,
-				canonicalOrder: validation.canonicalOrder,
-				correctAnswersBeforeRound: state.correctAnswers,
-				challengeDifficulty: state.currentChallenge.difficulty,
-			});
+            roundResolvedRef.current = true;
 
-			const nextUsedPokemonIds = new Set(state.usedPokemonIds);
+            const score = calculateReversedScore({
+                timeRemainingMs: remainingMs,
+                typeCount: state.currentChallenge.pokemon.types.length,
+                canonicalOrder: validation.canonicalOrder,
+                correctAnswersBeforeRound: state.correctAnswers,
+                challengeDifficulty: state.currentChallenge.difficulty,
+            });
 
-			nextUsedPokemonIds.add(state.currentChallenge.pokemon.id);
+            const nextUsedPokemonIds = new Set(state.usedPokemonIds);
 
-			const nextChallenge = createReversedChallenge({
-				pokemon,
-				usedPokemonIds: nextUsedPokemonIds,
-				challengeIndex: state.correctAnswers + 1,
-				random: dependencies.random,
-				createId: dependencies.createId,
-			});
+            nextUsedPokemonIds.add(state.currentChallenge.pokemon.id);
 
-			const nextRoundEndsAt = nextChallenge
-				? submittedAt + reversedGameConfig.roundDurationMs
-				: null;
+            const nextChallenge = createReversedChallenge({
+                pokemon,
+                usedPokemonIds: nextUsedPokemonIds,
+                challengeIndex: state.correctAnswers + 1,
+                random: dependencies.random,
+                createId: dependencies.createId,
+            });
 
-			dispatch({
-				type: "CORRECT_ANSWER",
-				round: {
-					challenge: state.currentChallenge,
-					answer,
-					canonicalOrder: validation.canonicalOrder,
-					answeredAt: submittedAt,
-					timeRemainingMs: remainingMs,
-					score,
-				},
-				nextChallenge,
-				nextRoundEndsAt,
-			});
+            const nextRoundEndsAt = nextChallenge
+                ? submittedAt + reversedGameConfig.roundDurationMs
+                : null;
 
-			if (!nextChallenge) {
-				dispatch({
-					type: "END_GAME",
-					reason: "no-challenges-left",
-				});
-				trackGameCompleted(analytics, {
-					mode: "reversed",
-					startedAt: state.startedAt ?? now,
-					completedAt: now,
-					correctAnswers: state.correctAnswers,
-					mistakes: 0,
-					score: state.score,
-				});
-				return;
-			}
+            dispatch({
+                type: "CORRECT_ANSWER",
+                round: {
+                    challenge: state.currentChallenge,
+                    answer,
+                    canonicalOrder: validation.canonicalOrder,
+                    answeredAt: submittedAt,
+                    timeRemainingMs: remainingMs,
+                    score,
+                },
+                nextChallenge,
+                nextRoundEndsAt,
+            });
 
-			setNow(submittedAt);
-			void playPokemonCry(nextChallenge.pokemon);
-			roundResolvedRef.current = false;
-		},
-		[
-			dependencies,
-			endGame,
-			pokemon,
-			state.correctAnswers,
-			state.currentChallenge,
-			state.roundEndsAt,
-			state.startedAt,
-			state.score,
-			state.status,
-			state.usedPokemonIds,
-		],
-	);
+            if (!nextChallenge) {
+                dispatch({
+                    type: "END_GAME",
+                    reason: "no-challenges-left",
+                });
+                saveGameResult();
+                trackGameCompleted(analytics, {
+                    mode: "reversed",
+                    startedAt: state.startedAt ?? now,
+                    completedAt: now,
+                    correctAnswers: state.correctAnswers,
+                    mistakes: 0,
+                    score: state.score,
+                });
+                return;
+            }
 
-	useEffect(() => {
-		startGame();
-	}, [startGame]);
+            setNow(submittedAt);
+            void playPokemonCry(nextChallenge.pokemon);
+            roundResolvedRef.current = false;
+        },
+        [
+            dependencies,
+            endGame,
+            pokemon,
+            state.correctAnswers,
+            state.currentChallenge,
+            state.roundEndsAt,
+            state.startedAt,
+            state.score,
+            state.status,
+            state.usedPokemonIds,
+        ],
+    );
 
-	useEffect(() => {
-		if (state.status !== "playing" || state.roundEndsAt === null) {
-			return undefined;
-		}
+    useEffect(() => {
+        startGame();
+    }, [startGame]);
 
-		const intervalId = window.setInterval(() => {
-			setNow(dependencies.now());
-		}, timerIntervalMs);
+    useEffect(() => {
+        if (state.status !== "playing" || state.roundEndsAt === null) {
+            return undefined;
+        }
 
-		return () => {
-			window.clearInterval(intervalId);
-		};
-	}, [dependencies, state.roundEndsAt, state.status]);
+        const intervalId = window.setInterval(() => {
+            setNow(dependencies.now());
+        }, timerIntervalMs);
 
-	useEffect(() => {
-		if (
-			state.status === "playing" &&
-			state.roundEndsAt !== null &&
-			timeRemainingMs <= 0
-		) {
-			endGame("time-expired");
-		}
-	}, [endGame, state.roundEndsAt, state.status, timeRemainingMs]);
+        return () => {
+            window.clearInterval(intervalId);
+        };
+    }, [dependencies, state.roundEndsAt, state.status]);
 
-	return {
-		state,
-		availableTypes,
-		timeRemainingMs,
-		timeRemainingSeconds,
-		timerProgress,
-		submitAnswer,
-		startGame,
-	};
+    useEffect(() => {
+        if (
+            state.status === "playing" &&
+            state.roundEndsAt !== null &&
+            timeRemainingMs <= 0
+        ) {
+            endGame("time-expired");
+        }
+    }, [endGame, state.roundEndsAt, state.status, timeRemainingMs]);
+
+    return {
+        state,
+        availableTypes,
+        timeRemainingMs,
+        timeRemainingSeconds,
+        timerProgress,
+        submitAnswer,
+        startGame,
+    };
 }
 
 function createId(): string {
-	if (typeof crypto.randomUUID === "function") {
-		return crypto.randomUUID();
-	}
+    if (typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+    }
 
-	return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 }
 
 function clamp(value: number, minimum: number, maximum: number): number {
-	return Math.min(maximum, Math.max(minimum, value));
+    return Math.min(maximum, Math.max(minimum, value));
 }

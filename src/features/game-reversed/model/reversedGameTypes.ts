@@ -54,3 +54,12 @@ export interface ReversedGameState {
 	readonly canonicalOrderAnswers: number;
 	readonly gameOverReason: ReversedGameOverReason | null;
 }
+
+export interface DailyAttemptRecord {
+	readonly dateKey: string;
+	readonly completedAt: number;
+	readonly score: number;
+	readonly correctAnswers: number;
+	readonly canonicalOrderAnswers: number;
+	readonly highestMultiplier: number;
+}

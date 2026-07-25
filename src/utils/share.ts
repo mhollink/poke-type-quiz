@@ -9,6 +9,10 @@ type DailyChallengeResultInput = ShareGameResultInput & {
 	highestMultiplier: number;
 };
 
+type DailyReversalResultInput = DailyChallengeResultInput & {
+	canonicalOrderAnswers: number;
+};
+
 type DailyBattleResultInput = ShareGameResultInput & {
 	percentage: number;
 };
@@ -19,10 +23,23 @@ export function createDailyChallengeShareText(
 	result: DailyChallengeResultInput,
 ): string {
 	return [
-		"PokeType: Daily Types",
+		"PokeType: Type Rush",
 		"",
 		`Final score: ${result.score.toLocaleString()}`,
 		`Correct answers: ${result.correctAnswers}`,
+		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
+	].join("\n");
+}
+
+export function createReversedChallengeShareText(
+	result: DailyReversalResultInput,
+): string {
+	return [
+		"PokeType: Type Survival",
+		"",
+		`Final score: ${result.score.toLocaleString()}`,
+		`Correct answers: ${result.correctAnswers}`,
+		`Canonical answers: ${result.canonicalOrderAnswers}`,
 		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
 	].join("\n");
 }
