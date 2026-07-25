@@ -47,7 +47,7 @@ function ReversedGame({onExit, onOpenPokedex}: ReversedGameProps) {
             </Container>
         )
     }
-
+    
     return (
         <Container
             component="main"

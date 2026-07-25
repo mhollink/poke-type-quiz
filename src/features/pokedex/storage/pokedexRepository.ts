@@ -40,6 +40,7 @@ export function createPokedexRepository(
 	}
 
 	function unlock(pokemonIds: Iterable<string>): void {
+		console.log(pokemonIds);
 		const unlockedPokemonIds = new Set(findUnlockedIds());
 
 		for (const pokemonId of pokemonIds) {

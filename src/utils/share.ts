@@ -35,7 +35,7 @@ export function createReversedChallengeShareText(
 	result: DailyReversalResultInput,
 ): string {
 	return [
-		"PokeType: Type Survival",
+		"PokeType: Type Recall",
 		"",
 		`Final score: ${result.score.toLocaleString()}`,
 		`Correct answers: ${result.correctAnswers}`,

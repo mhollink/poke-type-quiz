@@ -11,6 +11,7 @@ import {reversedGameConfig} from "../reversedGameConfig";
 import {calculateReversedScore} from "../scoring/calculateReversedScore";
 import {localDailyAttemptRepository} from "../storage/dailyAttemptRepository.ts";
 import {createDailyDateKey} from "../../game-daily/challenge/createDailySeed.ts";
+import {localPokedexRepository} from "../../pokedex/storage/pokedexRepository.ts";
 
 const timerIntervalMs = 100;
 
@@ -89,6 +90,10 @@ export function useReversedGame(
             canonicalOrderAnswers: state.canonicalOrderAnswers,
             highestMultiplier: state.highestMultiplier
         })
+
+        const pokemonIds = state.completedRounds.map((round) => round.challenge.pokemon.id);
+        localPokedexRepository.unlock(pokemonIds);
+
     }, [state])
 
     const endGame = useCallback(

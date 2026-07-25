@@ -1,6 +1,6 @@
 import type {DailyAttemptRecord} from "../model/reversedGameTypes";
 
-const storageKey = "poketype.daily-survival.v1";
+const storageKey = "poketype.daily-reversed.v1";
 
 export interface DailyAttemptRepository {
     readonly findByDate: (dateKey: string) => DailyAttemptRecord | null;
