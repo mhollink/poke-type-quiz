@@ -21,7 +21,11 @@ export type DailyGameAction =
 	  }
 	| {
 			readonly type: "INCORRECT_ANSWER";
-	  }
+	  }	| {
+			readonly type: "SKIP_ROUND";
+	readonly nextChallenge: DailyChallenge | null;
+
+}
 	| {
 			readonly type: "END_GAME";
 			readonly reason: DailyGameOverReason;
@@ -33,6 +37,7 @@ export function createInitialDailyGameState(): DailyGameState {
 		status: "playing",
 		score: 0,
 		correctAnswers: 0,
+		skippedRounds: 0,
 		mistakes: 0,
 		streak: 0,
 		highestStreak: 0,
@@ -80,8 +85,18 @@ export function dailyGameReducer(
 				runEndsAt:nextEndTime
 			};
 		}
+		case "SKIP_ROUND": {
+			const nextEndTime = ((state.runEndsAt ?? Date.now()) - (30 * 1000))
+			return {
+				...state,
+				streak: 0,
+				skippedRounds: state.skippedRounds + 1,
+				currentChallenge: action.nextChallenge,
+				runEndsAt: nextEndTime
+			};
+		}
 
-		case "INCORRECT_ANSWER":
+		case "INCORRECT_ANSWER": {
 			const nextEndTime = ((state.runEndsAt ?? Date.now()) - (15 * 1000))
 
 			return {
@@ -91,6 +106,7 @@ export function dailyGameReducer(
 				lastScore: null,
 				runEndsAt: nextEndTime
 			};
+		}
 
 		case "END_GAME":
 			return {

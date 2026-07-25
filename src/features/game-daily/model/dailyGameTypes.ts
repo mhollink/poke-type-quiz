@@ -23,6 +23,7 @@ export interface DailyGameState {
 	readonly status: GameStatus;
 	readonly score: number;
 	readonly correctAnswers: number;
+	readonly skippedRounds: number;
 	readonly mistakes: number;
 	readonly streak: number;
 	readonly highestStreak: number;

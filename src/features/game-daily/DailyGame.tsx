@@ -11,6 +11,7 @@ import { DailyAnswerFeedback } from "./components/DailyAnswerFeedback.tsx";
 import { DailyChallenge } from "./components/DailyChallenge";
 import { DailyGameResult } from "./components/DailyGameResult.tsx";
 import { useDailyGame } from "./hooks/useDailyGame";
+import Button from "@mui/material/Button";
 
 interface DailyGameProps {
 	readonly onExit: () => void;
@@ -107,6 +108,8 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 
 										<DailyAnswerFeedback result={game.submissionResult} />
 									</Stack>
+
+									<Button color="warning" variant="text" onClick={game.skipRound}>Skip current round (-30sec)</Button>
 								</Stack>
 							</Paper>
 						</>

@@ -56,6 +56,7 @@ export interface UseDailyGameResult {
 	readonly submissionResult: DailySubmissionResult;
 
 	readonly submitAnswer: (answer: Pokemon) => void;
+	readonly skipRound: () => void;
 }
 
 export interface DailyGameDependencies {
@@ -263,7 +264,7 @@ export function useDailyGame(
 				pokemon,
 				usedPokemonIds: nextUsedPokemonIds,
 				previousChallenge: state.currentChallenge,
-				challengeIndex: state.correctAnswers + 1,
+				challengeIndex: state.correctAnswers + state.skippedRounds + 1,
 				random: randomRef.current!,
 			});
 
@@ -314,6 +315,21 @@ export function useDailyGame(
 			state.usedPokemonIds,
 		],
 	);
+
+	const skipRound = useCallback(() => {
+		const nextChallenge = createDailyChallenge({
+			pokemon,
+			usedPokemonIds: state.usedPokemonIds,
+			previousChallenge: state.currentChallenge,
+			challengeIndex: state.correctAnswers + state.skippedRounds + 1,
+			random: randomRef.current!,
+		});
+
+		dispatch({
+			type: "SKIP_ROUND",
+			nextChallenge: nextChallenge
+		})
+	}, [])
 
 	useEffect(() => {
 		if (state.status !== "playing" || state.runEndsAt === null) {
@@ -377,5 +393,6 @@ export function useDailyGame(
 		timerProgress,
 		submissionResult,
 		submitAnswer,
+		skipRound
 	};
 }
