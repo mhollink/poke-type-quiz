@@ -1,6 +1,6 @@
-import type { DailyAttemptRecord } from "../model/reversedGameTypes";
+import type { DailyAttemptRecord } from "../model/classicGameTypes";
 
-const storageKey = "poketype.daily-reversed.v1";
+const storageKey = "poketype.daily-classic.v1";
 
 export interface DailyAttemptRepository {
 	readonly findByDate: (dateKey: string) => DailyAttemptRecord | null;
@@ -61,7 +61,6 @@ function isDailyAttemptRecord(value: unknown): value is DailyAttemptRecord {
 		typeof candidate.completedAt === "number" &&
 		typeof candidate.score === "number" &&
 		typeof candidate.correctAnswers === "number" &&
-		typeof candidate.canonicalOrderAnswers === "number" &&
 		typeof candidate.highestMultiplier === "number"
 	);
 }

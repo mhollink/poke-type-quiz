@@ -5,39 +5,39 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import {
-	createReversedChallengeShareText,
+	createClassicChallengeShareText,
 	type ShareResult,
 	shareGameResult,
 } from "../../../utils";
-import { GameResult } from "../../game-shared/components/GameResult";
-import type {
-	ReversedGameOverReason,
-	ReversedGameState,
-} from "../model/reversedGameTypes";
+import { GameResult } from "../../game-shared/components/GameResult.tsx";
+import type { ClassicGameState } from "../model/classicGameTypes.ts";
 
-export interface ReversedGameResultProps {
+export interface ClassicGameResultProps {
 	readonly result: Pick<
-		ReversedGameState,
-		"score" | "correctAnswers" | "highestMultiplier" | "canonicalOrderAnswers"
+		ClassicGameState,
+		"score" | "correctAnswers" | "highestMultiplier"
 	>;
-	readonly reason: ReversedGameOverReason | "already-played";
+	readonly reason:
+		| "incorrect-answer"
+		| "time-expired"
+		| "no-challenges-left"
+		| "already-played";
 	readonly onExit: () => void;
 	readonly onOpenPokedex: () => void;
 }
 
-export function ReversedGameResult({
+export function ClassicGameResult({
 	result,
 	reason,
 	onExit,
 	onOpenPokedex,
-}: ReversedGameResultProps) {
+}: ClassicGameResultProps) {
 	const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
 	async function handleShare(): Promise<void> {
-		const text = createReversedChallengeShareText({
+		const text = createClassicChallengeShareText({
 			score: result.score,
 			correctAnswers: result.correctAnswers,
-			canonicalOrderAnswers: result.canonicalOrderAnswers,
 			highestMultiplier: result.highestMultiplier,
 		});
 
@@ -70,17 +70,11 @@ export function ReversedGameResult({
 			</Snackbar>
 
 			<GameResult
-				title={getTitle(reason)}
-				message={getMessage(reason)}
+				title="Classic run complete"
 				score={result.score}
 				correctAnswers={result.correctAnswers}
 				highestMultiplier={result.highestMultiplier}
-				statistics={[
-					{
-						label: "Order bonuses",
-						value: result.canonicalOrderAnswers.toLocaleString(),
-					},
-				]}
+				message={getGameOverMessage(reason)}
 				primaryAction={{
 					label: "Share",
 					onClick: handleShare,
@@ -98,32 +92,22 @@ export function ReversedGameResult({
 	);
 }
 
-function getTitle(reason: ReversedGameOverReason | "already-played"): string {
+function getGameOverMessage(
+	reason:
+		| "incorrect-answer"
+		| "time-expired"
+		| "no-challenges-left"
+		| "already-played",
+): string {
 	switch (reason) {
 		case "incorrect-answer":
-			return "Incorrect type";
+			return "That Pokémon does not match the requested type.";
 
 		case "time-expired":
-			return "Time expired";
+			return "You ran out of time.";
 
 		case "no-challenges-left":
-			return "Reversed run mastered";
-
-		case "already-played":
-			return "Today's challenge is complete";
-	}
-}
-
-function getMessage(reason: ReversedGameOverReason | "already-played"): string {
-	switch (reason) {
-		case "incorrect-answer":
-			return "The selected types did not match the displayed Pokémon.";
-
-		case "time-expired":
-			return "You did not submit the Pokémon's types before the timer expired.";
-
-		case "no-challenges-left":
-			return "You identified every available Pokémon correctly.";
+			return "You completed every available challenge.";
 
 		case "already-played":
 			return "You have already used today's attempt. A new challenge will be available tomorrow.";

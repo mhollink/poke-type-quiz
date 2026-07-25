@@ -31,6 +31,18 @@ export function createDailyChallengeShareText(
 	].join("\n");
 }
 
+export function createClassicChallengeShareText(
+	result: DailyChallengeResultInput,
+): string {
+	return [
+		"PokeType: Type Survival",
+		"",
+		`Final score: ${result.score.toLocaleString()}`,
+		`Correct answers: ${result.correctAnswers}`,
+		`Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
+	].join("\n");
+}
+
 export function createReversedChallengeShareText(
 	result: DailyReversalResultInput,
 ): string {

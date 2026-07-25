@@ -33,3 +33,11 @@ export interface ClassicGameState {
 	readonly highestMultiplier: number;
 	readonly gameOverReason: ClassicGameOverReason | null;
 }
+
+export interface DailyAttemptRecord {
+	readonly dateKey: string;
+	readonly completedAt: number;
+	readonly score: number;
+	readonly correctAnswers: number;
+	readonly highestMultiplier: number;
+}

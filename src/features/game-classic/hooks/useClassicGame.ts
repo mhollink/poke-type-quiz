@@ -13,7 +13,9 @@ import {
 	trackGameCompleted,
 	trackGameStarted,
 } from "../../analytics";
+import { createDailyDateKey } from "../../game-daily/challenge/createDailySeed.ts";
 import { createSessionId } from "../../game-shared/utils/createSessionId";
+import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { createClassicChallenge } from "../challenge/createClassicChallenges.ts";
 import { classicGameConfig } from "../classicGameConfig";
 import {
@@ -25,6 +27,7 @@ import type {
 	TypeChallenge,
 } from "../model/classicGameTypes";
 import { calculateClassicScore } from "../scoring/calculateClassicScore";
+import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
 
 const timerIntervalMs = 100;
 
@@ -94,6 +97,21 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 		Math.min(1, timeRemainingMs / classicGameConfig.roundDurationMs),
 	);
 
+	const saveGameResult = useCallback(() => {
+		localDailyAttemptRepository.save({
+			dateKey: createDailyDateKey(
+				state.startedAt ? new Date(state.startedAt) : new Date(),
+			),
+			completedAt: state.roundEndsAt ?? Date.now(),
+			score: state.score,
+			correctAnswers: state.correctAnswers,
+			highestMultiplier: state.highestMultiplier,
+		});
+
+		const pokemonIds = state.completedRounds.map((round) => round.answer.id);
+		localPokedexRepository.unlock(pokemonIds);
+	}, [state]);
+
 	const endGame = useCallback(
 		(reason: ClassicGameOverReason): void => {
 			if (roundResolvedRef.current) {
@@ -106,6 +124,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				type: "END_GAME",
 				reason,
 			});
+			saveGameResult();
 			trackGameCompleted(analytics, {
 				mode: "classic",
 				startedAt: state.startedAt ?? now,
@@ -124,6 +143,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				type: "END_GAME",
 				reason: "no-challenges-left",
 			});
+			saveGameResult();
 			trackGameCompleted(analytics, {
 				mode: "classic",
 				startedAt: 0,
@@ -146,6 +166,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				type: "END_GAME",
 				reason: "no-challenges-left",
 			});
+			saveGameResult();
 			trackGameCompleted(analytics, {
 				mode: "classic",
 				startedAt: 0,
@@ -249,6 +270,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 					type: "END_GAME",
 					reason: "no-challenges-left",
 				});
+				saveGameResult();
 				trackGameCompleted(analytics, {
 					mode: "classic",
 					startedAt: -1,

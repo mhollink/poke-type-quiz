@@ -1,22 +1,54 @@
 import { Container, Paper, Stack, Typography } from "@mui/material";
 import type { Pokemon } from "../../types";
 import { pokemonData } from "../../utils";
-import { GameResult } from "../game-shared/components/GameResult";
+import { createDailyDateKey } from "../game-daily/challenge/createDailySeed.ts";
 import { GameScore } from "../game-shared/components/GameScore";
 import { classicGameConfig } from "./classicGameConfig.ts";
 import { ClassicChallenge } from "./components/ClassicChallenge";
+import { ClassicGameResult } from "./components/ClassicGameResult.tsx";
 import { PokemonAutocomplete } from "./components/PokemonAutocomplete";
 import { useClassicGame } from "./hooks/useClassicGame";
+import { localDailyAttemptRepository } from "./storage/dailyAttemptRepository.ts";
 
 interface ClassicGameProps {
 	readonly onExit: () => void;
+	readonly onOpenPokedex: () => void;
 }
 
-function ClassicGame({ onExit }: ClassicGameProps) {
+function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
 	const game = useClassicGame(pokemonData);
+	const todaysResult = localDailyAttemptRepository.findByDate(
+		createDailyDateKey(new Date()),
+	);
 
 	function handleSubmit(pokemon: Pokemon): void {
 		game.submitAnswer(pokemon);
+	}
+
+	if (todaysResult) {
+		return (
+			<Container
+				component="main"
+				maxWidth="sm"
+				sx={{
+					py: {
+						xs: 4,
+						md: 8,
+					},
+				}}
+			>
+				<ClassicGameResult
+					result={{
+						score: todaysResult.score,
+						correctAnswers: todaysResult.correctAnswers,
+						highestMultiplier: todaysResult.highestMultiplier,
+					}}
+					reason="already-played"
+					onExit={onExit}
+					onOpenPokedex={onOpenPokedex}
+				/>
+			</Container>
+		);
 	}
 
 	return (
@@ -61,40 +93,16 @@ function ClassicGame({ onExit }: ClassicGameProps) {
 
 				{game.state.status === "game-over" &&
 					game.state.gameOverReason !== null && (
-						<GameResult
-							title="Classic run complete"
-							score={game.state.score}
-							correctAnswers={game.state.correctAnswers}
-							highestMultiplier={game.state.highestMultiplier}
-							message={getGameOverMessage(game.state.gameOverReason)}
-							primaryAction={{
-								label: "Play again",
-								onClick: game.startGame,
-							}}
-							secondaryAction={{
-								label: "Exit",
-								onClick: onExit,
-							}}
+						<ClassicGameResult
+							result={game.state}
+							reason="already-played"
+							onExit={onExit}
+							onOpenPokedex={onOpenPokedex}
 						/>
 					)}
 			</Stack>
 		</Container>
 	);
-}
-
-function getGameOverMessage(
-	reason: "incorrect-answer" | "time-expired" | "no-challenges-left",
-): string {
-	switch (reason) {
-		case "incorrect-answer":
-			return "That Pokémon does not match the requested type.";
-
-		case "time-expired":
-			return "You ran out of time.";
-
-		case "no-challenges-left":
-			return "You completed every available challenge.";
-	}
 }
 
 export default ClassicGame;
