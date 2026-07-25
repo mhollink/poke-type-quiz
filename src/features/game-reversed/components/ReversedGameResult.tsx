@@ -1,9 +1,10 @@
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import {
 	createReversedChallengeShareText,
 	type ShareResult,
@@ -14,6 +15,11 @@ import type {
 	ReversedGameOverReason,
 	ReversedGameState,
 } from "../model/reversedGameTypes";
+import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
+
+const DailyScoreHistory = lazy(
+	() => import("../../game-shared/components/DailyScoreHistory"),
+);
 
 export interface ReversedGameResultProps {
 	readonly result: Pick<
@@ -31,6 +37,11 @@ export function ReversedGameResult({
 	onExit,
 	onOpenPokedex,
 }: ReversedGameResultProps) {
+	const dailyAttemptRecords = useMemo(
+		() => localDailyAttemptRepository.findAll(),
+		[],
+	);
+
 	const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
 	async function handleShare(): Promise<void> {
@@ -94,6 +105,12 @@ export function ReversedGameResult({
 			<Button onClick={onOpenPokedex} color="primary">
 				Go to pokedex
 			</Button>
+
+			<Suspense
+				fallback={<Skeleton variant="rounded" animation="wave" height={260} />}
+			>
+				<DailyScoreHistory dailyAttemptRecords={dailyAttemptRecords} />
+			</Suspense>
 		</Stack>
 	);
 }

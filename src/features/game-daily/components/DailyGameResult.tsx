@@ -16,6 +16,7 @@ import type {
 	DailyAttemptRecord,
 	DailyGameOverReason,
 } from "../model/dailyGameTypes";
+import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
 
 export interface DailyGameResultProps {
 	readonly attempt: Pick<
@@ -27,7 +28,9 @@ export interface DailyGameResultProps {
 	readonly onOpenPokedex: () => void;
 }
 
-const DailyScoreHistory = lazy(() => import("./DailyScoreHistory"));
+const DailyScoreHistory = lazy(
+	() => import("../../game-shared/components/DailyScoreHistory"),
+);
 
 export function DailyGameResult({
 	attempt,
@@ -35,6 +38,11 @@ export function DailyGameResult({
 	onExit,
 	onOpenPokedex,
 }: DailyGameResultProps) {
+	const dailyAttemptRecords = useMemo(
+		() => localDailyAttemptRepository.findAll(),
+		[],
+	);
+
 	const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 	const highestMultiplier = useMemo(
 		() => calculateHighestMultiplier(attempt.highestStreak),
@@ -106,7 +114,7 @@ export function DailyGameResult({
 			<Suspense
 				fallback={<Skeleton variant="rounded" animation="wave" height={260} />}
 			>
-				<DailyScoreHistory />
+				<DailyScoreHistory dailyAttemptRecords={dailyAttemptRecords} />
 			</Suspense>
 		</Stack>
 	);

@@ -4,8 +4,13 @@ import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useMemo } from "react";
-import type { DailyAttemptRecord } from "../model/dailyGameTypes.ts";
-import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
+
+export interface DailyAttemptRecord {
+	readonly dateKey: string;
+	readonly completedAt: number | null;
+	readonly score: number;
+	readonly correctAnswers: number;
+}
 
 type DailyScoreDatum = {
 	dateKey: string;
@@ -88,13 +93,12 @@ export function buildLast30DaysScoreData(
 	});
 }
 
-function DailyScoreHistory() {
+function DailyScoreHistory({
+	dailyAttemptRecords,
+}: {
+	dailyAttemptRecords: readonly DailyAttemptRecord[];
+}) {
 	const theme = useTheme();
-
-	const dailyAttemptRecords = useMemo(
-		() => localDailyAttemptRepository.findAll(),
-		[],
-	);
 
 	const chartData = useMemo(
 		() => buildLast30DaysScoreData(dailyAttemptRecords),
