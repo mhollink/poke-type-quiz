@@ -22,7 +22,7 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
 					sm: "1 / 1",
 				},
 				minHeight: {
-					xs: 220,
+					xs: 240,
 					sm: "auto",
 				},
 				position: "relative",
@@ -75,6 +75,7 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
 						label={gameMode.disabled ? "Coming Soon" : gameMode.badge}
 						color={gameMode.disabled ? "default" : "primary"}
 						size="small"
+						variant="filled"
 						sx={{
 							position: "absolute",
 							top: 16,
@@ -132,6 +133,7 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
 						sx={{
 							maxWidth: 260,
 							lineHeight: 1.6,
+							textWrap: "pretty"
 						}}
 					>
 						{gameMode.description}

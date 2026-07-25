@@ -9,33 +9,35 @@ import type { GameModeOption } from "./gameModeTypes.ts";
 export const gameModes: GameModeOption[] = [
 	{
 		id: "daily",
-		title: "Daily Types",
+		title: "Type Rush",
 		description:
-			"Race against a five-minute timer in one scored attempt each day.",
+			"Name Pokémon with the exact type combination before time runs out. Correct answers add time, while mistakes cost time.",
 		icon: <CalendarMonthRoundedIcon fontSize="inherit" />,
-		badge: "New every day",
-	},
-	{
-		id: "moves",
-		title: "Daily Battle",
-		description:
-			"Choose the strongest move for 25 Pokémon and chase the daily maximum score.",
-		icon: <MoveBattleRoundedIcon fontSize="inherit" />,
-		badge: `${dailyGameConfig.rounds} battles daily`,
+		badge: "5-minute challenge",
 	},
 	{
 		id: "classic",
-		title: "Classic",
+		title: "Type Survival",
 		description:
-			"Name any Pokémon matching the displayed type before time runs out.",
+			"Name a Pokémon with the displayed type within 30 seconds. One incorrect answer ends your run.",
 		icon: <BoltIcon fontSize="inherit" />,
+		badge: "One mistake ends the run",
 	},
 	{
 		id: "reversed",
-		title: "Reversed",
+		title: "Type Recall",
 		description:
-			"Identify the correct type or type combination for the displayed Pokémon.",
+			"Identify the displayed Pokémon's complete typing within 30 seconds. Correct type order earns bonus points.",
 		icon: <SwapHorizRoundedIcon fontSize="inherit" />,
+		badge: "30 seconds per round",
+	},
+	{
+		id: "moves",
+		title: "Battle Tactics",
+		description:
+			"Choose the strongest of four moves for each Pokémon. Better matchups earn more points, with no penalty for guessing.",
+		icon: <MoveBattleRoundedIcon fontSize="inherit" />,
+		badge: `${dailyGameConfig.rounds} battles`,
 	},
 ];
 

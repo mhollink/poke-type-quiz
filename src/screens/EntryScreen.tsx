@@ -67,7 +67,7 @@ export function EntryScreen({
                 }}
                 sx={{
                     width: "100%",
-                    maxWidth: 1150,
+                    maxWidth: 1450,
                 }}
             >
                 <Box
