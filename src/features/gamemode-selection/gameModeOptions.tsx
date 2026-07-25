@@ -14,6 +14,7 @@ export const gameModes: GameModeOption[] = [
 			"Name Pokémon with the exact type combination before time runs out. Correct answers add time, while mistakes cost time.",
 		icon: <CalendarMonthRoundedIcon fontSize="inherit" />,
 		badge: "5-minute challenge",
+		pokedexRewards: true,
 	},
 	{
 		id: "classic",
@@ -22,6 +23,7 @@ export const gameModes: GameModeOption[] = [
 			"Name a Pokémon with the displayed type within 30 seconds. One incorrect answer ends your run.",
 		icon: <BoltIcon fontSize="inherit" />,
 		badge: "One mistake ends the run",
+		pokedexRewards: true,
 	},
 	{
 		id: "reversed",
@@ -30,6 +32,7 @@ export const gameModes: GameModeOption[] = [
 			"Identify the displayed Pokémon's complete typing within 30 seconds. Correct type order earns bonus points.",
 		icon: <SwapHorizRoundedIcon fontSize="inherit" />,
 		badge: "30 seconds per round",
+		pokedexRewards: true,
 	},
 	{
 		id: "moves",

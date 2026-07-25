@@ -8,4 +8,5 @@ export interface GameModeOption {
 	icon: ReactNode;
 	badge?: string;
 	disabled?: boolean;
+	pokedexRewards?: boolean;
 }

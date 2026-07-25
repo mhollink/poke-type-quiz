@@ -1,9 +1,9 @@
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-
 import { pokemonData } from "../../utils";
 import { PokemonAutocomplete } from "../game-classic/components/PokemonAutocomplete.tsx";
 import { GameScore } from "../game-shared/components/GameScore";
@@ -11,7 +11,6 @@ import { DailyAnswerFeedback } from "./components/DailyAnswerFeedback.tsx";
 import { DailyChallenge } from "./components/DailyChallenge";
 import { DailyGameResult } from "./components/DailyGameResult.tsx";
 import { useDailyGame } from "./hooks/useDailyGame";
-import Button from "@mui/material/Button";
 
 interface DailyGameProps {
 	readonly onExit: () => void;
@@ -109,7 +108,13 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 										<DailyAnswerFeedback result={game.submissionResult} />
 									</Stack>
 
-									<Button color="warning" variant="text" onClick={game.skipRound}>Skip current round (-30sec)</Button>
+									<Button
+										color="warning"
+										variant="text"
+										onClick={game.skipRound}
+									>
+										Skip current round (-30sec)
+									</Button>
 								</Stack>
 							</Paper>
 						</>

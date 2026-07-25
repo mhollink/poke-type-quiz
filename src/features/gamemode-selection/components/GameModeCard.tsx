@@ -1,3 +1,4 @@
+import CatchingPokemonRoundedIcon from "@mui/icons-material/CatchingPokemonRounded";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
@@ -12,6 +13,12 @@ export interface GameModeCardProps {
 }
 
 export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
+	const accessibilityLabel = gameMode.disabled
+		? `${gameMode.title} (Coming Soon)`
+		: gameMode.pokedexRewards
+			? `Play ${gameMode.title}. Unlocks Pokédex entries.`
+			: `Play ${gameMode.title}`;
+
 	return (
 		<Card
 			variant="outlined"
@@ -51,11 +58,7 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
 			<CardActionArea
 				onClick={onSelect}
 				disabled={gameMode.disabled}
-				aria-label={
-					gameMode.disabled
-						? `${gameMode.title} (Coming Soon)`
-						: `Play ${gameMode.title}`
-				}
+				aria-label={accessibilityLabel}
 				sx={{
 					height: "100%",
 					borderRadius: "inherit",
@@ -117,27 +120,33 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
 						{gameMode.icon}
 					</Box>
 
-					<Typography
-						component="h2"
-						variant="h5"
-						sx={{
-							fontWeight: 800,
-						}}
-					>
+					<Typography component="h2" variant="h5" sx={{ fontWeight: 800 }}>
 						{gameMode.title}
 					</Typography>
 
 					<Typography
 						variant="body2"
-						color="textecondary"
+						color="text.secondary"
 						sx={{
-							maxWidth: 260,
+							maxWidth: 280,
 							lineHeight: 1.6,
-							textWrap: "pretty"
+							textWrap: "pretty",
 						}}
 					>
 						{gameMode.description}
 					</Typography>
+
+					<Box sx={{ minHeight: 32 }}>
+						{gameMode.pokedexRewards && !gameMode.disabled && (
+							<Chip
+								icon={<CatchingPokemonRoundedIcon />}
+								label="Pokédex rewards"
+								size="small"
+								variant="outlined"
+								color="secondary"
+							/>
+						)}
+					</Box>
 				</Stack>
 			</CardActionArea>
 		</Card>

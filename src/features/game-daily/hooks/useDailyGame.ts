@@ -327,9 +327,9 @@ export function useDailyGame(
 
 		dispatch({
 			type: "SKIP_ROUND",
-			nextChallenge: nextChallenge
-		})
-	}, [])
+			nextChallenge: nextChallenge,
+		});
+	}, []);
 
 	useEffect(() => {
 		if (state.status !== "playing" || state.runEndsAt === null) {
@@ -393,6 +393,6 @@ export function useDailyGame(
 		timerProgress,
 		submissionResult,
 		submitAnswer,
-		skipRound
+		skipRound,
 	};
 }
