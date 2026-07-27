@@ -1,5 +1,3 @@
-// src/features/pokedex/storage/pokedexRepository.ts
-
 const STORAGE_KEY = "poketype:pokedex:v1";
 
 interface StoredPokedex {
@@ -40,7 +38,6 @@ export function createPokedexRepository(
 	}
 
 	function unlock(pokemonIds: Iterable<string>): void {
-		console.log(pokemonIds);
 		const unlockedPokemonIds = new Set(findUnlockedIds());
 
 		for (const pokemonId of pokemonIds) {

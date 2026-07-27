@@ -14,6 +14,7 @@ import logo from "../assets/poketype-logo.webp";
 import { GameModeGrid } from "../features/gamemode-selection/components/GameModeGrid.tsx";
 import { usePwaInstallPrompt } from "../hooks/usePwaInstallation.ts";
 import type { GameMode } from "../types";
+import {GenerationSelection} from "../features/generation-selection/GenerationSelection.tsx";
 
 interface EntryPageProps {
 	version: string;
@@ -93,25 +94,6 @@ export function EntryScreen({
 							objectFit: "contain",
 						}}
 					/>
-
-					<Typography
-						component="p"
-						variant="body1"
-						color="textSecondary"
-						sx={{
-							mt: 1.5,
-							fontWeight: 500,
-							letterSpacing: "0.02em",
-						}}
-					>
-						A Pokémon type quiz
-						<Box component="span" aria-hidden="true" sx={{ mx: 1 }}>
-							|
-						</Box>
-						<Box component="span" sx={{ whiteSpace: "nowrap" }}>
-							v{version}
-						</Box>
-					</Typography>
 				</Box>
 
 				<Box component="section" aria-labelledby="game-mode-heading">
@@ -127,11 +109,15 @@ export function EntryScreen({
 					>
 						Choose your game mode
 					</Typography>
-
 					<GameModeGrid onSelect={onSelectGameMode} />
 				</Box>
 
-				<EntrySupportLinks />
+
+				<Box component="section" aria-label="Selection of playable generations">
+					<GenerationSelection />
+				</Box>
+
+				<EntrySupportLinks version={version} />
 			</Stack>
 			<Fab
 				variant="extended"
@@ -218,7 +204,7 @@ const SUPPORT_URL = "https://buymeacoffee.com/mhollink";
 const ISSUES_URL = "https://github.com/mhollink/poke-type-quiz/issues";
 const DEVELOPER_URL = "https://marcel.hollink.dev/";
 
-export function EntrySupportLinks() {
+export function EntrySupportLinks({version}: {version: string}) {
 	return (
 		<Box
 			component="footer"
@@ -301,6 +287,24 @@ export function EntrySupportLinks() {
 						Marcel Hollink
 					</Link>
 				</Typography>
+
+				<Typography
+					variant="body2"
+					color="text.secondary"
+					sx={{
+						display: {
+							xs: "none",
+							sm: "block",
+						},
+					}}
+					aria-hidden="true"
+				>
+					•
+				</Typography>
+
+				<Box component="span" sx={{ whiteSpace: "nowrap" }}>
+					v{version}
+				</Box>
 			</Stack>
 		</Box>
 	);
