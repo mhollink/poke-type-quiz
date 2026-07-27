@@ -11,6 +11,10 @@ import { DailyAnswerFeedback } from "./components/DailyAnswerFeedback.tsx";
 import { DailyChallenge } from "./components/DailyChallenge";
 import { DailyGameResult } from "./components/DailyGameResult.tsx";
 import { useDailyGame } from "./hooks/useDailyGame";
+import {useMemo} from "react";
+import {
+	localGenerationSelectionRepository
+} from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 
 interface DailyGameProps {
 	readonly onExit: () => void;
@@ -18,7 +22,10 @@ interface DailyGameProps {
 }
 
 function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
-	const game = useDailyGame(pokemonData);
+
+	const enabledGens = useMemo(() => localGenerationSelectionRepository.findEnabledGenerations(), []);
+	const availablePokemon = useMemo(() => pokemonData.filter(pokemon => enabledGens.has(pokemon.gen)), [enabledGens]);
+	const game = useDailyGame(availablePokemon);
 
 	if (game.existingAttempt !== null && game.state.status !== "game-over") {
 		return (

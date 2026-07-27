@@ -19,7 +19,6 @@ const GENERATIONS = [
 ]
 
 export function GenerationSelection() {
-
     const storedSelection = localGenerationSelectionRepository.findEnabledGenerations();
     const [generations, setGenerations] = useState(GENERATIONS.map(({gen, avatar}) => ({
         gen,

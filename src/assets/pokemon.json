@@ -7251,7 +7251,7 @@
 		"id": "charizard-mega-x",
 		"name": "Charizard Mega X",
 		"types": ["fire", "dragon"],
-		"gen": 1,
+		"gen": 6,
 		"origin": 6
 	},
 	{
@@ -7259,7 +7259,7 @@
 		"id": "pinsir-mega",
 		"name": "Pinsir Mega",
 		"types": ["bug", "flying"],
-		"gen": 1,
+		"gen": 6,
 		"origin": 127
 	},
 	{
@@ -7267,7 +7267,7 @@
 		"id": "gyarados-mega",
 		"name": "Gyarados Mega",
 		"types": ["water", "dark"],
-		"gen": 1,
+		"gen": 6,
 		"origin": 130
 	},
 	{
@@ -7275,7 +7275,7 @@
 		"id": "mewtwo-mega-x",
 		"name": "Mewtwo Mega X",
 		"types": ["psychic", "fighting"],
-		"gen": 1,
+		"gen": 6,
 		"origin": 150
 	},
 	{
@@ -7283,7 +7283,7 @@
 		"id": "ampharos-mega",
 		"name": "Ampharos Mega",
 		"types": ["electric", "dragon"],
-		"gen": 2,
+		"gen": 6,
 		"origin": 181
 	},
 	{
@@ -7291,7 +7291,7 @@
 		"id": "aggron-mega",
 		"name": "Aggron Mega",
 		"types": ["steel"],
-		"gen": 3,
+		"gen": 6,
 		"origin": 306
 	},
 	{
@@ -7299,7 +7299,7 @@
 		"id": "sceptile-mega",
 		"name": "Sceptile Mega",
 		"types": ["grass", "dragon"],
-		"gen": 3,
+		"gen": 6,
 		"origin": 254
 	},
 	{
@@ -7307,7 +7307,7 @@
 		"id": "altaria-mega",
 		"name": "Altaria Mega",
 		"types": ["dragon", "fairy"],
-		"gen": 3,
+		"gen": 6,
 		"origin": 334
 	},
 	{
@@ -7315,17 +7315,26 @@
 		"id": "audino-mega",
 		"name": "Audino Mega",
 		"types": ["normal", "fairy"],
-		"gen": 5,
+		"gen": 6,
 		"origin": 531
+	},
+	{
+		"nr": 10078,
+		"id": "kyogre-primal",
+		"name": "Kyogre Primal",
+		"types": ["water"],
+		"gen": 6,
+		"origin": 383
 	},
 	{
 		"nr": 10078,
 		"id": "groudon-primal",
 		"name": "Groudon Primal",
 		"types": ["ground", "fire"],
-		"gen": 3,
+		"gen": 6,
 		"origin": 383
 	},
+
 	{
 		"nr": 10086,
 		"id": "hoopa-unbound",
@@ -7339,7 +7348,7 @@
 		"id": "lopunny-mega",
 		"name": "Lopunny Mega",
 		"types": ["normal", "fighting"],
-		"gen": 4,
+		"gen": 6,
 		"origin": 428
 	},
 	{
@@ -7347,7 +7356,7 @@
 		"id": "rattata-alola",
 		"name": "Rattata Alola",
 		"types": ["dark", "normal"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 19
 	},
 	{
@@ -7355,7 +7364,7 @@
 		"id": "raticate-alola",
 		"name": "Raticate Alola",
 		"types": ["dark", "normal"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 20
 	},
 	{
@@ -7363,7 +7372,7 @@
 		"id": "raticate-totem-alola",
 		"name": "Raticate Totem Alola",
 		"types": ["dark", "normal"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 20
 	},
 	{
@@ -7371,7 +7380,7 @@
 		"id": "raichu-alola",
 		"name": "Raichu Alola",
 		"types": ["electric", "psychic"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 26
 	},
 	{
@@ -7379,7 +7388,7 @@
 		"id": "sandshrew-alola",
 		"name": "Sandshrew Alola",
 		"types": ["ice", "steel"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 27
 	},
 	{
@@ -7387,7 +7396,7 @@
 		"id": "sandslash-alola",
 		"name": "Sandslash Alola",
 		"types": ["ice", "steel"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 28
 	},
 	{
@@ -7395,7 +7404,7 @@
 		"id": "vulpix-alola",
 		"name": "Vulpix Alola",
 		"types": ["ice"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 37
 	},
 	{
@@ -7403,7 +7412,7 @@
 		"id": "ninetales-alola",
 		"name": "Ninetales Alola",
 		"types": ["ice", "fairy"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 38
 	},
 	{
@@ -7411,7 +7420,7 @@
 		"id": "diglett-alola",
 		"name": "Diglett Alola",
 		"types": ["ground", "steel"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 50
 	},
 	{
@@ -7419,7 +7428,7 @@
 		"id": "dugtrio-alola",
 		"name": "Dugtrio Alola",
 		"types": ["ground", "steel"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 51
 	},
 	{
@@ -7427,7 +7436,7 @@
 		"id": "meowth-alola",
 		"name": "Meowth Alola",
 		"types": ["dark"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 52
 	},
 	{
@@ -7435,7 +7444,7 @@
 		"id": "persian-alola",
 		"name": "Persian Alola",
 		"types": ["dark"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 53
 	},
 	{
@@ -7443,7 +7452,7 @@
 		"id": "geodude-alola",
 		"name": "Geodude Alola",
 		"types": ["rock", "electric"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 74
 	},
 	{
@@ -7451,7 +7460,7 @@
 		"id": "graveler-alola",
 		"name": "Graveler Alola",
 		"types": ["rock", "electric"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 75
 	},
 	{
@@ -7459,7 +7468,7 @@
 		"id": "golem-alola",
 		"name": "Golem Alola",
 		"types": ["rock", "electric"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 76
 	},
 	{
@@ -7467,7 +7476,7 @@
 		"id": "grimer-alola",
 		"name": "Grimer Alola",
 		"types": ["poison", "dark"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 88
 	},
 	{
@@ -7475,7 +7484,7 @@
 		"id": "muk-alola",
 		"name": "Muk Alola",
 		"types": ["poison", "dark"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 89
 	},
 	{
@@ -7483,7 +7492,7 @@
 		"id": "exeggutor-alola",
 		"name": "Exeggutor Alola",
 		"types": ["grass", "dragon"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 103
 	},
 	{
@@ -7491,7 +7500,7 @@
 		"id": "marowak-alola",
 		"name": "Marowak Alola",
 		"types": ["fire", "ghost"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 105
 	},
 	{
@@ -7499,7 +7508,7 @@
 		"id": "marowak-totem",
 		"name": "Marowak Totem",
 		"types": ["fire", "ghost"],
-		"gen": 1,
+		"gen": 7,
 		"origin": 105
 	},
 	{
@@ -7531,7 +7540,7 @@
 		"id": "meowth-galar",
 		"name": "Meowth Galar",
 		"types": ["steel"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 52
 	},
 	{
@@ -7539,7 +7548,7 @@
 		"id": "ponyta-galar",
 		"name": "Ponyta Galar",
 		"types": ["psychic"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 77
 	},
 	{
@@ -7547,7 +7556,7 @@
 		"id": "rapidash-galar",
 		"name": "Rapidash Galar",
 		"types": ["psychic", "fairy"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 78
 	},
 	{
@@ -7555,7 +7564,7 @@
 		"id": "slowpoke-galar",
 		"name": "Slowpoke Galar",
 		"types": ["psychic"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 79
 	},
 	{
@@ -7563,7 +7572,7 @@
 		"id": "slowbro-galar",
 		"name": "Slowbro Galar",
 		"types": ["poison", "psychic"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 80
 	},
 	{
@@ -7571,7 +7580,7 @@
 		"id": "farfetchd-galar",
 		"name": "Farfetchd Galar",
 		"types": ["fighting"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 83
 	},
 	{
@@ -7579,7 +7588,7 @@
 		"id": "weezing-galar",
 		"name": "Weezing Galar",
 		"types": ["poison", "fairy"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 110
 	},
 	{
@@ -7587,7 +7596,7 @@
 		"id": "mr-mime-galar",
 		"name": "Mr Mime Galar",
 		"types": ["ice", "psychic"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 122
 	},
 	{
@@ -7595,7 +7604,7 @@
 		"id": "articuno-galar",
 		"name": "Articuno Galar",
 		"types": ["psychic", "flying"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 144
 	},
 	{
@@ -7603,7 +7612,7 @@
 		"id": "zapdos-galar",
 		"name": "Zapdos Galar",
 		"types": ["fighting", "flying"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 145
 	},
 	{
@@ -7611,7 +7620,7 @@
 		"id": "moltres-galar",
 		"name": "Moltres Galar",
 		"types": ["dark", "flying"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 146
 	},
 	{
@@ -7619,7 +7628,7 @@
 		"id": "slowking-galar",
 		"name": "Slowking Galar",
 		"types": ["poison", "psychic"],
-		"gen": 2,
+		"gen": 8,
 		"origin": 199
 	},
 	{
@@ -7627,7 +7636,7 @@
 		"id": "corsola-galar",
 		"name": "Corsola Galar",
 		"types": ["ghost"],
-		"gen": 2,
+		"gen": 8,
 		"origin": 222
 	},
 	{
@@ -7635,7 +7644,7 @@
 		"id": "zigzagoon-galar",
 		"name": "Zigzagoon Galar",
 		"types": ["dark", "normal"],
-		"gen": 3,
+		"gen": 8,
 		"origin": 263
 	},
 	{
@@ -7643,7 +7652,7 @@
 		"id": "linoone-galar",
 		"name": "Linoone Galar",
 		"types": ["dark", "normal"],
-		"gen": 3,
+		"gen": 8,
 		"origin": 264
 	},
 	{
@@ -7651,7 +7660,7 @@
 		"id": "darumaka-galar",
 		"name": "Darumaka Galar",
 		"types": ["ice"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 554
 	},
 	{
@@ -7659,7 +7668,7 @@
 		"id": "darmanitan-galar-standard",
 		"name": "Darmanitan Galar Standard",
 		"types": ["ice"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 555
 	},
 	{
@@ -7667,7 +7676,7 @@
 		"id": "darmanitan-galar-zen",
 		"name": "Darmanitan Galar Zen",
 		"types": ["ice", "fire"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 555
 	},
 	{
@@ -7675,7 +7684,7 @@
 		"id": "yamask-galar",
 		"name": "Yamask Galar",
 		"types": ["ground", "ghost"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 562
 	},
 	{
@@ -7683,7 +7692,7 @@
 		"id": "stunfisk-galar",
 		"name": "Stunfisk Galar",
 		"types": ["ground", "steel"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 618
 	},
 	{
@@ -7739,7 +7748,7 @@
 		"id": "growlithe-hisui",
 		"name": "Growlithe Hisui",
 		"types": ["fire", "rock"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 58
 	},
 	{
@@ -7747,7 +7756,7 @@
 		"id": "arcanine-hisui",
 		"name": "Arcanine Hisui",
 		"types": ["fire", "rock"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 59
 	},
 	{
@@ -7755,7 +7764,7 @@
 		"id": "voltorb-hisui",
 		"name": "Voltorb Hisui",
 		"types": ["electric", "grass"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 100
 	},
 	{
@@ -7763,7 +7772,7 @@
 		"id": "electrode-hisui",
 		"name": "Electrode Hisui",
 		"types": ["electric", "grass"],
-		"gen": 1,
+		"gen": 8,
 		"origin": 101
 	},
 	{
@@ -7771,7 +7780,7 @@
 		"id": "typhlosion-hisui",
 		"name": "Typhlosion Hisui",
 		"types": ["fire", "ghost"],
-		"gen": 2,
+		"gen": 8,
 		"origin": 157
 	},
 	{
@@ -7779,7 +7788,7 @@
 		"id": "qwilfish-hisui",
 		"name": "Qwilfish Hisui",
 		"types": ["dark", "poison"],
-		"gen": 2,
+		"gen": 8,
 		"origin": 211
 	},
 	{
@@ -7787,7 +7796,7 @@
 		"id": "sneasel-hisui",
 		"name": "Sneasel Hisui",
 		"types": ["fighting", "poison"],
-		"gen": 2,
+		"gen": 8,
 		"origin": 215
 	},
 	{
@@ -7795,7 +7804,7 @@
 		"id": "samurott-hisui",
 		"name": "Samurott Hisui",
 		"types": ["water", "dark"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 503
 	},
 	{
@@ -7803,7 +7812,7 @@
 		"id": "lilligant-hisui",
 		"name": "Lilligant Hisui",
 		"types": ["grass", "fighting"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 549
 	},
 	{
@@ -7811,7 +7820,7 @@
 		"id": "zorua-hisui",
 		"name": "Zorua Hisui",
 		"types": ["normal", "ghost"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 570
 	},
 	{
@@ -7819,7 +7828,7 @@
 		"id": "zoroark-hisui",
 		"name": "Zoroark Hisui",
 		"types": ["normal", "ghost"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 571
 	},
 	{
@@ -7827,7 +7836,7 @@
 		"id": "braviary-hisui",
 		"name": "Braviary Hisui",
 		"types": ["psychic", "flying"],
-		"gen": 5,
+		"gen": 8,
 		"origin": 628
 	},
 	{
@@ -7835,7 +7844,7 @@
 		"id": "sliggoo-hisui",
 		"name": "Sliggoo Hisui",
 		"types": ["steel", "dragon"],
-		"gen": 6,
+		"gen": 8,
 		"origin": 705
 	},
 	{
@@ -7843,7 +7852,7 @@
 		"id": "goodra-hisui",
 		"name": "Goodra Hisui",
 		"types": ["steel", "dragon"],
-		"gen": 6,
+		"gen": 8,
 		"origin": 706
 	},
 	{
@@ -7851,7 +7860,7 @@
 		"id": "avalugg-hisui",
 		"name": "Avalugg Hisui",
 		"types": ["ice", "rock"],
-		"gen": 6,
+		"gen": 8,
 		"origin": 713
 	},
 	{
@@ -7859,7 +7868,7 @@
 		"id": "decidueye-hisui",
 		"name": "Decidueye Hisui",
 		"types": ["grass", "fighting"],
-		"gen": 7,
+		"gen": 8,
 		"origin": 724
 	},
 	{
@@ -7867,7 +7876,7 @@
 		"id": "tauros-paldea-combat-breed",
 		"name": "Tauros Paldea Combat Breed",
 		"types": ["fighting"],
-		"gen": 1,
+		"gen": 9,
 		"origin": 128
 	},
 	{
@@ -7875,7 +7884,7 @@
 		"id": "tauros-paldea-blaze-breed",
 		"name": "Tauros Paldea Blaze Breed",
 		"types": ["fighting", "fire"],
-		"gen": 1,
+		"gen": 9,
 		"origin": 128
 	},
 	{
@@ -7883,7 +7892,7 @@
 		"id": "tauros-paldea-aqua-breed",
 		"name": "Tauros Paldea Aqua Breed",
 		"types": ["fighting", "water"],
-		"gen": 1,
+		"gen": 9,
 		"origin": 128
 	},
 	{
@@ -7891,7 +7900,7 @@
 		"id": "wooper-paldea",
 		"name": "Wooper Paldea",
 		"types": ["poison", "ground"],
-		"gen": 2,
+		"gen": 9,
 		"origin": 194
 	},
 	{
@@ -7923,7 +7932,7 @@
 		"id": "clefable-mega",
 		"name": "Clefable Mega",
 		"types": ["fairy", "flying"],
-		"gen": 1,
+		"gen": 6,
 		"origin": 36
 	},
 	{
@@ -7931,7 +7940,7 @@
 		"id": "meganium-mega",
 		"name": "Meganium Mega",
 		"types": ["grass", "fairy"],
-		"gen": 2,
+		"gen": 6,
 		"origin": 154
 	},
 	{
@@ -7939,7 +7948,7 @@
 		"id": "feraligatr-mega",
 		"name": "Feraligatr Mega",
 		"types": ["water", "dragon"],
-		"gen": 2,
+		"gen": 6,
 		"origin": 160
 	},
 	{
@@ -7955,7 +7964,7 @@
 		"id": "chimecho-mega",
 		"name": "Chimecho Mega",
 		"types": ["psychic", "steel"],
-		"gen": 3,
+		"gen": 6,
 		"origin": 358
 	},
 	{
@@ -7963,7 +7972,7 @@
 		"id": "absol-mega-z",
 		"name": "Absol Mega Z",
 		"types": ["dark", "ghost"],
-		"gen": 3,
+		"gen": 6,
 		"origin": 359
 	},
 	{
@@ -7971,7 +7980,7 @@
 		"id": "staraptor-mega",
 		"name": "Staraptor Mega",
 		"types": ["fighting", "flying"],
-		"gen": 4,
+		"gen": 6,
 		"origin": 398
 	},
 	{
@@ -7979,7 +7988,7 @@
 		"id": "garchomp-mega-z",
 		"name": "Garchomp Mega Z",
 		"types": ["dragon"],
-		"gen": 4,
+		"gen": 6,
 		"origin": 445
 	},
 	{

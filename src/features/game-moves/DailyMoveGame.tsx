@@ -19,6 +19,9 @@ import { DailyMoveResult } from "./components/DailyMoveResult.tsx";
 import { useDailyMoveGame } from "./hooks/useDailyMoveGame.ts";
 import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
+import {
+	localGenerationSelectionRepository
+} from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 
 type DailyMoveGameProps = {
 	onExit: () => void;
@@ -27,15 +30,20 @@ type DailyMoveGameProps = {
 function DailyMoveGame({ onExit }: DailyMoveGameProps) {
 	const dateKey = useMemo(() => createDailyDateKey(new Date()), []);
 	const exitingResult = localDailyBattleRepository.findByDate(dateKey);
+
+	const enabledGens = useMemo(() => localGenerationSelectionRepository.findEnabledGenerations(), []);
+	const availableMoves = useMemo(() => moveData.filter(move => move.gen <= Math.max(...enabledGens)), [enabledGens]);
+	const availablePokemon = useMemo(() => pokemonData.filter(pokemon => enabledGens.has(pokemon.gen)), [enabledGens]);
+
 	const challenge = useMemo(
 		() =>
 			createDailyMoveChallenge(
 				dateKey,
-				pokemonData,
-				moveData,
+				availablePokemon,
+				availableMoves,
 				getTypeEffectiveness,
 			),
-		[dateKey],
+		[dateKey, availablePokemon, availableMoves],
 	);
 
 	const game = useDailyMoveGame(challenge);

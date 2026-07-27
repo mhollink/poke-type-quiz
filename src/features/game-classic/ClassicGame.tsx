@@ -9,6 +9,10 @@ import { ClassicGameResult } from "./components/ClassicGameResult.tsx";
 import { PokemonAutocomplete } from "./components/PokemonAutocomplete";
 import { useClassicGame } from "./hooks/useClassicGame";
 import { localDailyAttemptRepository } from "./storage/dailyAttemptRepository.ts";
+import {useMemo} from "react";
+import {
+	localGenerationSelectionRepository
+} from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 
 interface ClassicGameProps {
 	readonly onExit: () => void;
@@ -16,7 +20,9 @@ interface ClassicGameProps {
 }
 
 function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
-	const game = useClassicGame(pokemonData);
+	const enabledGens = useMemo(() => localGenerationSelectionRepository.findEnabledGenerations(), []);
+	const availablePokemon = useMemo(() => pokemonData.filter(pokemon => enabledGens.has(pokemon.gen)), [enabledGens]);
+	const game = useClassicGame(availablePokemon);
 	const todaysResult = localDailyAttemptRepository.findByDate(
 		createDailyDateKey(new Date()),
 	);
