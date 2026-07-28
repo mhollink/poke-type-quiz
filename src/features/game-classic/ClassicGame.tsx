@@ -86,7 +86,7 @@ function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
 											game.state.currentChallenge.key,
 											game.state.correctAnswers,
 										].join("-")}
-										pokemon={pokemonData}
+										pokemon={availablePokemon}
 										excludedPokemonIds={game.state.usedPokemonIds}
 										minimumSearchLength={classicGameConfig.minimumSearchLength}
 										maximumSuggestions={classicGameConfig.maximumSuggestions}

@@ -105,7 +105,7 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 									<Stack spacing={1}>
 										<PokemonAutocomplete
 											key={game.state.currentChallenge.id}
-											pokemon={pokemonData}
+											pokemon={availablePokemon}
 											excludedPokemonIds={game.state.usedPokemonIds}
 											minimumSearchLength={2}
 											maximumSuggestions={8}
