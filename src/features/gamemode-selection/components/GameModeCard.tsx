@@ -58,7 +58,7 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
 			<CardActionArea
 				onClick={onSelect}
 				disabled={gameMode.disabled}
-				aria-label={accessibilityLabel}			
+				aria-label={accessibilityLabel}
 				sx={{
 					height: "100%",
 					borderRadius: "inherit",

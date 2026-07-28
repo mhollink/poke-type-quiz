@@ -11,6 +11,7 @@ import { pokemonData } from "../../utils";
 import { moveData } from "../../utils/moves.ts";
 import { createDailyDateKey } from "../game-daily/challenge/createDailySeed.ts";
 import { PokemonChallenge } from "../game-reversed/components/PokemonChallenge.tsx";
+import { localGenerationSelectionRepository } from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 import { createDailyMoveChallenge } from "./challenge/createDailyChallenge.ts";
 import { DailyMoveGameResult } from "./components/DailyMoveGameResult.tsx";
 import { DailyMoveGameScore } from "./components/DailyMoveGameScore.tsx";
@@ -19,9 +20,6 @@ import { DailyMoveResult } from "./components/DailyMoveResult.tsx";
 import { useDailyMoveGame } from "./hooks/useDailyMoveGame.ts";
 import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
-import {
-	localGenerationSelectionRepository
-} from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 
 type DailyMoveGameProps = {
 	onExit: () => void;
@@ -31,9 +29,18 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
 	const dateKey = useMemo(() => createDailyDateKey(new Date()), []);
 	const exitingResult = localDailyBattleRepository.findByDate(dateKey);
 
-	const enabledGens = useMemo(() => localGenerationSelectionRepository.findEnabledGenerations(), []);
-	const availableMoves = useMemo(() => moveData.filter(move => move.gen <= Math.max(...enabledGens)), [enabledGens]);
-	const availablePokemon = useMemo(() => pokemonData.filter(pokemon => enabledGens.has(pokemon.gen)), [enabledGens]);
+	const enabledGens = useMemo(
+		() => localGenerationSelectionRepository.findEnabledGenerations(),
+		[],
+	);
+	const availableMoves = useMemo(
+		() => moveData.filter((move) => move.gen <= Math.max(...enabledGens)),
+		[enabledGens],
+	);
+	const availablePokemon = useMemo(
+		() => pokemonData.filter((pokemon) => enabledGens.has(pokemon.gen)),
+		[enabledGens],
+	);
 
 	const challenge = useMemo(
 		() =>

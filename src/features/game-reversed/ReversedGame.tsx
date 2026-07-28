@@ -2,133 +2,140 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-
-import {pokemonData} from "../../utils";
-import {createDailyDateKey} from "../game-daily/challenge/createDailySeed.ts";
-import {GameScore} from "../game-shared/components/GameScore";
-import {PokemonChallenge} from "./components/PokemonChallenge";
-import {ReversedGameResult} from "./components/ReversedGameResult";
-import {TypeAnswerInput} from "./components/TypeAnswerInput";
-import {useReversedGame} from "./hooks/useReversedGame";
-import {localDailyAttemptRepository} from "./storage/dailyAttemptRepository.ts";
-import {useMemo} from "react";
-import {
-    localGenerationSelectionRepository
-} from "../generation-selection/storage/localGenerationSelectionRepository.ts";
+import { useMemo } from "react";
+import { pokemonData } from "../../utils";
+import { createDailyDateKey } from "../game-daily/challenge/createDailySeed.ts";
+import { GameScore } from "../game-shared/components/GameScore";
+import { localGenerationSelectionRepository } from "../generation-selection/storage/localGenerationSelectionRepository.ts";
+import { PokemonChallenge } from "./components/PokemonChallenge";
+import { ReversedGameResult } from "./components/ReversedGameResult";
+import { TypeAnswerInput } from "./components/TypeAnswerInput";
+import { useReversedGame } from "./hooks/useReversedGame";
+import { localDailyAttemptRepository } from "./storage/dailyAttemptRepository.ts";
 
 interface ReversedGameProps {
-    readonly onExit: () => void;
-    readonly onOpenPokedex: () => void;
+	readonly onExit: () => void;
+	readonly onOpenPokedex: () => void;
 }
 
-function ReversedGame({onExit, onOpenPokedex}: ReversedGameProps) {
-    const enabledGens = useMemo(() => localGenerationSelectionRepository.findEnabledGenerations(), []);
-    const availablePokemon = useMemo(() => pokemonData.filter(pokemon => enabledGens.has(pokemon.gen)), [enabledGens]);
-    const game = useReversedGame(availablePokemon);
+function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
+	const enabledGens = useMemo(
+		() => localGenerationSelectionRepository.findEnabledGenerations(),
+		[],
+	);
+	const availablePokemon = useMemo(
+		() => pokemonData.filter((pokemon) => enabledGens.has(pokemon.gen)),
+		[enabledGens],
+	);
+	const game = useReversedGame(availablePokemon);
 
-    const todaysResult = useMemo(() => localDailyAttemptRepository.findByDate(createDailyDateKey(new Date())), []);
+	const todaysResult = useMemo(
+		() =>
+			localDailyAttemptRepository.findByDate(createDailyDateKey(new Date())),
+		[],
+	);
 
-    if (todaysResult) {
-        return (
-            <Container
-                component="main"
-                maxWidth="sm"
-                sx={{
-                    py: {
-                        xs: 4,
-                        md: 8,
-                    },
-                }}
-            >
-                <ReversedGameResult
-                    result={{
-                        score: todaysResult.score,
-                        correctAnswers: todaysResult.correctAnswers,
-                        canonicalOrderAnswers: todaysResult.canonicalOrderAnswers,
-                        highestMultiplier: todaysResult.highestMultiplier,
-                    }}
-                    reason="already-played"
-                    onExit={onExit}
-                    onOpenPokedex={onOpenPokedex}
-                />
-            </Container>
-        );
-    }
+	if (todaysResult) {
+		return (
+			<Container
+				component="main"
+				maxWidth="sm"
+				sx={{
+					py: {
+						xs: 4,
+						md: 8,
+					},
+				}}
+			>
+				<ReversedGameResult
+					result={{
+						score: todaysResult.score,
+						correctAnswers: todaysResult.correctAnswers,
+						canonicalOrderAnswers: todaysResult.canonicalOrderAnswers,
+						highestMultiplier: todaysResult.highestMultiplier,
+					}}
+					reason="already-played"
+					onExit={onExit}
+					onOpenPokedex={onOpenPokedex}
+				/>
+			</Container>
+		);
+	}
 
-    return (
-        <Container
-            component="main"
-            maxWidth="sm"
-            sx={{
-                py: {
-                    xs: 4,
-                    md: 8,
-                },
-            }}
-        >
-            <Stack spacing={4}>
-                {game.state.status === "game-over" &&
-                    game.state.gameOverReason !== null && (
-                        <ReversedGameResult
-                            result={game.state}
-                            reason={game.state.gameOverReason}
-                            onExit={onExit}
-                            onOpenPokedex={onOpenPokedex}
-                        />
-                    )}
+	return (
+		<Container
+			component="main"
+			maxWidth="sm"
+			sx={{
+				py: {
+					xs: 4,
+					md: 8,
+				},
+			}}
+		>
+			<Stack spacing={4}>
+				{game.state.status === "game-over" &&
+					game.state.gameOverReason !== null && (
+						<ReversedGameResult
+							result={game.state}
+							reason={game.state.gameOverReason}
+							onExit={onExit}
+							onOpenPokedex={onOpenPokedex}
+						/>
+					)}
 
-                {game.state.status === "playing" &&
-                    game.state.currentChallenge !== null && (
-                        <>
-                            <Stack spacing={1} sx={{textAlign: "center"}}>
-                                <Typography
-                                    component="h1"
-                                    variant="h5"
-                                    sx={{fontWeight: 700}}
-                                >
-                                    Reversed
-                                </Typography>
+				{game.state.status === "playing" &&
+					game.state.currentChallenge !== null && (
+						<>
+							<Stack spacing={1} sx={{ textAlign: "center" }}>
+								<Typography
+									component="h1"
+									variant="h5"
+									sx={{ fontWeight: 700 }}
+								>
+									Reversed
+								</Typography>
 
-                                <Typography variant="body2" color="textSecondary">
-                                    Identify each Pokémon&apos;s type before time runs out.
-                                </Typography>
-                            </Stack>
+								<Typography variant="body2" color="textSecondary">
+									Identify each Pokémon&apos;s type before time runs out.
+								</Typography>
+							</Stack>
 
-                            <GameScore
-                                score={game.state.score}
-                                correctAnswers={game.state.correctAnswers}
-                                timeRemainingSeconds={game.timeRemainingSeconds}
-                                timerProgress={game.timerProgress}
-                                lastScore={game.state.lastScore}
-                            />
+							<GameScore
+								score={game.state.score}
+								correctAnswers={game.state.correctAnswers}
+								timeRemainingSeconds={game.timeRemainingSeconds}
+								timerProgress={game.timerProgress}
+								lastScore={game.state.lastScore}
+							/>
 
-                            <Paper
-                                variant="outlined"
-                                sx={{
-                                    p: {
-                                        xs: 3,
-                                        sm: 4,
-                                    },
-                                }}
-                            >
-                                <Stack spacing={4}>
-                                    <PokemonChallenge challenge={game.state.currentChallenge}/>
+							<Paper
+								variant="outlined"
+								sx={{
+									p: {
+										xs: 3,
+										sm: 4,
+									},
+								}}
+							>
+								<Stack spacing={4}>
+									<PokemonChallenge challenge={game.state.currentChallenge} />
 
-                                    <TypeAnswerInput
-                                        challengeId={game.state.currentChallenge.id}
-                                        availableTypes={game.availableTypes}
-                                        requiredTypeCount={
-                                            game.state.currentChallenge.pokemon.types.length
-                                        }
-                                        onSubmit={game.submitAnswer}
-                                    />
-                                </Stack>
-                            </Paper>
-                        </>
-                    )}
-            </Stack>
-        </Container>
-    );
+									<TypeAnswerInput
+										challengeId={game.state.currentChallenge.id}
+										availableTypes={game.availableTypes}
+										requiredTypeCount={
+											game.state.currentChallenge.pokemon.types.length
+										}
+										onSubmit={game.submitAnswer}
+									/>
+								</Stack>
+							</Paper>
+						</>
+					)}
+			</Stack>
+		</Container>
+	);
 }
 
 export default ReversedGame;

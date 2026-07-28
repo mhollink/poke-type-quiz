@@ -4,17 +4,15 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useMemo } from "react";
 import { pokemonData } from "../../utils";
 import { PokemonAutocomplete } from "../game-classic/components/PokemonAutocomplete.tsx";
 import { GameScore } from "../game-shared/components/GameScore";
+import { localGenerationSelectionRepository } from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 import { DailyAnswerFeedback } from "./components/DailyAnswerFeedback.tsx";
 import { DailyChallenge } from "./components/DailyChallenge";
 import { DailyGameResult } from "./components/DailyGameResult.tsx";
 import { useDailyGame } from "./hooks/useDailyGame";
-import {useMemo} from "react";
-import {
-	localGenerationSelectionRepository
-} from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 
 interface DailyGameProps {
 	readonly onExit: () => void;
@@ -22,9 +20,14 @@ interface DailyGameProps {
 }
 
 function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
-
-	const enabledGens = useMemo(() => localGenerationSelectionRepository.findEnabledGenerations(), []);
-	const availablePokemon = useMemo(() => pokemonData.filter(pokemon => enabledGens.has(pokemon.gen)), [enabledGens]);
+	const enabledGens = useMemo(
+		() => localGenerationSelectionRepository.findEnabledGenerations(),
+		[],
+	);
+	const availablePokemon = useMemo(
+		() => pokemonData.filter((pokemon) => enabledGens.has(pokemon.gen)),
+		[enabledGens],
+	);
 	const game = useDailyGame(availablePokemon);
 
 	if (game.existingAttempt !== null && game.state.status !== "game-over") {

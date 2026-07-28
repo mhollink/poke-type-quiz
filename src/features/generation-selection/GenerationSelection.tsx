@@ -1,9 +1,9 @@
-import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
-import {getPokemonSpriteUrl} from "../../utils";
-import {useState} from "react";
-import {blue} from '@mui/material/colors';
 import {Tooltip} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import {blue} from "@mui/material/colors";
+import Stack from "@mui/material/Stack";
+import {useEffect, useState} from "react";
+import {getPokemonSpriteUrl} from "../../utils";
 import {localGenerationSelectionRepository} from "./storage/localGenerationSelectionRepository.ts";
 
 const GENERATIONS = [
@@ -16,53 +16,98 @@ const GENERATIONS = [
     {gen: 7, avatar: 722},
     {gen: 8, avatar: 810},
     {gen: 9, avatar: 906},
-]
+];
+
+type GenerationOption = {
+    gen: number,
+    avatar: number,
+    enabled: boolean,
+}
 
 export function GenerationSelection() {
-    const storedSelection = localGenerationSelectionRepository.findEnabledGenerations();
-    const [generations, setGenerations] = useState(GENERATIONS.map(({gen, avatar}) => ({
-        gen,
-        avatar,
-        enabled: storedSelection.has(gen)
-    })));
+    const [generations, setGenerations] = useState<GenerationOption[]>(() => {
+        const enabledGens = localGenerationSelectionRepository.findEnabledGenerations();
+
+        return GENERATIONS.map((generation) => ({
+            ...generation,
+            enabled: enabledGens.has(generation.gen),
+        }));
+    });
 
     function toggleGeneration(gen: number, value: boolean) {
-        const newState = generations.map(candidate => {
-            if (candidate.gen === gen) {
-                return {...candidate, enabled: value}
-            } else {
-                return candidate;
-            }
-        })
-        setGenerations(newState);
+        setGenerations((current) =>
+            updateGenerationSelection(current, gen, value),
+        );
+    }
 
-        const enabledGens = newState
-            .filter(gen => gen.enabled)
-            .map(gen => gen.gen);
-        localGenerationSelectionRepository.store(enabledGens)
+    useEffect(() => {
+        const enabledGens = generations
+            .filter((generation) => generation.enabled)
+            .map((generation) => generation.gen);
+
+        localGenerationSelectionRepository.store(enabledGens);
+    }, [generations]);
+
+    function updateGenerationSelection(
+        current: readonly GenerationOption[],
+        gen: number,
+        value: boolean,
+    ): GenerationOption[] {
+        const updated = current.map((candidate) =>
+            candidate.gen === gen
+                ? {...candidate, enabled: value}
+                : candidate,
+        );
+
+        if (updated.some((candidate) => candidate.enabled)) {
+            return updated;
+        }
+
+        const alternatives = updated.filter(
+            (candidate) => candidate.gen !== gen,
+        );
+
+        if (alternatives.length === 0) {
+            return current.map((candidate) => ({
+                ...candidate,
+                enabled: true,
+            }));
+        }
+
+        const randomAlternative =
+            alternatives[Math.floor(Math.random() * alternatives.length)];
+
+        return updated.map((candidate) =>
+            candidate.gen === randomAlternative.gen
+                ? {...candidate, enabled: true}
+                : candidate,
+        );
     }
 
     return (
-        <Stack direction="row"
-               spacing={1}
-               useFlexGap
-               sx={{justifyContent: "center", flexWrap: "wrap"}}
-               tabIndex={0}
+        <Stack
+            direction="row"
+            spacing={1}
+            useFlexGap
+            sx={{justifyContent: "center", flexWrap: "wrap"}}
+            tabIndex={0}
         >
-
             {generations.map((gen) => (
-                <GenSelector gen={gen.gen} dexNr={gen.avatar} enabled={gen.enabled}
-                             setEnabled={(value) => toggleGeneration(gen.gen, value)}/>
+                <GenSelector
+                    gen={gen.gen}
+                    dexNr={gen.avatar}
+                    enabled={gen.enabled}
+                    setEnabled={(value) => toggleGeneration(gen.gen, value)}
+                />
             ))}
-
         </Stack>
-    )
+    );
 }
 
 interface GenSelectorProps {
     gen: number;
-    dexNr: number,
-    enabled: boolean,
+    dexNr: number;
+    enabled: boolean;
     setEnabled: (value: boolean) => void;
 }
 
@@ -79,7 +124,7 @@ function GenSelector({gen, dexNr, enabled, setEnabled}: GenSelectorProps) {
                     border: 1,
                     color: blue[400],
                     "& .MuiAvatar-img": {
-                        scale: 1.5
+                        scale: 1.5,
                     },
                     cursor: "pointer",
                     "&:focus-visible": {
@@ -92,7 +137,7 @@ function GenSelector({gen, dexNr, enabled, setEnabled}: GenSelectorProps) {
                 onClick={() => setEnabled(!enabled)}
                 onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
-                        setEnabled(!enabled)
+                        setEnabled(!enabled);
                     }
                 }}
                 tabIndex={0}
@@ -100,5 +145,5 @@ function GenSelector({gen, dexNr, enabled, setEnabled}: GenSelectorProps) {
                 {gen}
             </Avatar>
         </Tooltip>
-    )
+    );
 }

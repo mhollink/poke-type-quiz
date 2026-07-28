@@ -1,18 +1,16 @@
 import { Container, Paper, Stack, Typography } from "@mui/material";
+import { useMemo } from "react";
 import type { Pokemon } from "../../types";
 import { pokemonData } from "../../utils";
 import { createDailyDateKey } from "../game-daily/challenge/createDailySeed.ts";
 import { GameScore } from "../game-shared/components/GameScore";
+import { localGenerationSelectionRepository } from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 import { classicGameConfig } from "./classicGameConfig.ts";
 import { ClassicChallenge } from "./components/ClassicChallenge";
 import { ClassicGameResult } from "./components/ClassicGameResult.tsx";
 import { PokemonAutocomplete } from "./components/PokemonAutocomplete";
 import { useClassicGame } from "./hooks/useClassicGame";
 import { localDailyAttemptRepository } from "./storage/dailyAttemptRepository.ts";
-import {useMemo} from "react";
-import {
-	localGenerationSelectionRepository
-} from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 
 interface ClassicGameProps {
 	readonly onExit: () => void;
@@ -20,8 +18,14 @@ interface ClassicGameProps {
 }
 
 function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
-	const enabledGens = useMemo(() => localGenerationSelectionRepository.findEnabledGenerations(), []);
-	const availablePokemon = useMemo(() => pokemonData.filter(pokemon => enabledGens.has(pokemon.gen)), [enabledGens]);
+	const enabledGens = useMemo(
+		() => localGenerationSelectionRepository.findEnabledGenerations(),
+		[],
+	);
+	const availablePokemon = useMemo(
+		() => pokemonData.filter((pokemon) => enabledGens.has(pokemon.gen)),
+		[enabledGens],
+	);
 	const game = useClassicGame(availablePokemon);
 	const todaysResult = localDailyAttemptRepository.findByDate(
 		createDailyDateKey(new Date()),

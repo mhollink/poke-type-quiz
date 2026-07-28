@@ -12,9 +12,9 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import logo from "../assets/poketype-logo.webp";
 import { GameModeGrid } from "../features/gamemode-selection/components/GameModeGrid.tsx";
+import { GenerationSelection } from "../features/generation-selection/GenerationSelection.tsx";
 import { usePwaInstallPrompt } from "../hooks/usePwaInstallation.ts";
 import type { GameMode } from "../types";
-import {GenerationSelection} from "../features/generation-selection/GenerationSelection.tsx";
 
 interface EntryPageProps {
 	version: string;
@@ -112,7 +112,6 @@ export function EntryScreen({
 					<GameModeGrid onSelect={onSelectGameMode} />
 				</Box>
 
-
 				<Box component="section" aria-label="Selection of playable generations">
 					<GenerationSelection />
 				</Box>
@@ -204,7 +203,7 @@ const SUPPORT_URL = "https://buymeacoffee.com/mhollink";
 const ISSUES_URL = "https://github.com/mhollink/poke-type-quiz/issues";
 const DEVELOPER_URL = "https://marcel.hollink.dev/";
 
-export function EntrySupportLinks({version}: {version: string}) {
+export function EntrySupportLinks({ version }: { version: string }) {
 	return (
 		<Box
 			component="footer"
