@@ -7,11 +7,10 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useMemo } from "react";
-import { pokemonData } from "../../utils";
+import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import { moveData } from "../../utils/moves.ts";
 import { createDailyDateKey } from "../game-daily/challenge/createDailySeed.ts";
 import { PokemonChallenge } from "../game-reversed/components/PokemonChallenge.tsx";
-import { localGenerationSelectionRepository } from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 import { createDailyMoveChallenge } from "./challenge/createDailyChallenge.ts";
 import { DailyMoveGameResult } from "./components/DailyMoveGameResult.tsx";
 import { DailyMoveGameScore } from "./components/DailyMoveGameScore.tsx";
@@ -29,16 +28,9 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
 	const dateKey = useMemo(() => createDailyDateKey(new Date()), []);
 	const exitingResult = localDailyBattleRepository.findByDate(dateKey);
 
-	const enabledGens = useMemo(
-		() => localGenerationSelectionRepository.findEnabledGenerations(),
-		[],
-	);
+	const { enabledGens, availablePokemon } = usePokemonData();
 	const availableMoves = useMemo(
 		() => moveData.filter((move) => move.gen <= Math.max(...enabledGens)),
-		[enabledGens],
-	);
-	const availablePokemon = useMemo(
-		() => pokemonData.filter((pokemon) => enabledGens.has(pokemon.gen)),
 		[enabledGens],
 	);
 

@@ -21,6 +21,11 @@ export const POKEMON_TYPES = [
 
 export type PokemonType = (typeof POKEMON_TYPES)[number];
 
+export type PastType = {
+	gen: number;
+	types: PokemonType[];
+};
+
 export type Pokemon = {
 	nr: number;
 	id: string;
@@ -28,4 +33,5 @@ export type Pokemon = {
 	types: PokemonType[];
 	gen: number;
 	origin?: number;
+	pastTypes?: PastType[];
 };

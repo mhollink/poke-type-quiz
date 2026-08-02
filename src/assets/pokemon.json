@@ -589,7 +589,7 @@
 		"name": "Magnemite",
 		"types": ["electric", "steel"],
 		"gen": 1,
-		"pastType": [
+		"pastTypes": [
 			{
 				"gen": 1,
 				"types": ["electric"]
@@ -602,7 +602,7 @@
 		"name": "Magneton",
 		"types": ["electric", "steel"],
 		"gen": 1,
-		"pastType": [
+		"pastTypes": [
 			{
 				"gen": 1,
 				"types": ["electric"]

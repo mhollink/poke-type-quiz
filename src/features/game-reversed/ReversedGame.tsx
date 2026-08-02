@@ -3,10 +3,9 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useMemo } from "react";
-import { pokemonData } from "../../utils";
+import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import { createDailyDateKey } from "../game-daily/challenge/createDailySeed.ts";
 import { GameScore } from "../game-shared/components/GameScore";
-import { localGenerationSelectionRepository } from "../generation-selection/storage/localGenerationSelectionRepository.ts";
 import { PokemonChallenge } from "./components/PokemonChallenge";
 import { ReversedGameResult } from "./components/ReversedGameResult";
 import { TypeAnswerInput } from "./components/TypeAnswerInput";
@@ -19,14 +18,7 @@ interface ReversedGameProps {
 }
 
 function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
-	const enabledGens = useMemo(
-		() => localGenerationSelectionRepository.findEnabledGenerations(),
-		[],
-	);
-	const availablePokemon = useMemo(
-		() => pokemonData.filter((pokemon) => enabledGens.has(pokemon.gen)),
-		[enabledGens],
-	);
+	const { availablePokemon } = usePokemonData();
 	const game = useReversedGame(availablePokemon);
 
 	const todaysResult = useMemo(

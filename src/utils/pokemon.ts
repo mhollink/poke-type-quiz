@@ -1,4 +1,4 @@
-import type { Pokemon, PokemonType } from "../types";
+import type { PastType, Pokemon, PokemonType } from "../types";
 import { POKEMON_TYPES } from "../types";
 import { loadPokemonData } from "./loadPokemonData.ts";
 
@@ -40,13 +40,31 @@ function parsePokemon(value: unknown): Pokemon {
 		throw new Error(`Pokémon ${candidate.name} must have one or two types`);
 	}
 
+	let pastTypes: PastType[] | undefined;
+	if (Array.isArray(candidate.pastTypes)) {
+		pastTypes = candidate.pastTypes
+			.filter((pt) => typeof pt.gen === "number" && Array.isArray(pt.types))
+			.filter((pt) => pt.types.length > 0)
+			.map(
+				(pt) =>
+					({
+						gen: pt.gen,
+						types: pt.types.filter(
+							(type: unknown): type is PokemonType =>
+								typeof type === "string" && isPokemonType(type),
+						),
+					}) satisfies PastType,
+			);
+	}
+
 	return {
 		nr: candidate.nr,
 		id: candidate.id,
 		name: candidate.name,
-		types,
 		gen: candidate.gen,
 		origin: candidate.origin,
+		types,
+		pastTypes,
 	};
 }
 
@@ -59,7 +77,3 @@ export const pokemonData: readonly Pokemon[] = (
 			index === self.findIndex((candidate) => candidate.nr === pokemon.nr),
 	)
 	.sort((left, right) => left.nr - right.nr);
-
-export const pokemonById = new Map(
-	pokemonData.map((pokemon) => [pokemon.id, pokemon]),
-);
