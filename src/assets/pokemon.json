@@ -242,14 +242,26 @@
 		"id": "clefairy",
 		"name": "Clefairy",
 		"types": ["fairy"],
-		"gen": 1
+		"gen": 1,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 36,
 		"id": "clefable",
 		"name": "Clefable",
 		"types": ["fairy"],
-		"gen": 1
+		"gen": 1,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 37,
@@ -270,14 +282,26 @@
 		"id": "jigglypuff",
 		"name": "Jigglypuff",
 		"types": ["normal", "fairy"],
-		"gen": 1
+		"gen": 1,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 40,
 		"id": "wigglytuff",
 		"name": "Wigglytuff",
 		"types": ["normal", "fairy"],
-		"gen": 1
+		"gen": 1,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 41,
@@ -564,14 +588,26 @@
 		"id": "magnemite",
 		"name": "Magnemite",
 		"types": ["electric", "steel"],
-		"gen": 1
+		"gen": 1,
+		"pastType": [
+			{
+				"gen": 1,
+				"types": ["electric"]
+			}
+		]
 	},
 	{
 		"nr": 82,
 		"id": "magneton",
 		"name": "Magneton",
 		"types": ["electric", "steel"],
-		"gen": 1
+		"gen": 1,
+		"pastType": [
+			{
+				"gen": 1,
+				"types": ["electric"]
+			}
+		]
 	},
 	{
 		"nr": 83,
@@ -851,7 +887,13 @@
 		"id": "mr-mime",
 		"name": "Mr-mime",
 		"types": ["psychic", "fairy"],
-		"gen": 1
+		"gen": 1,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["psychic"]
+			}
+		]
 	},
 	{
 		"nr": 123,
@@ -1208,28 +1250,52 @@
 		"id": "cleffa",
 		"name": "Cleffa",
 		"types": ["fairy"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 174,
 		"id": "igglybuff",
 		"name": "Igglybuff",
 		"types": ["normal", "fairy"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 175,
 		"id": "togepi",
 		"name": "Togepi",
 		"types": ["fairy"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 176,
 		"id": "togetic",
 		"name": "Togetic",
 		"types": ["fairy", "flying"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal", "flying"]
+			}
+		]
 	},
 	{
 		"nr": 177,
@@ -1278,14 +1344,26 @@
 		"id": "marill",
 		"name": "Marill",
 		"types": ["water", "fairy"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["water"]
+			}
+		]
 	},
 	{
 		"nr": 184,
 		"id": "azumarill",
 		"name": "Azumarill",
 		"types": ["water", "fairy"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["water"]
+			}
+		]
 	},
 	{
 		"nr": 185,
@@ -1460,14 +1538,26 @@
 		"id": "snubbull",
 		"name": "Snubbull",
 		"types": ["fairy"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 210,
 		"id": "granbull",
 		"name": "Granbull",
 		"types": ["fairy"],
-		"gen": 2
+		"gen": 2,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 211,
@@ -1957,21 +2047,39 @@
 		"id": "ralts",
 		"name": "Ralts",
 		"types": ["psychic", "fairy"],
-		"gen": 3
+		"gen": 3,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["psychic"]
+			}
+		]
 	},
 	{
 		"nr": 281,
 		"id": "kirlia",
 		"name": "Kirlia",
 		"types": ["psychic", "fairy"],
-		"gen": 3
+		"gen": 3,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["psychic"]
+			}
+		]
 	},
 	{
 		"nr": 282,
 		"id": "gardevoir",
 		"name": "Gardevoir",
 		"types": ["psychic", "fairy"],
-		"gen": 3
+		"gen": 3,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["psychic"]
+			}
+		]
 	},
 	{
 		"nr": 283,
@@ -2083,7 +2191,13 @@
 		"id": "azurill",
 		"name": "Azurill",
 		"types": ["normal", "fairy"],
-		"gen": 3
+		"gen": 3,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal"]
+			}
+		]
 	},
 	{
 		"nr": 299,
@@ -2118,7 +2232,13 @@
 		"id": "mawile",
 		"name": "Mawile",
 		"types": ["steel", "fairy"],
-		"gen": 3
+		"gen": 3,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["steel"]
+			}
+		]
 	},
 	{
 		"nr": 304,
@@ -3070,7 +3190,13 @@
 		"id": "mime-jr",
 		"name": "Mime-jr",
 		"types": ["psychic", "fairy"],
-		"gen": 4
+		"gen": 4,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["psychic"]
+			}
+		]
 	},
 	{
 		"nr": 440,
@@ -3273,7 +3399,13 @@
 		"id": "togekiss",
 		"name": "Togekiss",
 		"types": ["fairy", "flying"],
-		"gen": 4
+		"gen": 4,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["normal", "flying"]
+			}
+		]
 	},
 	{
 		"nr": 469,
@@ -3819,14 +3951,26 @@
 		"id": "cottonee",
 		"name": "Cottonee",
 		"types": ["grass", "fairy"],
-		"gen": 5
+		"gen": 5,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["grass"]
+			}
+		]
 	},
 	{
 		"nr": 547,
 		"id": "whimsicott",
 		"name": "Whimsicott",
 		"types": ["grass", "fairy"],
-		"gen": 5
+		"gen": 5,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["grass"]
+			}
+		]
 	},
 	{
 		"nr": 548,
@@ -7180,7 +7324,13 @@
 		"name": "Rotom Heat",
 		"types": ["electric", "fire"],
 		"gen": 4,
-		"origin": 479
+		"origin": 479,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["electric", "ghost"]
+			}
+		]
 	},
 	{
 		"nr": 10009,
@@ -7188,7 +7338,13 @@
 		"name": "Rotom Wash",
 		"types": ["electric", "water"],
 		"gen": 4,
-		"origin": 479
+		"origin": 479,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["electric", "ghost"]
+			}
+		]
 	},
 	{
 		"nr": 10010,
@@ -7196,7 +7352,13 @@
 		"name": "Rotom Frost",
 		"types": ["electric", "ice"],
 		"gen": 4,
-		"origin": 479
+		"origin": 479,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["electric", "ghost"]
+			}
+		]
 	},
 	{
 		"nr": 10011,
@@ -7204,7 +7366,13 @@
 		"name": "Rotom Fan",
 		"types": ["electric", "flying"],
 		"gen": 4,
-		"origin": 479
+		"origin": 479,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["electric", "ghost"]
+			}
+		]
 	},
 	{
 		"nr": 10012,
@@ -7212,7 +7380,13 @@
 		"name": "Rotom Mow",
 		"types": ["electric", "grass"],
 		"gen": 4,
-		"origin": 479
+		"origin": 479,
+		"pastTypes": [
+			{
+				"gen": 4,
+				"types": ["electric", "ghost"]
+			}
+		]
 	},
 	{
 		"nr": 10013,
