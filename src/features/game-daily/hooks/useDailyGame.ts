@@ -329,7 +329,13 @@ export function useDailyGame(
 			type: "SKIP_ROUND",
 			nextChallenge: nextChallenge,
 		});
-	}, []);
+	}, [
+		pokemon,
+		state.usedPokemonIds,
+		state.currentChallenge,
+		state.completedAnswers,
+		state.skippedRounds,
+	]);
 
 	useEffect(() => {
 		if (state.status !== "playing" || state.runEndsAt === null) {

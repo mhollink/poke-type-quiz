@@ -116,6 +116,19 @@ export function DailyGameResult({
 			>
 				<DailyScoreHistory dailyAttemptRecords={dailyAttemptRecords} />
 			</Suspense>
+
+			{import.meta.env.DEV && (
+				<Button
+					variant="contained"
+					color="error"
+					onClick={() => {
+						localStorage.removeItem("poketype.daily-attempts.v1");
+						window.location.reload();
+					}}
+				>
+					Reset daily score
+				</Button>
+			)}
 		</Stack>
 	);
 }
