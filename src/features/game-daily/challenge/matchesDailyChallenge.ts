@@ -1,10 +1,7 @@
 import type { Pokemon } from "../../../types";
 import type { DailyChallenge } from "../model/dailyGameTypes";
 
-export type DailyChallengeMatch =
-	| "match"
-	| "wrong-types"
-	| "incorrect-order";
+export type DailyChallengeMatch = "match" | "wrong-types" | "incorrect-order";
 
 export function matchesDailyChallenge(
 	pokemon: Pokemon,

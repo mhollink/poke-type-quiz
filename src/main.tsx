@@ -5,6 +5,7 @@ import { App } from "./app/App";
 import { WithAnalytics } from "./features/analytics";
 import { theme } from "./theme/theme";
 import "./styles/globals.css";
+import { SoundPreferencesProvider } from "./features/sound/SoundPreferencesProvider.tsx";
 
 const rootElement = document.getElementById("root");
 
@@ -17,7 +18,9 @@ createRoot(rootElement).render(
 		<WithAnalytics>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<App />
+				<SoundPreferencesProvider>
+					<App />
+				</SoundPreferencesProvider>
 			</ThemeProvider>
 		</WithAnalytics>
 	</StrictMode>,

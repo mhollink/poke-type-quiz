@@ -16,6 +16,7 @@ import {
 } from "../../analytics";
 import { createDailyDateKey } from "../../game-daily/challenge/createDailySeed.ts";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
+import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import { createReversedChallenge } from "../challenge/createReversedChallenge";
 import {
 	createInitialReversedGameState,
@@ -62,6 +63,7 @@ export function useReversedGame(
 	pokemon: readonly Pokemon[],
 	dependencies: ReversedGameDependencies = defaultDependencies,
 ): UseReversedGameResult {
+	const sound = useSoundLevel();
 	const [state, dispatch] = useReducer(
 		reversedGameReducer,
 		undefined,
@@ -275,7 +277,9 @@ export function useReversedGame(
 			}
 
 			setNow(submittedAt);
-			void playPokemonCry(nextChallenge.pokemon);
+			if (sound === "on") {
+				void playPokemonCry(nextChallenge.pokemon);
+			}
 			roundResolvedRef.current = false;
 		},
 		[

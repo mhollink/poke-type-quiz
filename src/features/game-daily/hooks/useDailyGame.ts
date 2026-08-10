@@ -15,6 +15,7 @@ import {
 	trackGameStarted,
 } from "../../analytics";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
+import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import { createDailyChallenge } from "../challenge/createDailyChallenge";
 import {
 	createDailyDateKey,
@@ -76,6 +77,7 @@ export function useDailyGame(
 	pokemon: readonly Pokemon[],
 	dependencies: DailyGameDependencies = defaultDependencies,
 ): UseDailyGameResult {
+	const sound = useSoundLevel();
 	const [state, dispatch] = useReducer(
 		dailyGameReducer,
 		undefined,
@@ -242,10 +244,11 @@ export function useDailyGame(
 				return;
 			}
 
-			const result = matchesDailyChallenge(knownPokemon, state.currentChallenge);
+			const result = matchesDailyChallenge(
+				knownPokemon,
+				state.currentChallenge,
+			);
 			if (result !== "match") {
-
-
 				setSubmissionResult(result);
 
 				dispatch({
@@ -285,7 +288,9 @@ export function useDailyGame(
 				nextChallenge,
 			});
 
-			void playPokemonCry(knownPokemon);
+			if (sound === "on") {
+				void playPokemonCry(knownPokemon);
+			}
 
 			if (!nextChallenge) {
 				runResolvedRef.current = true;

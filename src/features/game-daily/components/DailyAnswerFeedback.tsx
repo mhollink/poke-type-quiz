@@ -41,7 +41,8 @@ function getFeedback(result: DailySubmissionResult): Feedback | null {
 		case "incorrect-order":
 			return {
 				severity: "warning",
-				message: "That Pokémon has the correct types, but the primary and secondary types are reversed.",
+				message:
+					"That Pokémon has the correct types, but the primary and secondary types are reversed.",
 			};
 
 		case "wrong-types":

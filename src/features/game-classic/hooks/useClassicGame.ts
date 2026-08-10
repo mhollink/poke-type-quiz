@@ -16,6 +16,7 @@ import {
 import { createDailyDateKey } from "../../game-daily/challenge/createDailySeed.ts";
 import { createSessionId } from "../../game-shared/utils/createSessionId";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
+import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import { createClassicChallenge } from "../challenge/createClassicChallenges.ts";
 import { classicGameConfig } from "../classicGameConfig";
 import {
@@ -43,6 +44,7 @@ export interface UseClassicGame {
 }
 
 export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
+	const sound = useSoundLevel();
 	const [state, dispatch] = useReducer(
 		classicGameReducer,
 		undefined,
@@ -264,7 +266,9 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 					nextRoundEndsAt: null,
 				});
 
-				void playPokemonCry(answer);
+				if (sound === "on") {
+					void playPokemonCry(answer);
+				}
 
 				dispatch({
 					type: "END_GAME",
@@ -296,7 +300,9 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 				nextRoundEndsAt,
 			});
 
-			void playPokemonCry(answer);
+			if (sound === "on") {
+				void playPokemonCry(answer);
+			}
 
 			setNow(submittedAt);
 			roundResolvedRef.current = false;
