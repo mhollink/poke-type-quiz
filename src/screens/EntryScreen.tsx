@@ -126,12 +126,10 @@ export function EntryScreen({
 				size="large"
 				sx={{
 					position: "fixed",
-					top: { xs: 16, md: "auto" },
-					right: { xs: 16, md: "auto" },
-					bottom: { xs: "auto", md: 16 },
-					left: { xs: "auto", md: 16 },
+					top: 16,
+					right: 80,
 
-					"& .MuiSvgIcon": {
+					"& .MuiSvgIcon-root": {
 						transform: "rotate(180deg)",
 					},
 				}}
@@ -148,6 +146,7 @@ export function EntryScreen({
 						left: 16
 					}}
 					color="error"
+					size="medium"
 					onClick={() => {
 						const deleteEverything = confirm("Do you want to clear your localstorage?");
 						if (deleteEverything) {
