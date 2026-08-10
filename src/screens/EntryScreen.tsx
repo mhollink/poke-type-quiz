@@ -15,6 +15,7 @@ import { GameModeGrid } from "../features/gamemode-selection/components/GameMode
 import { GenerationSelection } from "../features/generation-selection/GenerationSelection.tsx";
 import { usePwaInstallPrompt } from "../hooks/usePwaInstallation.ts";
 import type { GameMode } from "../types";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface EntryPageProps {
 	version: string;
@@ -138,6 +139,31 @@ export function EntryScreen({
 				<CatchingPokemonIcon sx={{ mr: 1 }} />
 				Pokedex
 			</Fab>
+
+			{import.meta.env.DEV && (
+				<Fab
+					sx={{
+						position: "fixed",
+						top: 16,
+						left: 16
+					}}
+					color="error"
+					onClick={() => {
+						const deleteEverything = confirm("Do you want to clear your localstorage?");
+						if (deleteEverything) {
+							localStorage.removeItem("poketype.daily-attempts.v1");
+							localStorage.removeItem("poketype.daily-classic.v1");
+							localStorage.removeItem("poketype.daily-reversed.v1");
+							localStorage.removeItem("poketype.daily-moves.v1");
+							window.location.reload();
+						}
+					}}
+				>
+					<DeleteIcon />
+				</Fab>
+			)}
+
+
 			<PwaInstallSnackbar />
 		</Box>
 	);
