@@ -14,6 +14,9 @@ export type DailyGameAction =
     readonly type: "CORRECT_ANSWER";
     readonly answer: CompletedDailyAnswer;
     readonly nextChallenge: DailyChallenge | null;
+} | {
+    readonly type: "RESET_SKIPS";
+    readonly nextChallenge: DailyChallenge | null;
 }
     | {
     readonly type: "INCORRECT_ANSWER";
@@ -100,6 +103,13 @@ export function dailyGameReducer(
                 skippedTypes: skippedTypes,
                 currentChallenge: action.nextChallenge,
                 runEndsAt: nextEndTime,
+            };
+        }
+        case "RESET_SKIPS": {
+            return {
+                ...state,
+                currentChallenge: action.nextChallenge,
+                skippedTypes: new Set()
             };
         }
 

@@ -21,14 +21,14 @@ export interface CreateDailyChallengeInput {
 export function createDailyChallenge({
 	pokemon,
 	usedPokemonIds,
-										 skippedTypes,
+	skippedTypes,
 	previousChallenge,
 	challengeIndex,
 	random,
 }: CreateDailyChallengeInput): DailyChallenge | null {
-	const candidates = createCandidates(pokemon, usedPokemonIds, skippedTypes).filter(
-		(candidate) => candidate.key !== createTypeKey(previousChallenge?.types),
-	);
+	const candidates = createCandidates(pokemon, usedPokemonIds, skippedTypes)
+		.filter((candidate, _, others) =>
+				others.length == 1 || candidate.key !== createTypeKey(previousChallenge?.types));
 
 	if (candidates.length === 0) {
 		return null;

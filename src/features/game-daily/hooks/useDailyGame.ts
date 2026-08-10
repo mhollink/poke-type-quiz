@@ -295,11 +295,30 @@ export function useDailyGame(
 			}
 
 			if (!nextChallenge) {
+				if (state.skippedTypes.size > 0) {
+					// attempt to create new round with already skipped entries
+					const newSkippedRound = createDailyChallenge({
+						pokemon,
+						usedPokemonIds: nextUsedPokemonIds,
+						skippedTypes: new Set(),
+						previousChallenge: state.currentChallenge,
+						challengeIndex: state.correctAnswers + state.skippedRounds + 1,
+						random: randomRef.current!,
+					});
+					if (newSkippedRound) {
+						dispatch({
+							type: "RESET_SKIPS",
+							nextChallenge: newSkippedRound,
+						});
+						return;
+					}
+				}
+
 				runResolvedRef.current = true;
 
 				dispatch({
 					type: "END_GAME",
-					reason: "no-challenges-left",
+					reason: state.skippedRounds === 0 ? "no-challenges-left" : "time-expired",
 				});
 				trackGameCompleted(analytics, {
 					mode: "classic",
