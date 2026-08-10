@@ -30,6 +30,7 @@ export interface DailyGameState {
 	readonly currentChallenge: DailyChallenge | null;
 	readonly startedAt: number | null;
 	readonly runEndsAt: number | null;
+	readonly skippedTypes: ReadonlySet<string>;
 	readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
 	readonly completedAnswers: readonly CompletedDailyAnswer[];
 	readonly lastScore: ScoreBreakdown | null;

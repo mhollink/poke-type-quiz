@@ -1,14 +1,6 @@
-import type { Pokemon, PokemonType } from "../../../types";
+import type { Pokemon, PokemonType} from "../../../types";
 import type { DailyChallenge } from "../model/dailyGameTypes";
 import type { RandomSource } from "./createSeededRandom";
-
-export interface CreateDailyChallengeInput {
-	readonly pokemon: readonly Pokemon[];
-	readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
-	readonly previousChallenge: DailyChallenge | null;
-	readonly challengeIndex: number;
-	readonly random: RandomSource;
-}
 
 interface ChallengeCandidate {
 	readonly types: readonly PokemonType[];
@@ -17,14 +9,24 @@ interface ChallengeCandidate {
 	readonly scarcityDifficulty: number;
 }
 
+export interface CreateDailyChallengeInput {
+	readonly pokemon: readonly Pokemon[];
+	readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
+	readonly skippedTypes: ReadonlySet<ChallengeCandidate["key"]>
+	readonly previousChallenge: DailyChallenge | null;
+	readonly challengeIndex: number;
+	readonly random: RandomSource;
+}
+
 export function createDailyChallenge({
 	pokemon,
 	usedPokemonIds,
+										 skippedTypes,
 	previousChallenge,
 	challengeIndex,
 	random,
 }: CreateDailyChallengeInput): DailyChallenge | null {
-	const candidates = createCandidates(pokemon, usedPokemonIds).filter(
+	const candidates = createCandidates(pokemon, usedPokemonIds, skippedTypes).filter(
 		(candidate) => candidate.key !== createTypeKey(previousChallenge?.types),
 	);
 
@@ -70,6 +72,7 @@ export function createDailyChallenge({
 function createCandidates(
 	pokemon: readonly Pokemon[],
 	usedPokemonIds: ReadonlySet<Pokemon["id"]>,
+	skippedTypes: ReadonlySet<ChallengeCandidate["key"]>,
 ): readonly ChallengeCandidate[] {
 	const groupedPokemon = new Map<string, Pokemon[]>();
 
@@ -79,6 +82,10 @@ function createCandidates(
 		}
 
 		const key = createTypeKey(candidate.types);
+		if (skippedTypes.has(key)) {
+			continue;
+		}
+
 		const existingGroup = groupedPokemon.get(key) ?? [];
 
 		groupedPokemon.set(key, [...existingGroup, candidate]);
@@ -101,6 +108,6 @@ function createCandidates(
 	});
 }
 
-function createTypeKey(types: readonly string[] | undefined): string {
+export function createTypeKey(types: readonly string[] | undefined): string {
 	return types?.join("|") ?? "";
 }

@@ -16,7 +16,7 @@ import {
 } from "../../analytics";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
-import { createDailyChallenge } from "../challenge/createDailyChallenge";
+import {createDailyChallenge, createTypeKey} from "../challenge/createDailyChallenge";
 import {
 	createDailyDateKey,
 	createDailySeed,
@@ -124,6 +124,7 @@ export function useDailyGame(
 		const firstChallenge = createDailyChallenge({
 			pokemon,
 			usedPokemonIds: new Set(),
+			skippedTypes: new Set(),
 			previousChallenge: null,
 			challengeIndex: 0,
 			random: randomRef.current!,
@@ -270,6 +271,7 @@ export function useDailyGame(
 			const nextChallenge = createDailyChallenge({
 				pokemon,
 				usedPokemonIds: nextUsedPokemonIds,
+				skippedTypes: state.skippedTypes,
 				previousChallenge: state.currentChallenge,
 				challengeIndex: state.correctAnswers + state.skippedRounds + 1,
 				random: randomRef.current!,
@@ -326,18 +328,44 @@ export function useDailyGame(
 	);
 
 	const skipRound = useCallback(() => {
+		const nextSkippedTypes = new Set(state.skippedTypes);
+		if (state.currentChallenge) {
+			nextSkippedTypes.add(createTypeKey(state.currentChallenge.types));
+		}
+
 		const nextChallenge = createDailyChallenge({
 			pokemon,
 			usedPokemonIds: state.usedPokemonIds,
+			skippedTypes: nextSkippedTypes,
 			previousChallenge: state.currentChallenge,
 			challengeIndex: state.correctAnswers + state.skippedRounds + 1,
 			random: randomRef.current!,
 		});
 
-		dispatch({
-			type: "SKIP_ROUND",
-			nextChallenge: nextChallenge,
-		});
+		if (!nextChallenge) {
+			runResolvedRef.current = true;
+
+			dispatch({
+				type: "END_GAME",
+				reason: "time-expired",
+			});
+			trackGameCompleted(analytics, {
+				mode: "classic",
+				startedAt: state.startedAt ?? now,
+				completedAt: now,
+				correctAnswers: state.correctAnswers,
+				mistakes: state.mistakes,
+				score: state.score,
+			});
+		} else {
+			dispatch({
+				type: "SKIP_ROUND",
+				skippedRound: state.currentChallenge,
+				nextChallenge: nextChallenge,
+			});
+		}
+
+
 	}, [
 		pokemon,
 		state.usedPokemonIds,
