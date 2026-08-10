@@ -41,6 +41,7 @@ const timerIntervalMs = 100;
 
 export type DailySubmissionResult =
 	| "correct"
+	| "incorrect-order"
 	| "unknown-pokemon"
 	| "wrong-types"
 	| "already-used"
@@ -241,8 +242,11 @@ export function useDailyGame(
 				return;
 			}
 
-			if (!matchesDailyChallenge(knownPokemon, state.currentChallenge)) {
-				setSubmissionResult("wrong-types");
+			const result = matchesDailyChallenge(knownPokemon, state.currentChallenge);
+			if (result !== "match") {
+
+
+				setSubmissionResult(result);
 
 				dispatch({
 					type: "INCORRECT_ANSWER",

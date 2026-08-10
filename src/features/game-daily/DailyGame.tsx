@@ -97,6 +97,7 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 									<DailyChallenge challenge={game.state.currentChallenge} />
 
 									<Stack spacing={1}>
+										<DailyAnswerFeedback result={game.submissionResult} />
 										<PokemonAutocomplete
 											key={game.state.currentChallenge.id}
 											pokemon={availablePokemon}
@@ -105,8 +106,6 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 											maximumSuggestions={8}
 											onSubmit={game.submitAnswer}
 										/>
-
-										<DailyAnswerFeedback result={game.submissionResult} />
 									</Stack>
 
 									<Button

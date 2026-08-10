@@ -1,4 +1,4 @@
-import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
 import type { DailySubmissionResult } from "../hooks/useDailyGame";
 
 export interface DailyAnswerFeedbackProps {
@@ -9,29 +9,24 @@ export function DailyAnswerFeedback({ result }: DailyAnswerFeedbackProps) {
 	const feedback = getFeedback(result);
 
 	return (
-		<Typography
-			variant="caption"
-			color={
-				feedback?.severity === "error"
-					? "error"
-					: feedback?.severity === "success"
-						? "success"
-						: "textSecondary"
-			}
+		<Alert
+			variant="standard"
 			sx={{
 				minHeight: "1.25rem",
 				textAlign: "center",
 			}}
 			aria-live="polite"
+			icon={false}
+			severity={feedback?.severity ?? "info"}
 		>
 			{feedback?.message ??
 				"Choose a Pokémon with the exact displayed type combination."}
-		</Typography>
+		</Alert>
 	);
 }
 
 interface Feedback {
-	readonly severity: "success" | "error";
+	readonly severity: "success" | "error" | "warning";
 	readonly message: string;
 }
 
@@ -41,6 +36,12 @@ function getFeedback(result: DailySubmissionResult): Feedback | null {
 			return {
 				severity: "success",
 				message: "Correct. Your streak increased.",
+			};
+
+		case "incorrect-order":
+			return {
+				severity: "warning",
+				message: "That Pokémon has the correct types, but the primary and secondary types are reversed.",
 			};
 
 		case "wrong-types":
