@@ -12305,7 +12305,7 @@
       "fire",
       "rock"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 58
   },
   {
@@ -12316,7 +12316,7 @@
       "fire",
       "rock"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 59
   },
   {
@@ -12327,7 +12327,7 @@
       "electric",
       "grass"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 100
   },
   {
@@ -12338,7 +12338,7 @@
       "electric",
       "grass"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 101
   },
   {
@@ -12349,7 +12349,7 @@
       "fire",
       "ghost"
     ],
-    "gen": 2,
+    "gen": 7,
     "origin": 157
   },
   {
@@ -12360,7 +12360,7 @@
       "dark",
       "poison"
     ],
-    "gen": 2,
+    "gen": 7,
     "origin": 211
   },
   {
@@ -12371,7 +12371,7 @@
       "fighting",
       "poison"
     ],
-    "gen": 2,
+    "gen": 7,
     "origin": 215
   },
   {
@@ -12382,7 +12382,7 @@
       "water",
       "dark"
     ],
-    "gen": 5,
+    "gen": 7,
     "origin": 503
   },
   {
@@ -12393,7 +12393,7 @@
       "grass",
       "fighting"
     ],
-    "gen": 5,
+    "gen": 7,
     "origin": 549
   },
   {
@@ -12404,7 +12404,7 @@
       "normal",
       "ghost"
     ],
-    "gen": 5,
+    "gen": 7,
     "origin": 570
   },
   {
@@ -12415,7 +12415,7 @@
       "normal",
       "ghost"
     ],
-    "gen": 5,
+    "gen": 7,
     "origin": 571
   },
   {
@@ -12426,7 +12426,7 @@
       "psychic",
       "flying"
     ],
-    "gen": 5,
+    "gen": 7,
     "origin": 628
   },
   {
@@ -12437,7 +12437,7 @@
       "steel",
       "dragon"
     ],
-    "gen": 6,
+    "gen": 7,
     "origin": 705
   },
   {
@@ -12448,7 +12448,7 @@
       "steel",
       "dragon"
     ],
-    "gen": 6,
+    "gen": 7,
     "origin": 706
   },
   {
@@ -12459,7 +12459,7 @@
       "ice",
       "rock"
     ],
-    "gen": 6,
+    "gen": 7,
     "origin": 713
   },
   {
