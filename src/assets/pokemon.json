@@ -13365,7 +13365,7 @@
       "ground"
     ],
     "gen": 4,
-    "origin": "wormadam-plant"
+    "origin": 413
   },
   {
     "nr": 10005,
@@ -13376,7 +13376,7 @@
       "steel"
     ],
     "gen": 4,
-    "origin": "wormadam-plant"
+    "origin": 413
   },
   {
     "nr": 10006,
@@ -13387,7 +13387,7 @@
       "flying"
     ],
     "gen": 4,
-    "origin": "shaymin-land"
+    "origin": 492
   },
   {
     "nr": 10018,
@@ -13398,7 +13398,7 @@
       "fighting"
     ],
     "gen": 7,
-    "origin": "oricorio-baile"
+    "origin": 648
   },
   {
     "nr": 10123,
@@ -13409,7 +13409,7 @@
       "flying"
     ],
     "gen": 7,
-    "origin": "oricorio-baile"
+    "origin": 741
   },
   {
     "nr": 10124,
@@ -13420,7 +13420,7 @@
       "flying"
     ],
     "gen": 7,
-    "origin": "oricorio-baile"
+    "origin": 741
   },
   {
     "nr": 10125,
@@ -13431,7 +13431,7 @@
       "flying"
     ],
     "gen": 7,
-    "origin": "oricorio-baile"
+    "origin": 741
   },
   {
     "nr": 10185,
@@ -13441,6 +13441,6 @@
       "ice"
     ],
     "gen": 8,
-    "origin": "eiscue-ice"
+    "origin": 875
   }
 ]
