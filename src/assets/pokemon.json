@@ -10872,7 +10872,7 @@
       "dark",
       "normal"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 19
   },
   {
@@ -10883,7 +10883,7 @@
       "dark",
       "normal"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 20
   },
   {
@@ -10894,7 +10894,7 @@
       "dark",
       "normal"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 20
   },
   {
@@ -10954,7 +10954,7 @@
     "types": [
       "electric"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 25
   },
   {
@@ -10965,7 +10965,7 @@
       "electric",
       "psychic"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 26
   },
   {
@@ -10976,7 +10976,7 @@
       "ice",
       "steel"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 27
   },
   {
@@ -10987,7 +10987,7 @@
       "ice",
       "steel"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 28
   },
   {
@@ -10997,7 +10997,7 @@
     "types": [
       "ice"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 37
   },
   {
@@ -11008,7 +11008,7 @@
       "ice",
       "fairy"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 38
   },
   {
@@ -11019,7 +11019,7 @@
       "ground",
       "steel"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 50
   },
   {
@@ -11030,7 +11030,7 @@
       "ground",
       "steel"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 51
   },
   {
@@ -11040,7 +11040,7 @@
     "types": [
       "dark"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 52
   },
   {
@@ -11050,7 +11050,7 @@
     "types": [
       "dark"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 53
   },
   {
@@ -11061,7 +11061,7 @@
       "rock",
       "electric"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 74
   },
   {
@@ -11072,7 +11072,7 @@
       "rock",
       "electric"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 75
   },
   {
@@ -11083,7 +11083,7 @@
       "rock",
       "electric"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 76
   },
   {
@@ -11094,7 +11094,7 @@
       "poison",
       "dark"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 88
   },
   {
@@ -11105,7 +11105,7 @@
       "poison",
       "dark"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 89
   },
   {
@@ -11116,7 +11116,7 @@
       "grass",
       "dragon"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 103
   },
   {
@@ -11127,7 +11127,7 @@
       "fire",
       "ghost"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 105
   },
   {
@@ -11463,7 +11463,7 @@
       "fire",
       "ghost"
     ],
-    "gen": 1,
+    "gen": 7,
     "origin": 105
   },
   {
@@ -11589,7 +11589,7 @@
     "types": [
       "steel"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 52
   },
   {
@@ -11599,7 +11599,7 @@
     "types": [
       "psychic"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 77
   },
   {
@@ -11610,7 +11610,7 @@
       "psychic",
       "fairy"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 78
   },
   {
@@ -11620,7 +11620,7 @@
     "types": [
       "psychic"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 79
   },
   {
@@ -11631,7 +11631,7 @@
       "poison",
       "psychic"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 80
   },
   {
@@ -11641,7 +11641,7 @@
     "types": [
       "fighting"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 83
   },
   {
@@ -11652,7 +11652,7 @@
       "poison",
       "fairy"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 110
   },
   {
@@ -11663,7 +11663,7 @@
       "ice",
       "psychic"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 122
   },
   {
@@ -11674,7 +11674,7 @@
       "psychic",
       "flying"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 144
   },
   {
@@ -11685,7 +11685,7 @@
       "fighting",
       "flying"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 145
   },
   {
@@ -11696,7 +11696,7 @@
       "dark",
       "flying"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 146
   },
   {
@@ -11707,7 +11707,7 @@
       "poison",
       "psychic"
     ],
-    "gen": 2,
+    "gen": 8,
     "origin": 199
   },
   {
@@ -11717,7 +11717,7 @@
     "types": [
       "ghost"
     ],
-    "gen": 2,
+    "gen": 8,
     "origin": 222
   },
   {
@@ -11728,7 +11728,7 @@
       "dark",
       "normal"
     ],
-    "gen": 3,
+    "gen": 8,
     "origin": 263
   },
   {
@@ -11739,7 +11739,7 @@
       "dark",
       "normal"
     ],
-    "gen": 3,
+    "gen": 8,
     "origin": 264
   },
   {
@@ -11749,7 +11749,7 @@
     "types": [
       "ice"
     ],
-    "gen": 5,
+    "gen": 8,
     "origin": 554
   },
   {
@@ -11759,7 +11759,7 @@
     "types": [
       "ice"
     ],
-    "gen": 5,
+    "gen": 8,
     "origin": 555
   },
   {
@@ -11770,7 +11770,7 @@
       "ice",
       "fire"
     ],
-    "gen": 5,
+    "gen": 8,
     "origin": 555
   },
   {
@@ -11781,7 +11781,7 @@
       "ground",
       "ghost"
     ],
-    "gen": 5,
+    "gen": 8,
     "origin": 562
   },
   {
@@ -11792,7 +11792,7 @@
       "ground",
       "steel"
     ],
-    "gen": 5,
+    "gen": 8,
     "origin": 618
   },
   {
@@ -11946,7 +11946,7 @@
       "grass",
       "poison"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 3
   },
   {
@@ -11957,7 +11957,7 @@
       "fire",
       "flying"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 6
   },
   {
@@ -11967,7 +11967,7 @@
     "types": [
       "water"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 9
   },
   {
@@ -11978,7 +11978,7 @@
       "bug",
       "flying"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 12
   },
   {
@@ -11988,7 +11988,7 @@
     "types": [
       "electric"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 25
   },
   {
@@ -11998,7 +11998,7 @@
     "types": [
       "normal"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 52
   },
   {
@@ -12008,7 +12008,7 @@
     "types": [
       "fighting"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 68
   },
   {
@@ -12019,7 +12019,7 @@
       "ghost",
       "poison"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 94
   },
   {
@@ -12029,7 +12029,7 @@
     "types": [
       "water"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 99
   },
   {
@@ -12040,7 +12040,7 @@
       "water",
       "ice"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 131
   },
   {
@@ -12050,7 +12050,7 @@
     "types": [
       "normal"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 133
   },
   {
@@ -12060,7 +12060,7 @@
     "types": [
       "normal"
     ],
-    "gen": 1,
+    "gen": 8,
     "origin": 143
   },
   {
@@ -12070,7 +12070,7 @@
     "types": [
       "poison"
     ],
-    "gen": 5,
+    "gen": 8,
     "origin": 569
   },
   {
@@ -12080,7 +12080,7 @@
     "types": [
       "steel"
     ],
-    "gen": 7,
+    "gen": 8,
     "origin": 809
   },
   {
