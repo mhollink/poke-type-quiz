@@ -1,14 +1,14 @@
 import type {
-	AnalyticsEventMap,
-	AnalyticsEventName,
+  AnalyticsEventMap,
+  AnalyticsEventName,
 } from "./AnalyticsEventMap";
 import type { AnalyticsScreen } from "./AnalyticsScreen";
 
 export interface Analytics {
-	track<EventName extends AnalyticsEventName>(
-		eventName: EventName,
-		parameters: AnalyticsEventMap[EventName],
-	): void;
+  track<EventName extends AnalyticsEventName>(
+    eventName: EventName,
+    parameters: AnalyticsEventMap[EventName],
+  ): void;
 
-	trackScreen(screen: AnalyticsScreen): void;
+  trackScreen(screen: AnalyticsScreen): void;
 }

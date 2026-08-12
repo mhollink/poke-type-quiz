@@ -7,29 +7,29 @@ import { pokemonData } from "../utils";
 const Pokedex = lazy(() => import("../features/pokedex/Pokedex"));
 
 export interface PokedexScreenProps {
-	onExit: () => void;
+  onExit: () => void;
 }
 
 export function PokedexScreen({ onExit }: PokedexScreenProps) {
-	return (
-		<Container maxWidth="lg" sx={{ py: { xs: 2, sm: 4 } }}>
-			<Suspense fallback={<ScreenLoader />}>
-				<Pokedex entries={pokemonData} onExit={onExit} />
-			</Suspense>
-		</Container>
-	);
+  return (
+    <Container maxWidth="lg" sx={{ py: { xs: 2, sm: 4 } }}>
+      <Suspense fallback={<ScreenLoader />}>
+        <Pokedex entries={pokemonData} onExit={onExit} />
+      </Suspense>
+    </Container>
+  );
 }
 
 function ScreenLoader() {
-	return (
-		<Box
-			sx={{
-				minHeight: "100dvh",
-				display: "grid",
-				placeItems: "center",
-			}}
-		>
-			<CircularProgress />
-		</Box>
-	);
+  return (
+    <Box
+      sx={{
+        minHeight: "100dvh",
+        display: "grid",
+        placeItems: "center",
+      }}
+    >
+      <CircularProgress />
+    </Box>
+  );
 }

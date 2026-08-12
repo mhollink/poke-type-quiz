@@ -10,18 +10,18 @@ import { SoundPreferencesProvider } from "./features/sound/SoundPreferencesProvi
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
-	throw new Error("Root element was not found");
+  throw new Error("Root element was not found");
 }
 
 createRoot(rootElement).render(
-	<StrictMode>
-		<WithAnalytics>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<SoundPreferencesProvider>
-					<App />
-				</SoundPreferencesProvider>
-			</ThemeProvider>
-		</WithAnalytics>
-	</StrictMode>,
+  <StrictMode>
+    <WithAnalytics>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <SoundPreferencesProvider>
+          <App />
+        </SoundPreferencesProvider>
+      </ThemeProvider>
+    </WithAnalytics>
+  </StrictMode>,
 );

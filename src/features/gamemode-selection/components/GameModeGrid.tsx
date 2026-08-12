@@ -4,34 +4,34 @@ import { gameModes } from "../gameModeOptions";
 import { GameModeCard } from "./GameModeCard";
 
 interface GameModeGridProps {
-	onSelect: (gameMode: GameMode) => void;
+  onSelect: (gameMode: GameMode) => void;
 }
 
 export function GameModeGrid({ onSelect }: GameModeGridProps) {
-	return (
-		<Box
-			component="ul"
-			sx={{
-				display: "grid",
-				gridTemplateColumns: {
-					xs: "1fr",
-					md: "repeat(2, minmax(0, 1fr))",
-					xl: "repeat(4, minmax(0, 1fr))",
-				},
-				gap: 2,
-				m: 0,
-				p: 0,
-				listStyle: "none",
-			}}
-		>
-			{gameModes.map((gameMode) => (
-				<Box component="li" key={gameMode.id}>
-					<GameModeCard
-						gameMode={gameMode}
-						onSelect={() => onSelect(gameMode.id)}
-					/>
-				</Box>
-			))}
-		</Box>
-	);
+  return (
+    <Box
+      component="ul"
+      sx={{
+        display: "grid",
+        gridTemplateColumns: {
+          xs: "1fr",
+          md: "repeat(2, minmax(0, 1fr))",
+          xl: "repeat(4, minmax(0, 1fr))",
+        },
+        gap: 2,
+        m: 0,
+        p: 0,
+        listStyle: "none",
+      }}
+    >
+      {gameModes.map((gameMode) => (
+        <Box component="li" key={gameMode.id}>
+          <GameModeCard
+            gameMode={gameMode}
+            onSelect={() => onSelect(gameMode.id)}
+          />
+        </Box>
+      ))}
+    </Box>
+  );
 }

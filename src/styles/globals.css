@@ -1,59 +1,59 @@
 :root {
-	font-family: Inter, Roboto, Arial, sans-serif;
-	color-scheme: light;
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
+  font-family: Inter, Roboto, Arial, sans-serif;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-	min-width: 320px;
-	min-height: 100%;
+  min-width: 320px;
+  min-height: 100%;
 }
 
 body {
-	min-width: 320px;
-	min-height: 100vh;
-	margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
 }
 
 button,
 input {
-	font: inherit;
+  font: inherit;
 }
 
 #root {
-	position: relative;
-	isolation: isolate;
-	min-height: 100vh;
-	background: #eef3f7;
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background: #eef3f7;
 }
 
 #root::before {
-	position: fixed;
-	z-index: -2;
-	inset: 0;
-	content: "";
-	background:
-		url("/images/pokemon-types-background.webp") center / cover no-repeat;
-	filter: saturate(0.8) brightness(1.03);
-	transform: scale(1.02);
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  content: "";
+  background:
+    url("/images/pokemon-types-background.webp") center / cover no-repeat;
+  filter: saturate(0.8) brightness(1.03);
+  transform: scale(1.02);
 }
 
 #root::after {
-	position: fixed;
-	z-index: -1;
-	inset: 0;
-	content: "";
-	background: radial-gradient(
-		circle at center,
-		rgba(255, 255, 255, 0.78) 0%,
-		rgba(255, 255, 255, 0.58) 45%,
-		rgba(255, 255, 255, 0.3) 100%
-	);
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 255, 255, 0.58) 45%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
 }
 
 /*@media (prefers-color-scheme: dark) {*/

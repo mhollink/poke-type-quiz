@@ -1,8 +1,9 @@
 export type AnalyticsScreen =
-	| "home"
-	| "classic_game"
-	| "reversed_game"
-	| "daily_challenge"
-	| "game_over"
-	| "statistics"
-	| "settings";
+  | "home"
+  | "type_rush"
+  | "type_survival"
+  | "type_recall"
+  | "battle_tactics"
+  | "game_over"
+  | "statistics"
+  | "settings";
