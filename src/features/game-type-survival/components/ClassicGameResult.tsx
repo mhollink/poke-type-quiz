@@ -78,7 +78,7 @@ export function ClassicGameResult({
       </Snackbar>
 
       <GameResult
-        title="Classic run complete"
+        title="Type Survival complete"
         score={result.score}
         correctAnswers={result.correctAnswers}
         highestMultiplier={result.highestMultiplier}

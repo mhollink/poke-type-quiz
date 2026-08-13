@@ -65,7 +65,7 @@ export function DailyMoveGameResult({
           <Stack spacing={3} sx={{ textAlign: "center" }}>
             <Stack spacing={1}>
               <Typography component="h1" variant="h4">
-                Daily complete
+                Battle Tactics complete
               </Typography>
 
               <Typography color="textSecondary">

@@ -120,13 +120,13 @@ export function DailyGameResult({
 function getTitle(reason: DailyGameOverReason | "already-played"): string {
   switch (reason) {
     case "time-expired":
-      return "Daily challenge complete";
+      return "Type Rush complete";
 
     case "no-challenges-left":
-      return "Daily challenge mastered";
+      return "Type Rush mastered";
 
     case "already-played":
-      return "Today's challenge is complete";
+      return "Today's Type Rush is complete";
   }
 }
 

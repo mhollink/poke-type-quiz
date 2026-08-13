@@ -121,7 +121,7 @@ function getTitle(reason: ReversedGameOverReason | "already-played"): string {
       return "Time expired";
 
     case "no-challenges-left":
-      return "Reversed run mastered";
+      return "Type Recall mastered";
 
     case "already-played":
       return "Today's challenge is complete";

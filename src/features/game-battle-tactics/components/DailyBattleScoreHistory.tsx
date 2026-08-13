@@ -206,7 +206,7 @@ function DailyScoreHistory() {
               textAlign: "center",
             }}
           >
-            Complete a Daily challenge to start your history.
+            Complete a Battle Tactics to start your history.
           </Typography>
         ) : (
           <ChartsContainer
