@@ -109,6 +109,8 @@ function TypeRushGame({ onExit, onOpenPokedex }: TypeRushGameProps) {
               reason={game.state.gameOverReason}
               onExit={onExit}
               onOpenPokedex={onOpenPokedex}
+              usedPokemonIds={game.state.usedPokemonIds}
+              skippedTypes={game.state.skippedTypes}
             />
           )}
       </Stack>

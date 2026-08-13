@@ -14,7 +14,7 @@ export function usePokemonData() {
     [enabledGens],
   );
 
-  const availablePokemon = useMemo(
+  const availablePokemon: Pokemon[] = useMemo(
     () =>
       pokemonData
         .filter((pokemon) => enabledGens.has(pokemon.gen))
