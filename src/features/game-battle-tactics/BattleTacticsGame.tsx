@@ -9,8 +9,10 @@ import Typography from "@mui/material/Typography";
 import { useMemo } from "react";
 import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import { moveData } from "../../utils/moves.ts";
+import { GameHeader } from "../game-shared/components/GameHeader.tsx";
 import { PokemonChallenge } from "../game-type-recall/components/PokemonChallenge.tsx";
 import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
+import { MoveBattleRoundedIcon } from "../gamemode-selection/gameModeOptions.tsx";
 import { createBattleTacticsChallenge } from "./challenge/createDailyBattleTacticsChallenge.ts";
 import { BattleTacticsGameResult } from "./components/BattleTacticsGameResult.tsx";
 import { BattleTacticsGameScore } from "./components/BattleTacticsGameScore.tsx";
@@ -19,8 +21,6 @@ import { BattleTacticsResult } from "./components/BattleTacticsResult.tsx";
 import { useBattleTacticsGame } from "./hooks/useBattleTacticsGame.ts";
 import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
-import {GameHeader} from "../game-shared/components/GameHeader.tsx";
-import {MoveBattleRoundedIcon} from "../gamemode-selection/gameModeOptions.tsx";
 
 type BattleTacticsGameProps = {
   onExit: () => void;
@@ -81,23 +81,23 @@ function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
   const round = game.currentRound;
 
   return (
-    <Container
-      component="main"
-      maxWidth="md"
-    >
+    <Container component="main" maxWidth="md">
       <Stack spacing={4}>
         <Stack spacing={1} sx={{ textAlign: "center" }}>
-          <Typography component="h1" variant="h5" sx={{ fontWeight: 700 }}>
-          </Typography>
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{ fontWeight: 700 }}
+          ></Typography>
 
-          <Typography variant="body2" color="textSecondary">
-          </Typography>
+          <Typography variant="body2" color="textSecondary"></Typography>
         </Stack>
 
-          <GameHeader title="Battle Tactics"
-                      description="Choose the move that deals the most potential damage."
-                      icon={MoveBattleRoundedIcon as any} />
-
+        <GameHeader
+          title="Battle Tactics"
+          description="Choose the move that deals the most potential damage."
+          icon={MoveBattleRoundedIcon as any}
+        />
 
         <BattleTacticsGameScore
           score={game.state.score}

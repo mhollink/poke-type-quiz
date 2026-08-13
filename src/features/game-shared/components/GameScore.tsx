@@ -73,9 +73,10 @@ export function GameScore({
       <LinearProgress
         variant="determinate"
         value={timerPercentage}
+        color={timerPercentage <= 30 ? "error" : "primary"}
         aria-label={`${timeRemainingSeconds} seconds remaining`}
         sx={{
-          height: 6,
+          height: 10,
         }}
       />
 
