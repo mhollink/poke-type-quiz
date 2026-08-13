@@ -1,15 +1,15 @@
-import type { DailyAttemptRecord } from "../model/classicGameTypes";
+import type { DailyAttemptRecord } from "../model/typeSurvivalGameTypes.ts";
 
 const storageKey = "poketype.daily-classic.v1";
 
-export interface DailyAttemptRepository {
+export interface TypeSurvivalAttemptRepository {
   readonly findByDate: (dateKey: string) => DailyAttemptRecord | null;
   readonly findAll: () => readonly DailyAttemptRecord[];
 
   readonly save: (attempt: DailyAttemptRecord) => void;
 }
 
-export const localDailyAttemptRepository: DailyAttemptRepository = {
+export const localDailyAttemptRepository: TypeSurvivalAttemptRepository = {
   findByDate(dateKey) {
     return (
       readAttempts().find((attempt) => attempt.dateKey === dateKey) ?? null

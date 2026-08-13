@@ -1,12 +1,12 @@
 import { Stack, Typography } from "@mui/material";
 import { TypeBadge } from "../../game-shared/components/TypeBadge.tsx";
-import type { TypeChallenge } from "../model/classicGameTypes.ts";
+import type { TypeChallenge } from "../model/typeSurvivalGameTypes.ts";
 
-type ClassicChallengeProps = {
+type TypeSurvivalChallengeProps = {
   readonly challenge: TypeChallenge;
 };
 
-export function ClassicChallenge({ challenge }: ClassicChallengeProps) {
+export function TypeSurvivalChallenge({ challenge }: TypeSurvivalChallengeProps) {
   return (
     <Stack spacing={2} sx={{ alignItems: "center" }}>
       <Typography

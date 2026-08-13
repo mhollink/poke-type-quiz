@@ -1,11 +1,11 @@
 import type {
-  ClassicGameOverReason,
-  ClassicGameState,
-  CompletedClassicRound,
+  SurvivalGameOverReason,
+  TypeSurvivalGameState,
+  CompletedSurvivalRound,
   TypeChallenge,
-} from "./classicGameTypes";
+} from "./typeSurvivalGameTypes.ts";
 
-export type ClassicGameAction =
+export type TypeSurvivalGameAction =
   | {
       readonly type: "START_GAME";
       readonly sessionId: string;
@@ -15,16 +15,16 @@ export type ClassicGameAction =
     }
   | {
       readonly type: "CORRECT_ANSWER";
-      readonly round: CompletedClassicRound;
+      readonly round: CompletedSurvivalRound;
       readonly nextChallenge: TypeChallenge | null;
       readonly nextRoundEndsAt: number | null;
     }
   | {
       readonly type: "END_GAME";
-      readonly reason: ClassicGameOverReason;
+      readonly reason: SurvivalGameOverReason;
     };
 
-export const createInitialClassicGameState = (): ClassicGameState => ({
+export const createInitialTypeSurvivalGameState = (): TypeSurvivalGameState => ({
   sessionId: "",
   status: "playing",
   score: 0,
@@ -39,14 +39,14 @@ export const createInitialClassicGameState = (): ClassicGameState => ({
   gameOverReason: null,
 });
 
-export function classicGameReducer(
-  state: ClassicGameState,
-  action: ClassicGameAction,
-): ClassicGameState {
+export function typeSurvivalGameReducer(
+  state: TypeSurvivalGameState,
+  action: TypeSurvivalGameAction,
+): TypeSurvivalGameState {
   switch (action.type) {
     case "START_GAME":
       return {
-        ...createInitialClassicGameState(),
+        ...createInitialTypeSurvivalGameState(),
         sessionId: action.sessionId,
         currentChallenge: action.challenge,
         roundEndsAt: action.roundEndsAt,

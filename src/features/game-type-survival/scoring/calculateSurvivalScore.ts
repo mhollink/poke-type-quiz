@@ -1,18 +1,18 @@
 import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
 
-export interface CalculateClassicScoreInput {
+export interface CalculateTypeSurvivalScoreInput {
   readonly roundDurationMs: number;
   readonly timeRemainingMs: number;
   readonly availableAnswerCount: number;
   readonly roundIndex: number;
 }
 
-export function calculateClassicScore({
+export function calculateSurvivalScore({
   roundDurationMs,
   timeRemainingMs,
   availableAnswerCount,
   roundIndex,
-}: CalculateClassicScoreInput): ScoreBreakdown {
+}: CalculateTypeSurvivalScoreInput): ScoreBreakdown {
   const remainingRatio = clamp(timeRemainingMs / roundDurationMs, 0, 1);
 
   const speedMultiplier = 1 + remainingRatio / 5;

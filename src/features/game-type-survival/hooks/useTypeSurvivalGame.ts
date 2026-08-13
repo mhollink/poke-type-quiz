@@ -17,23 +17,23 @@ import { createSessionId } from "../../game-shared/utils/createSessionId";
 import { createDailyDateKey } from "../../game-type-rush/challenge/createDailySeed.ts";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
-import { createClassicChallenge } from "../challenge/createClassicChallenges.ts";
-import { classicGameConfig } from "../classicGameConfig";
+import { createSurvivalChallenge } from "../challenge/createSurvivalChallenges.ts";
+import { typeSurvivalGameConfig } from "../typeSurvivalConfig.ts";
 import {
-  classicGameReducer,
-  createInitialClassicGameState,
-} from "../model/classicGameReducer";
+  typeSurvivalGameReducer,
+  createInitialTypeSurvivalGameState,
+} from "../model/typeSurvivalGameReducer.ts";
 import type {
-  ClassicGameOverReason,
+  SurvivalGameOverReason,
   TypeChallenge,
-} from "../model/classicGameTypes";
-import { calculateClassicScore } from "../scoring/calculateClassicScore";
-import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
+} from "../model/typeSurvivalGameTypes.ts";
+import { calculateSurvivalScore } from "../scoring/calculateSurvivalScore.ts";
+import { localDailyAttemptRepository } from "../storage/typeSurvivalAttemptRepository.ts";
 
 const timerIntervalMs = 100;
 
-export interface UseClassicGame {
-  readonly state: ReturnType<typeof createInitialClassicGameState>;
+export interface UseTypeSurvivalGame {
+  readonly state: ReturnType<typeof createInitialTypeSurvivalGameState>;
   readonly timeRemainingMs: number;
   readonly timeRemainingSeconds: number;
   readonly timerProgress: number;
@@ -43,12 +43,12 @@ export interface UseClassicGame {
   readonly startGame: () => void;
 }
 
-export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
+export function useTypeSurvivalGame(pokemon: readonly Pokemon[]): UseTypeSurvivalGame {
   const sound = useSoundLevel();
   const [state, dispatch] = useReducer(
-    classicGameReducer,
+    typeSurvivalGameReducer,
     undefined,
-    createInitialClassicGameState,
+    createInitialTypeSurvivalGameState,
   );
 
   const [now, setNow] = useState(() => Date.now());
@@ -96,7 +96,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 
   const timerProgress = Math.max(
     0,
-    Math.min(1, timeRemainingMs / classicGameConfig.roundDurationMs),
+    Math.min(1, timeRemainingMs / typeSurvivalGameConfig.roundDurationMs),
   );
 
   const saveGameResult = useCallback(() => {
@@ -120,7 +120,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
   }, [state]);
 
   const endGame = useCallback(
-    (reason: ClassicGameOverReason): void => {
+    (reason: SurvivalGameOverReason): void => {
       if (roundResolvedRef.current) {
         return;
       }
@@ -162,7 +162,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
       return;
     }
 
-    const firstChallenge = createClassicChallenge({
+    const firstChallenge = createSurvivalChallenge({
       pokemon,
       usedPokemonIds: new Set(),
       previousChallenge: null,
@@ -195,7 +195,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
       sessionId: createSessionId(),
       challenge: firstChallenge.challenge,
       startedAt,
-      roundEndsAt: startedAt + classicGameConfig.roundDurationMs,
+      roundEndsAt: startedAt + typeSurvivalGameConfig.roundDurationMs,
     });
     trackGameStarted(analytics, { mode: "type_survival", startedAt });
   }, [eligibleTypes, pokemon]);
@@ -242,8 +242,8 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 
       roundResolvedRef.current = true;
 
-      const score = calculateClassicScore({
-        roundDurationMs: classicGameConfig.roundDurationMs,
+      const score = calculateSurvivalScore({
+        roundDurationMs: typeSurvivalGameConfig.roundDurationMs,
         timeRemainingMs: remainingMs,
         availableAnswerCount: availableAnswerCount,
         roundIndex: state.correctAnswers,
@@ -252,7 +252,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
       const nextUsedPokemonIds = new Set(state.usedPokemonIds);
       nextUsedPokemonIds.add(answer.id);
 
-      const nextChallenge = createClassicChallenge({
+      const nextChallenge = createSurvivalChallenge({
         pokemon,
         usedPokemonIds: nextUsedPokemonIds,
         previousChallenge: state.currentChallenge,
@@ -291,7 +291,7 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
         return;
       }
 
-      const nextRoundEndsAt = submittedAt + classicGameConfig.roundDurationMs;
+      const nextRoundEndsAt = submittedAt + typeSurvivalGameConfig.roundDurationMs;
 
       dispatch({
         type: "CORRECT_ANSWER",

@@ -1,7 +1,7 @@
 import type { Pokemon, PokemonType } from "../../../types";
-import type { TypeChallenge } from "../model/classicGameTypes";
+import type { TypeChallenge } from "../model/typeSurvivalGameTypes.ts";
 
-export interface CreateClassicChallengeInput {
+export interface CreateSurvivalChallengeInput {
   readonly pokemon: readonly Pokemon[];
   readonly usedPokemonIds: ReadonlySet<string>;
   readonly previousChallenge: TypeChallenge | null;
@@ -9,18 +9,18 @@ export interface CreateClassicChallengeInput {
   readonly createId?: () => string;
 }
 
-export interface ClassicChallengeResult {
+export interface SurvivalChallengeResult {
   readonly challenge: TypeChallenge;
   readonly availableAnswerCount: number;
 }
 
-export function createClassicChallenge({
+export function createSurvivalChallenge({
   pokemon,
   usedPokemonIds,
   previousChallenge,
   random = Math.random,
   createId = () => crypto.randomUUID(),
-}: CreateClassicChallengeInput): ClassicChallengeResult | null {
+}: CreateSurvivalChallengeInput): SurvivalChallengeResult | null {
   const availablePokemon = pokemon.filter(
     (candidate) => !usedPokemonIds.has(candidate.id),
   );

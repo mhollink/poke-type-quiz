@@ -6,21 +6,21 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { lazy, Suspense, useState } from "react";
 import {
-  createClassicChallengeShareText,
+  createTypeSurvivalChallengeShareText,
   type ShareResult,
   shareGameResult,
 } from "../../../utils";
 import { GameResult } from "../../game-shared/components/GameResult.tsx";
-import type { ClassicGameState } from "../model/classicGameTypes.ts";
-import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
+import type { TypeSurvivalGameState } from "../model/typeSurvivalGameTypes.ts";
+import { localDailyAttemptRepository } from "../storage/typeSurvivalAttemptRepository.ts";
 
 const DailyScoreHistory = lazy(
   () => import("../../game-shared/components/DailyScoreHistory"),
 );
 
-export interface ClassicGameResultProps {
+export interface TypeSurvivalGameResultProps {
   readonly result: Pick<
-    ClassicGameState,
+    TypeSurvivalGameState,
     "score" | "correctAnswers" | "highestMultiplier"
   >;
   readonly reason:
@@ -32,18 +32,18 @@ export interface ClassicGameResultProps {
   readonly onOpenPokedex: () => void;
 }
 
-export function ClassicGameResult({
+export function TypeSurvivalGameResult({
   result,
   reason,
   onExit,
   onOpenPokedex,
-}: ClassicGameResultProps) {
+}: TypeSurvivalGameResultProps) {
   const dailyAttemptRecords = localDailyAttemptRepository.findAll();
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
   async function handleShare(): Promise<void> {
-    const text = createClassicChallengeShareText({
+    const text = createTypeSurvivalChallengeShareText({
       score: result.score,
       correctAnswers: result.correctAnswers,
       highestMultiplier: result.highestMultiplier,

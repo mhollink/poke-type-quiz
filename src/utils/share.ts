@@ -32,7 +32,7 @@ export function createDailyChallengeShareText(
     .join("\n")
 }
 
-export function createClassicChallengeShareText(
+export function createTypeSurvivalChallengeShareText(
   result: DailyChallengeResultInput,
 ): string {
   return [

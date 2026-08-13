@@ -7,19 +7,19 @@ export interface TypeChallenge {
   readonly type: PokemonType;
 }
 
-export type ClassicGameOverReason =
+export type SurvivalGameOverReason =
   | "incorrect-answer"
   | "time-expired"
   | "no-challenges-left";
 
-export interface CompletedClassicRound {
+export interface CompletedSurvivalRound {
   readonly challenge: TypeChallenge;
   readonly answer: Pokemon;
   readonly timeRemainingMs: number;
   readonly score: ScoreBreakdown;
 }
 
-export interface ClassicGameState {
+export interface TypeSurvivalGameState {
   readonly sessionId: string;
   readonly status: GameStatus;
   readonly score: number;
@@ -28,10 +28,10 @@ export interface ClassicGameState {
   readonly startedAt: number | null;
   readonly roundEndsAt: number | null;
   readonly usedPokemonIds: ReadonlySet<string>;
-  readonly completedRounds: readonly CompletedClassicRound[];
+  readonly completedRounds: readonly CompletedSurvivalRound[];
   readonly lastScore: ScoreBreakdown | null;
   readonly highestMultiplier: number;
-  readonly gameOverReason: ClassicGameOverReason | null;
+  readonly gameOverReason: SurvivalGameOverReason | null;
 }
 
 export interface DailyAttemptRecord {

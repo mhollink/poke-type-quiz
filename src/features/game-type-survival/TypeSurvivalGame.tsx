@@ -3,21 +3,21 @@ import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import type { Pokemon } from "../../types";
 import { GameScore } from "../game-shared/components/GameScore";
 import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
-import { classicGameConfig } from "./classicGameConfig.ts";
-import { ClassicChallenge } from "./components/ClassicChallenge";
-import { ClassicGameResult } from "./components/ClassicGameResult.tsx";
+import { typeSurvivalGameConfig } from "./typeSurvivalConfig.ts";
+import { TypeSurvivalChallenge } from "./components/TypeSurvivalChallenge.tsx";
+import { TypeSurvivalGameResult } from "./components/TypeSurvivalGameResult.tsx";
 import { PokemonAutocomplete } from "./components/PokemonAutocomplete";
-import { useClassicGame } from "./hooks/useClassicGame";
-import { localDailyAttemptRepository } from "./storage/dailyAttemptRepository.ts";
+import { useTypeSurvivalGame } from "./hooks/useTypeSurvivalGame.ts";
+import { localDailyAttemptRepository } from "./storage/typeSurvivalAttemptRepository.ts";
 
-interface ClassicGameProps {
+interface TypeSurvivalGameProps {
   readonly onExit: () => void;
   readonly onOpenPokedex: () => void;
 }
 
-function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
+function TypeSurvivalGame({ onExit, onOpenPokedex }: TypeSurvivalGameProps) {
   const { availablePokemon } = usePokemonData();
-  const game = useClassicGame(availablePokemon);
+  const game = useTypeSurvivalGame(availablePokemon);
   const todaysResult = localDailyAttemptRepository.findByDate(
     createDailyDateKey(new Date()),
   );
@@ -38,7 +38,7 @@ function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
           },
         }}
       >
-        <ClassicGameResult
+        <TypeSurvivalGameResult
           result={{
             score: todaysResult.score,
             correctAnswers: todaysResult.correctAnswers,
@@ -69,7 +69,7 @@ function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
               <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 } }}>
                 <Stack spacing={4}>
                   <Stack spacing={1} sx={{ alignItems: "center" }}>
-                    <ClassicChallenge challenge={game.state.currentChallenge} />
+                    <TypeSurvivalChallenge challenge={game.state.currentChallenge} />
 
                     <Typography variant="caption">
                       {game.availableAnswerCount} valid answers remaining
@@ -83,8 +83,8 @@ function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
                     ].join("-")}
                     pokemon={availablePokemon}
                     excludedPokemonIds={game.state.usedPokemonIds}
-                    minimumSearchLength={classicGameConfig.minimumSearchLength}
-                    maximumSuggestions={classicGameConfig.maximumSuggestions}
+                    minimumSearchLength={typeSurvivalGameConfig.minimumSearchLength}
+                    maximumSuggestions={typeSurvivalGameConfig.maximumSuggestions}
                     onSubmit={handleSubmit}
                   />
                 </Stack>
@@ -94,7 +94,7 @@ function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
 
         {game.state.status === "game-over" &&
           game.state.gameOverReason !== null && (
-            <ClassicGameResult
+            <TypeSurvivalGameResult
               result={game.state}
               reason="already-played"
               onExit={onExit}
@@ -106,4 +106,4 @@ function ClassicGame({ onExit, onOpenPokedex }: ClassicGameProps) {
   );
 }
 
-export default ClassicGame;
+export default TypeSurvivalGame;
