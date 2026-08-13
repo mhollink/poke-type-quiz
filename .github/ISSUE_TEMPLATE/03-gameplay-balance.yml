@@ -7,9 +7,10 @@ body:
     attributes:
       label: Game mode
       options:
-        - Daily Challenge
-        - Classic mode
-        - Reversed mode
+        - Type Rush
+        - Type Survival
+        - Type Recall
+        - Battle Tactics
         - Multiple modes
         - General gameplay
     validations:

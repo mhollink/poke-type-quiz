@@ -12,9 +12,10 @@ body:
     attributes:
       label: Affected area
       options:
-        - Daily Challenge
-        - Classic mode
-        - Reversed mode
+        - Type Rush
+        - Type Survival
+        - Type Recall
+        - Battle Tactics
         - Game selection and navigation
         - Score, streak, or timer
         - Pokémon autocomplete

@@ -12,9 +12,10 @@ body:
     attributes:
       label: Area
       options:
-        - Daily Challenge
-        - Classic mode
-        - Reversed mode
+        - Type Rush
+        - Type Survival
+        - Type Recall
+        - Battle Tactics
         - New game mode
         - Scoring and progression
         - Accessibility
