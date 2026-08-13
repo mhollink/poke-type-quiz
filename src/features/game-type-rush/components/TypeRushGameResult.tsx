@@ -6,39 +6,39 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { lazy, Suspense, useMemo, useState } from "react";
 import {
-  createDailyChallengeShareText,
+  createTypeRushChallengeShareText,
   type ShareResult,
   shareGameResult,
 } from "../../../utils";
 import { GameResult } from "../../game-shared/components/GameResult";
-import { dailyGameConfig } from "../dailyGameConfig";
+import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 import type {
-  DailyAttemptRecord,
-  DailyGameOverReason,
-} from "../model/dailyGameTypes";
-import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
+  TypeRushAttemptRecord,
+  TypeRushGameOverReason,
+} from "../model/typeRushGameTypes.ts";
+import { localTypeRushAttemptRepository } from "../storage/typeRushAttemptRepository.ts";
 
-export interface DailyGameResultProps {
+export interface TypeRushGameResultProps {
   readonly attempt: Pick<
-    DailyAttemptRecord,
+    TypeRushAttemptRecord,
     "score" | "correctAnswers" | "mistakes" | "highestStreak"
   >;
-  readonly reason: DailyGameOverReason | "already-played";
+  readonly reason: TypeRushGameOverReason | "already-played";
   readonly onExit: () => void;
   readonly onOpenPokedex: () => void;
 }
 
-const DailyScoreHistory = lazy(
+const TypeRushScoreHistory = lazy(
   () => import("../../game-shared/components/DailyScoreHistory"),
 );
 
-export function DailyGameResult({
+export function TypeRushGameResult({
   attempt,
   reason,
   onExit,
   onOpenPokedex,
-}: DailyGameResultProps) {
-  const dailyAttemptRecords = localDailyAttemptRepository.findAll();
+}: TypeRushGameResultProps) {
+  const dailyAttemptRecords = localTypeRushAttemptRepository.findAll();
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
   const highestMultiplier = useMemo(
@@ -47,7 +47,7 @@ export function DailyGameResult({
   );
 
   async function handleShare(): Promise<void> {
-    const text = createDailyChallengeShareText({
+    const text = createTypeRushChallengeShareText({
       score: attempt.score,
       correctAnswers: attempt.correctAnswers,
       highestMultiplier: highestMultiplier,
@@ -111,13 +111,13 @@ export function DailyGameResult({
       <Suspense
         fallback={<Skeleton variant="rounded" animation="wave" height={260} />}
       >
-        <DailyScoreHistory dailyAttemptRecords={dailyAttemptRecords} />
+        <TypeRushScoreHistory dailyAttemptRecords={dailyAttemptRecords} />
       </Suspense>
     </Stack>
   );
 }
 
-function getTitle(reason: DailyGameOverReason | "already-played"): string {
+function getTitle(reason: TypeRushGameOverReason | "already-played"): string {
   switch (reason) {
     case "time-expired":
       return "Type Rush complete";
@@ -130,7 +130,7 @@ function getTitle(reason: DailyGameOverReason | "already-played"): string {
   }
 }
 
-function getMessage(reason: DailyGameOverReason | "already-played"): string {
+function getMessage(reason: TypeRushGameOverReason | "already-played"): string {
   switch (reason) {
     case "time-expired":
       return "Time is up. Your score has been saved for today.";
@@ -145,7 +145,7 @@ function getMessage(reason: DailyGameOverReason | "already-played"): string {
 
 function calculateHighestMultiplier(highestStreak: number): number {
   return Math.min(
-    dailyGameConfig.maximumStreakMultiplier,
-    1 + highestStreak * dailyGameConfig.streakMultiplierStep,
+    typeRushGameConfig.maximumStreakMultiplier,
+    1 + highestStreak * typeRushGameConfig.streakMultiplierStep,
   );
 }

@@ -14,7 +14,7 @@ type GameComponent = ComponentType<
 >;
 
 const gameComponents: Record<GameMode, GameComponent> = {
-  type_rush: lazy(() => import("../features/game-type-rush/DailyGame")),
+  type_rush: lazy(() => import("../features/game-type-rush/./TypeRushGame")),
   type_survival: lazy(
     () => import("../features/game-type-survival/./TypeSurvivalGame"),
   ),

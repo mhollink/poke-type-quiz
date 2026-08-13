@@ -19,7 +19,7 @@ type DailyBattleResultInput = ShareGameResultInput & {
 
 export type ShareResult = "shared" | "copied" | "cancelled";
 
-export function createDailyChallengeShareText(
+export function createTypeRushChallengeShareText(
   result: DailyChallengeResultInput,
 ): string {
   return [

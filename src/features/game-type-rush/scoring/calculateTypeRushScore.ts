@@ -1,27 +1,27 @@
 import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
-import { dailyGameConfig } from "../dailyGameConfig";
+import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 
-export interface CalculateDailyScoreInput {
+export interface CalculateTypeRushScoreInput {
   readonly streakBeforeAnswer: number;
   readonly difficulty: number;
   readonly challengeIndex: number;
 }
 
-export function calculateDailyScore({
+export function calculateTypeRushScore({
   streakBeforeAnswer,
   difficulty,
   challengeIndex,
-}: CalculateDailyScoreInput): ScoreBreakdown {
+}: CalculateTypeRushScoreInput): ScoreBreakdown {
   const nextStreak = streakBeforeAnswer + 1;
 
   const streakMultiplier = Math.min(
-    dailyGameConfig.maximumStreakMultiplier,
-    1 + nextStreak * dailyGameConfig.streakMultiplierStep,
+    typeRushGameConfig.maximumStreakMultiplier,
+    1 + nextStreak * typeRushGameConfig.streakMultiplierStep,
   );
 
   const progressionMultiplier =
     1 +
-    (Math.min(challengeIndex, 20) * dailyGameConfig.difficultyMultiplierStep) /
+    (Math.min(challengeIndex, 20) * typeRushGameConfig.difficultyMultiplierStep) /
       20;
 
   const challengeDifficultyMultiplier = 1 + difficulty;
@@ -30,11 +30,11 @@ export function calculateDailyScore({
     progressionMultiplier * challengeDifficultyMultiplier;
 
   const totalPoints = Math.round(
-    dailyGameConfig.basePoints * streakMultiplier * difficultyMultiplier,
+    typeRushGameConfig.basePoints * streakMultiplier * difficultyMultiplier,
   );
 
   return {
-    basePoints: dailyGameConfig.basePoints,
+    basePoints: typeRushGameConfig.basePoints,
     speedMultiplier: 1,
     difficultyMultiplier,
     streakMultiplier,

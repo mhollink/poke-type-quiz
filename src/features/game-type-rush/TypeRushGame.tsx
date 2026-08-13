@@ -7,24 +7,24 @@ import Typography from "@mui/material/Typography";
 import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import { GameScore } from "../game-shared/components/GameScore";
 import { PokemonAutocomplete } from "../game-type-survival/components/PokemonAutocomplete.tsx";
-import { DailyAnswerFeedback } from "./components/DailyAnswerFeedback.tsx";
-import { DailyChallenge } from "./components/DailyChallenge";
-import { DailyGameResult } from "./components/DailyGameResult.tsx";
-import useDailyGame from "./hooks/useDailyGame";
+import { TypeRushAnswerFeedback } from "./components/TypeRushAnswerFeedback.tsx";
+import { TypeRushChallenge } from "./components/TypeRushChallenge.tsx";
+import { TypeRushGameResult } from "./components/TypeRushGameResult.tsx";
+import useTypeRushGame from "./hooks/useTypeRushGame.ts";
 
-interface DailyGameProps {
+interface TypeRushGameProps {
   readonly onExit: () => void;
   readonly onOpenPokedex: () => void;
 }
 
-function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
+function TypeRushGame({ onExit, onOpenPokedex }: TypeRushGameProps) {
   const { availablePokemon } = usePokemonData();
-  const game = useDailyGame(availablePokemon);
+  const game = useTypeRushGame(availablePokemon);
 
   if (game.existingAttempt !== null && game.state.status !== "game-over") {
     return (
       <Container component="main" maxWidth="sm" sx={{ py: { xs: 4, md: 8 } }}>
-        <DailyGameResult
+        <TypeRushGameResult
           attempt={game.existingAttempt}
           reason="already-played"
           onExit={onExit}
@@ -61,7 +61,7 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
                     variant="h5"
                     sx={{ fontWeight: 700 }}
                   >
-                    Daily Challenge
+                    Type Rush Challenge
                   </Typography>
                 </Stack>
 
@@ -78,7 +78,7 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
                 lastScore={game.state.lastScore}
               />
 
-              <DailyRunStats
+              <TypeRushRunStats
                 streak={game.state.streak}
                 highestStreak={game.state.highestStreak}
                 mistakes={game.state.mistakes}
@@ -94,10 +94,10 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
                 }}
               >
                 <Stack spacing={4}>
-                  <DailyChallenge challenge={game.state.currentChallenge} />
+                  <TypeRushChallenge challenge={game.state.currentChallenge} />
 
                   <Stack spacing={1}>
-                    <DailyAnswerFeedback result={game.submissionResult} />
+                    <TypeRushAnswerFeedback result={game.submissionResult} />
                     <PokemonAutocomplete
                       key={game.state.currentChallenge.id}
                       pokemon={availablePokemon}
@@ -122,7 +122,7 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
 
         {game.state.status === "game-over" &&
           game.state.gameOverReason !== null && (
-            <DailyGameResult
+            <TypeRushGameResult
               attempt={{
                 score: game.state.score,
                 correctAnswers: game.state.correctAnswers,
@@ -139,17 +139,17 @@ function DailyGame({ onExit, onOpenPokedex }: DailyGameProps) {
   );
 }
 
-interface DailyRunStatsProps {
+interface TypeRushRunStatsProps {
   readonly streak: number;
   readonly highestStreak: number;
   readonly mistakes: number;
 }
 
-function DailyRunStats({
+function TypeRushRunStats({
   streak,
   highestStreak,
   mistakes,
-}: DailyRunStatsProps) {
+}: TypeRushRunStatsProps) {
   return (
     <Paper variant="outlined">
       <Stack
@@ -163,20 +163,20 @@ function DailyRunStats({
           />
         }
       >
-        <DailyStat label="Current streak" value={streak} />
-        <DailyStat label="Best streak" value={highestStreak} />
-        <DailyStat label="Mistakes" value={mistakes} />
+        <TypeRushStat label="Current streak" value={streak} />
+        <TypeRushStat label="Best streak" value={highestStreak} />
+        <TypeRushStat label="Mistakes" value={mistakes} />
       </Stack>
     </Paper>
   );
 }
 
-interface DailyStatProps {
+interface TypeRushStatProps {
   readonly label: string;
   readonly value: number;
 }
 
-function DailyStat({ label, value }: DailyStatProps) {
+function TypeRushStat({ label, value }: TypeRushStatProps) {
   return (
     <Stack
       spacing={0.5}
@@ -202,4 +202,4 @@ function DailyStat({ label, value }: DailyStatProps) {
   );
 }
 
-export default DailyGame;
+export default TypeRushGame;

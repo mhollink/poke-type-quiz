@@ -1,43 +1,43 @@
-import { createTypeKey } from "../challenge/createDailyChallenge.ts";
-import { dailyGameConfig } from "../dailyGameConfig.ts";
+import { createTypeKey } from "../challenge/createTypeRushChallenge.ts";
+import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 import type {
-  CompletedDailyAnswer,
-  DailyChallenge,
-  DailyGameOverReason,
-  DailyGameState,
-} from "./dailyGameTypes";
+  CompletedTypeRushAnswer,
+  TypeRushChallenge,
+  TypeRushGameOverReason,
+  TypeRushGameState,
+} from "./typeRushGameTypes.ts";
 
-export type DailyGameAction =
+export type TypeRushGameAction =
   | {
       readonly type: "START_GAME";
       readonly dateKey: string;
-      readonly challenge: DailyChallenge;
+      readonly challenge: TypeRushChallenge;
       readonly startedAt: number;
       readonly runEndsAt: number;
     }
   | {
       readonly type: "CORRECT_ANSWER";
-      readonly answer: CompletedDailyAnswer;
-      readonly nextChallenge: DailyChallenge | null;
+      readonly answer: CompletedTypeRushAnswer;
+      readonly nextChallenge: TypeRushChallenge | null;
     }
   | {
       readonly type: "RESET_SKIPS";
-      readonly nextChallenge: DailyChallenge | null;
+      readonly nextChallenge: TypeRushChallenge | null;
     }
   | {
       readonly type: "INCORRECT_ANSWER";
     }
   | {
       readonly type: "SKIP_ROUND";
-      readonly skippedRound: DailyChallenge | null;
-      readonly nextChallenge: DailyChallenge | null;
+      readonly skippedRound: TypeRushChallenge | null;
+      readonly nextChallenge: TypeRushChallenge | null;
     }
   | {
       readonly type: "END_GAME";
-      readonly reason: DailyGameOverReason;
+      readonly reason: TypeRushGameOverReason;
     };
 
-export function createInitialDailyGameState(): DailyGameState {
+export function createInitialTypeRushGameState(): TypeRushGameState {
   return {
     dateKey: "",
     status: "playing",
@@ -59,14 +59,14 @@ export function createInitialDailyGameState(): DailyGameState {
   };
 }
 
-export function dailyGameReducer(
-  state: DailyGameState,
-  action: DailyGameAction,
-): DailyGameState {
+export function typeRushGameReducer(
+  state: TypeRushGameState,
+  action: TypeRushGameAction,
+): TypeRushGameState {
   switch (action.type) {
     case "START_GAME":
       return {
-        ...createInitialDailyGameState(),
+        ...createInitialTypeRushGameState(),
         dateKey: action.dateKey,
         currentChallenge: action.challenge,
         startedAt: action.startedAt,
@@ -85,7 +85,7 @@ export function dailyGameReducer(
       const nextStreak = state.streak + 1;
       const nextEndTime = Math.min(
         (state.runEndsAt ?? Date.now()) + 10 * 1000,
-        Date.now() + dailyGameConfig.durationMs - 1000,
+        Date.now() + typeRushGameConfig.durationMs - 1000,
       );
 
       return {

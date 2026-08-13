@@ -17,33 +17,33 @@ import {
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import {
-  createDailyChallenge,
+  createTypeRushChallenge,
   createTypeKey,
-} from "../challenge/createDailyChallenge";
+} from "../challenge/createTypeRushChallenge.ts";
 import {
   createDailyDateKey,
   createDailySeed,
 } from "../challenge/createDailySeed";
 import { createSeededRandom } from "../challenge/createSeededRandom";
-import { matchesDailyChallenge } from "../challenge/matchesDailyChallenge";
-import { dailyGameConfig } from "../dailyGameConfig";
+import { matchesTypeRushChallenge } from "../challenge/matchesTypeRushChallenge.ts";
+import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 import {
-  createInitialDailyGameState,
-  dailyGameReducer,
-} from "../model/dailyGameReducer";
+  createInitialTypeRushGameState,
+  typeRushGameReducer,
+} from "../model/typeRushGameReducer.ts";
 import type {
-  DailyAttemptRecord,
-  DailyGameState,
-} from "../model/dailyGameTypes";
-import { calculateDailyScore } from "../scoring/calculateDailyScore";
+  TypeRushAttemptRecord,
+  TypeRushGameState,
+} from "../model/typeRushGameTypes.ts";
+import { calculateTypeRushScore } from "../scoring/calculateTypeRushScore.ts";
 import {
-  type DailyAttemptRepository,
-  localDailyAttemptRepository,
-} from "../storage/dailyAttemptRepository";
+  type TypeRushAttemptRepository,
+  localTypeRushAttemptRepository,
+} from "../storage/typeRushAttemptRepository.ts";
 
 const timerIntervalMs = 100;
 
-export type DailySubmissionResult =
+export type TypeRushSubmissionResult =
   | "correct"
   | "incorrect-order"
   | "unknown-pokemon"
@@ -51,47 +51,47 @@ export type DailySubmissionResult =
   | "already-used"
   | null;
 
-export interface UseDailyGameResult {
-  readonly state: DailyGameState;
-  readonly existingAttempt: DailyAttemptRecord | null;
+export interface UseTypeRushGameResult {
+  readonly state: TypeRushGameState;
+  readonly existingAttempt: TypeRushAttemptRecord | null;
   readonly canPlay: boolean;
   readonly timeRemainingMs: number;
   readonly timeRemainingSeconds: number;
   readonly timerProgress: number;
-  readonly submissionResult: DailySubmissionResult;
+  readonly submissionResult: TypeRushSubmissionResult;
 
   readonly submitAnswer: (answer: Pokemon) => void;
   readonly skipRound: () => void;
 }
 
-export interface DailyGameDependencies {
+export interface TypeRushGameDependencies {
   readonly now: () => number;
   readonly createDate: () => Date;
-  readonly attemptRepository: DailyAttemptRepository;
+  readonly attemptRepository: TypeRushAttemptRepository;
 }
 
-const defaultDependencies: DailyGameDependencies = {
+const defaultDependencies: TypeRushGameDependencies = {
   now: Date.now,
   createDate: () => new Date(),
-  attemptRepository: localDailyAttemptRepository,
+  attemptRepository: localTypeRushAttemptRepository,
 };
 
-function useDailyGame(
+function useTypeRushGame(
   pokemon: readonly Pokemon[],
-  dependencies: DailyGameDependencies = defaultDependencies,
-): UseDailyGameResult {
+  dependencies: TypeRushGameDependencies = defaultDependencies,
+): UseTypeRushGameResult {
   const sound = useSoundLevel();
   const [state, dispatch] = useReducer(
-    dailyGameReducer,
+    typeRushGameReducer,
     undefined,
-    createInitialDailyGameState,
+    createInitialTypeRushGameState,
   );
 
   const [now, setNow] = useState(dependencies.now);
   const [existingAttempt, setExistingAttempt] =
-    useState<DailyAttemptRecord | null>(null);
+    useState<TypeRushAttemptRecord | null>(null);
   const [submissionResult, setSubmissionResult] =
-    useState<DailySubmissionResult>(null);
+    useState<TypeRushSubmissionResult>(null);
 
   const initializedRef = useRef(false);
   const runResolvedRef = useRef(false);
@@ -124,7 +124,7 @@ function useDailyGame(
 
     const startedAt = dependencies.now();
 
-    const firstChallenge = createDailyChallenge({
+    const firstChallenge = createTypeRushChallenge({
       pokemon,
       usedPokemonIds: new Set(),
       skippedTypes: new Set(),
@@ -144,7 +144,7 @@ function useDailyGame(
       dateKey,
       challenge: firstChallenge,
       startedAt,
-      runEndsAt: startedAt + dailyGameConfig.durationMs,
+      runEndsAt: startedAt + typeRushGameConfig.durationMs,
     });
     trackGameStarted(analytics, { mode: "type_rush", startedAt });
   }, [dateKey, dependencies, pokemon]);
@@ -169,7 +169,7 @@ function useDailyGame(
 
   const timerProgress = Math.max(
     0,
-    Math.min(1, timeRemainingMs / dailyGameConfig.durationMs),
+    Math.min(1, timeRemainingMs / typeRushGameConfig.durationMs),
   );
 
   const endGame = useCallback((): void => {
@@ -237,7 +237,7 @@ function useDailyGame(
         return;
       }
 
-      const result = matchesDailyChallenge(
+      const result = matchesTypeRushChallenge(
         knownPokemon,
         state.currentChallenge,
       );
@@ -251,7 +251,7 @@ function useDailyGame(
         return;
       }
 
-      const score = calculateDailyScore({
+      const score = calculateTypeRushScore({
         streakBeforeAnswer: state.streak,
         difficulty: state.currentChallenge.difficulty,
         challengeIndex: state.correctAnswers,
@@ -260,7 +260,7 @@ function useDailyGame(
       const nextUsedPokemonIds = new Set(state.usedPokemonIds);
       nextUsedPokemonIds.add(knownPokemon.id);
 
-      const nextChallenge = createDailyChallenge({
+      const nextChallenge = createTypeRushChallenge({
         pokemon,
         usedPokemonIds: nextUsedPokemonIds,
         skippedTypes: state.skippedTypes,
@@ -289,7 +289,7 @@ function useDailyGame(
       if (!nextChallenge) {
         if (state.skippedTypes.size > 0) {
           // attempt to create new round with already skipped entries
-          const newSkippedRound = createDailyChallenge({
+          const newSkippedRound = createTypeRushChallenge({
             pokemon,
             usedPokemonIds: nextUsedPokemonIds,
             skippedTypes: new Set(),
@@ -351,7 +351,7 @@ function useDailyGame(
       nextSkippedTypes.add(currentChallengeKey);
     }
 
-    let nextChallenge = createDailyChallenge({
+    let nextChallenge = createTypeRushChallenge({
       pokemon,
       usedPokemonIds: state.usedPokemonIds,
       skippedTypes: nextSkippedTypes,
@@ -369,7 +369,7 @@ function useDailyGame(
     }
 
     if (currentChallengeKey) {
-      nextChallenge = createDailyChallenge({
+      nextChallenge = createTypeRushChallenge({
         pokemon,
         usedPokemonIds: state.usedPokemonIds,
         skippedTypes: new Set(currentChallengeKey),
@@ -451,7 +451,7 @@ function useDailyGame(
       state.dateKey,
     );
 
-    const completedAttempt: DailyAttemptRecord = {
+    const completedAttempt: TypeRushAttemptRecord = {
       dateKey: state.dateKey,
       startedAt: existingRecord?.startedAt ?? dependencies.now(),
       completedAt: dependencies.now(),
@@ -478,4 +478,4 @@ function useDailyGame(
   };
 }
 
-export default useDailyGame;
+export default useTypeRushGame;

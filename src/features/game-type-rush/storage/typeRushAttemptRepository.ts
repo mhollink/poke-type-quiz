@@ -1,15 +1,15 @@
-import type { DailyAttemptRecord } from "../model/dailyGameTypes";
+import type { TypeRushAttemptRecord } from "../model/typeRushGameTypes.ts";
 
 const storageKey = "poketype.daily-attempts.v1";
 
-export interface DailyAttemptRepository {
-  readonly findByDate: (dateKey: string) => DailyAttemptRecord | null;
-  readonly findAll: () => readonly DailyAttemptRecord[];
+export interface TypeRushAttemptRepository {
+  readonly findByDate: (dateKey: string) => TypeRushAttemptRecord | null;
+  readonly findAll: () => readonly TypeRushAttemptRecord[];
 
-  readonly save: (attempt: DailyAttemptRecord) => void;
+  readonly save: (attempt: TypeRushAttemptRecord) => void;
 }
 
-export const localDailyAttemptRepository: DailyAttemptRepository = {
+export const localTypeRushAttemptRepository: TypeRushAttemptRepository = {
   findByDate(dateKey) {
     return (
       readAttempts().find((attempt) => attempt.dateKey === dateKey) ?? null
@@ -29,7 +29,7 @@ export const localDailyAttemptRepository: DailyAttemptRepository = {
   },
 };
 
-function readAttempts(): readonly DailyAttemptRecord[] {
+function readAttempts(): readonly TypeRushAttemptRecord[] {
   const serializedAttempts = localStorage.getItem(storageKey);
 
   if (!serializedAttempts) {
@@ -43,18 +43,18 @@ function readAttempts(): readonly DailyAttemptRecord[] {
       return [];
     }
 
-    return parsedAttempts.filter(isDailyAttemptRecord);
+    return parsedAttempts.filter(isTypeRushAttemptRecord);
   } catch {
     return [];
   }
 }
 
-function isDailyAttemptRecord(value: unknown): value is DailyAttemptRecord {
+function isTypeRushAttemptRecord(value: unknown): value is TypeRushAttemptRecord {
   if (!value || typeof value !== "object") {
     return false;
   }
 
-  const candidate = value as Partial<DailyAttemptRecord>;
+  const candidate = value as Partial<TypeRushAttemptRecord>;
 
   return (
     typeof candidate.dateKey === "string" &&

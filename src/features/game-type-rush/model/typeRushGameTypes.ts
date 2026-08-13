@@ -1,24 +1,24 @@
-import type { Pokemon, PokemonType } from "../../../types/pokemon";
+import type { Pokemon, PokemonType } from "../../../types";
 import type { GameStatus } from "../../game-shared/model/gameStatus";
 import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
 
-export interface DailyChallenge {
+export interface TypeRushChallenge {
   readonly id: string;
   readonly types: readonly PokemonType[];
   readonly difficulty: number;
   readonly availableAnswerCount: number;
 }
 
-export interface CompletedDailyAnswer {
-  readonly challenge: DailyChallenge;
+export interface CompletedTypeRushAnswer {
+  readonly challenge: TypeRushChallenge;
   readonly pokemon: Pokemon;
   readonly score: ScoreBreakdown;
   readonly answeredAt: number;
 }
 
-export type DailyGameOverReason = "time-expired" | "no-challenges-left";
+export type TypeRushGameOverReason = "time-expired" | "no-challenges-left";
 
-export interface DailyGameState {
+export interface TypeRushGameState {
   readonly dateKey: string;
   readonly status: GameStatus;
   readonly score: number;
@@ -27,18 +27,18 @@ export interface DailyGameState {
   readonly mistakes: number;
   readonly streak: number;
   readonly highestStreak: number;
-  readonly currentChallenge: DailyChallenge | null;
+  readonly currentChallenge: TypeRushChallenge | null;
   readonly startedAt: number | null;
   readonly runEndsAt: number | null;
   readonly skippedTypes: ReadonlySet<string>;
   readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
   readonly shinies: ReadonlySet<Pokemon["id"]>;
-  readonly completedAnswers: readonly CompletedDailyAnswer[];
+  readonly completedAnswers: readonly CompletedTypeRushAnswer[];
   readonly lastScore: ScoreBreakdown | null;
-  readonly gameOverReason: DailyGameOverReason | null;
+  readonly gameOverReason: TypeRushGameOverReason | null;
 }
 
-export interface DailyAttemptRecord {
+export interface TypeRushAttemptRecord {
   readonly dateKey: string;
   readonly startedAt: number;
   readonly completedAt: number | null;

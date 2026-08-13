@@ -1,12 +1,12 @@
 import type { Pokemon } from "../../../types";
-import type { DailyChallenge } from "../model/dailyGameTypes";
+import type { TypeRushChallenge } from "../model/typeRushGameTypes.ts";
 
-export type DailyChallengeMatch = "match" | "wrong-types" | "incorrect-order";
+export type TypeRushChallengeMatch = "match" | "wrong-types" | "incorrect-order";
 
-export function matchesDailyChallenge(
+export function matchesTypeRushChallenge(
   pokemon: Pokemon,
-  challenge: DailyChallenge,
-): DailyChallengeMatch {
+  challenge: TypeRushChallenge,
+): TypeRushChallengeMatch {
   if (pokemon.types.length !== challenge.types.length) {
     return "wrong-types";
   }

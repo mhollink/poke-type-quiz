@@ -1,4 +1,4 @@
-export interface DailyGameConfig {
+export interface TypeRushGameConfig {
   readonly durationMs: number;
   readonly basePoints: number;
   readonly maximumStreakMultiplier: number;
@@ -6,7 +6,7 @@ export interface DailyGameConfig {
   readonly difficultyMultiplierStep: number;
 }
 
-export const dailyGameConfig: DailyGameConfig = {
+export const typeRushGameConfig: TypeRushGameConfig = {
   durationMs: 5 * 60 * 1_000,
   basePoints: 100,
   maximumStreakMultiplier: 2,

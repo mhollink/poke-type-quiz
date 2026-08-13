@@ -1,13 +1,13 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { TypeBadge } from "../../game-shared/components/TypeBadge.tsx";
-import type { DailyChallenge as DailyChallengeModel } from "../model/dailyGameTypes";
+import type { TypeRushChallenge as TypeRushChallengeModel } from "../model/typeRushGameTypes.ts";
 
-export interface DailyChallengeProps {
-  readonly challenge: DailyChallengeModel;
+export interface TypeRushChallengeProps {
+  readonly challenge: TypeRushChallengeModel;
 }
 
-export function DailyChallenge({ challenge }: DailyChallengeProps) {
+export function TypeRushChallenge({ challenge }: TypeRushChallengeProps) {
   return (
     <Stack
       spacing={2}

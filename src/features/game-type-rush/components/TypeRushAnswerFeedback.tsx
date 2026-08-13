@@ -1,11 +1,11 @@
 import Alert from "@mui/material/Alert";
-import type { DailySubmissionResult } from "../hooks/useDailyGame";
+import type { TypeRushSubmissionResult } from "../hooks/useTypeRushGame.ts";
 
-export interface DailyAnswerFeedbackProps {
-  readonly result: DailySubmissionResult;
+export interface TypeRushAnswerFeedbackProps {
+  readonly result: TypeRushSubmissionResult;
 }
 
-export function DailyAnswerFeedback({ result }: DailyAnswerFeedbackProps) {
+export function TypeRushAnswerFeedback({ result }: TypeRushAnswerFeedbackProps) {
   const feedback = getFeedback(result);
 
   return (
@@ -30,7 +30,7 @@ interface Feedback {
   readonly message: string;
 }
 
-function getFeedback(result: DailySubmissionResult): Feedback | null {
+function getFeedback(result: TypeRushSubmissionResult): Feedback | null {
   switch (result) {
     case "correct":
       return {

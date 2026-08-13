@@ -1,5 +1,5 @@
 import type { Pokemon, PokemonType } from "../../../types";
-import type { DailyChallenge } from "../model/dailyGameTypes";
+import type { TypeRushChallenge } from "../model/typeRushGameTypes.ts";
 import type { RandomSource } from "./createSeededRandom";
 
 interface ChallengeCandidate {
@@ -9,23 +9,23 @@ interface ChallengeCandidate {
   readonly scarcityDifficulty: number;
 }
 
-export interface CreateDailyChallengeInput {
+export interface CreateTypeRushChallengeInput {
   readonly pokemon: readonly Pokemon[];
   readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
   readonly skippedTypes: ReadonlySet<ChallengeCandidate["key"]>;
-  readonly previousChallenge: DailyChallenge | null;
+  readonly previousChallenge: TypeRushChallenge | null;
   readonly challengeIndex: number;
   readonly random: RandomSource;
 }
 
-export function createDailyChallenge({
+export function createTypeRushChallenge({
   pokemon,
   usedPokemonIds,
   skippedTypes,
   previousChallenge,
   challengeIndex,
   random,
-}: CreateDailyChallengeInput): DailyChallenge | null {
+}: CreateTypeRushChallengeInput): TypeRushChallenge | null {
   const candidates = createCandidates(
     pokemon,
     usedPokemonIds,
