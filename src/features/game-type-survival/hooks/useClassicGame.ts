@@ -110,8 +110,10 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
       highestMultiplier: state.highestMultiplier,
     });
 
-    const pokemonIds = state.completedRounds.map((round) => round.answer.id);
-    localPokedexRepository.unlock(pokemonIds);
+    const pokemon = state.completedRounds.map((round) => round.answer);
+    console.log(pokemon);
+    localPokedexRepository.unlock(pokemon.map(p => p.id));
+    localPokedexRepository.unlock(pokemon.filter(p => p.shiny).map(p => p.id), true)
   }, [state]);
 
   const endGame = useCallback(

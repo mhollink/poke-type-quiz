@@ -114,10 +114,11 @@ export function useReversedGame(
       highestMultiplier: state.highestMultiplier,
     });
 
-    const pokemonIds = state.completedRounds.map(
-      (round) => round.challenge.pokemon.id,
+    const pokemon = state.completedRounds.map(
+      (round) => round.challenge.pokemon,
     );
-    localPokedexRepository.unlock(pokemonIds);
+    localPokedexRepository.unlock(pokemon.map(p => p.id));
+    localPokedexRepository.unlock(pokemon.filter(p => p.shiny).map(p => p.id), true)
   }, [state]);
 
   const endGame = useCallback(

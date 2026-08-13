@@ -1,4 +1,5 @@
-const STORAGE_KEY = "poketype:pokedex:v1";
+const POKEDEX_STORAGE_KEY = "poketype:pokedex:v1";
+const SHINYDEX_STORAGE_KEY = "poketype:shinydex:v1";
 
 interface StoredPokedex {
   version: 1;
@@ -6,15 +7,17 @@ interface StoredPokedex {
 }
 
 export interface PokedexRepository {
-  findUnlockedIds(): ReadonlySet<string>;
-  unlock(pokemonIds: Iterable<string>): void;
+  findUnlockedIds(options?: {shiny?:boolean}): ReadonlySet<string>;
+  unlock(pokemonIds: Iterable<string>, shiny?: boolean): void;
 }
 
 export function createPokedexRepository(
   storage: Pick<Storage, "getItem" | "setItem">,
 ): PokedexRepository {
-  function findUnlockedIds(): ReadonlySet<string> {
-    const storedValue = storage.getItem(STORAGE_KEY);
+  function findUnlockedIds({
+      shiny = false
+  } = {}): ReadonlySet<string> {
+    const storedValue = storage.getItem(shiny ? SHINYDEX_STORAGE_KEY : POKEDEX_STORAGE_KEY);
 
     if (!storedValue) {
       return new Set();
@@ -37,8 +40,9 @@ export function createPokedexRepository(
     }
   }
 
-  function unlock(pokemonIds: Iterable<string>): void {
-    const unlockedPokemonIds = new Set(findUnlockedIds());
+  function unlock(pokemonIds: Iterable<string>, shiny = false): void {
+    console.log("unlock", pokemonIds, shiny)
+    const unlockedPokemonIds = new Set(findUnlockedIds({ shiny }));
 
     for (const pokemonId of pokemonIds) {
       unlockedPokemonIds.add(pokemonId);
@@ -49,7 +53,7 @@ export function createPokedexRepository(
       unlockedPokemonIds: [...unlockedPokemonIds],
     };
 
-    storage.setItem(STORAGE_KEY, JSON.stringify(storedPokedex));
+    storage.setItem(shiny ? SHINYDEX_STORAGE_KEY : POKEDEX_STORAGE_KEY, JSON.stringify(storedPokedex));
   }
 
   return {

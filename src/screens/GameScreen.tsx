@@ -14,10 +14,10 @@ type GameComponent = ComponentType<
 >;
 
 const gameComponents: Record<GameMode, GameComponent> = {
-  daily: lazy(() => import("../features/game-type-rush/DailyGame")),
-  classic: lazy(() => import("../features/game-type-survival/ClassicGame")),
-  reversed: lazy(() => import("../features/game-type-recall/ReversedGame")),
-  moves: lazy(() => import("../features/game-battle-tactics/DailyMoveGame")),
+  type_rush: lazy(() => import("../features/game-type-rush/DailyGame")),
+  type_survival: lazy(() => import("../features/game-type-survival/ClassicGame")),
+  type_recall: lazy(() => import("../features/game-type-recall/ReversedGame")),
+  battle_tactics: lazy(() => import("../features/game-battle-tactics/DailyMoveGame")),
 };
 
 export function GameScreen({

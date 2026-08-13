@@ -32,6 +32,7 @@ export interface DailyGameState {
   readonly runEndsAt: number | null;
   readonly skippedTypes: ReadonlySet<string>;
   readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
+  readonly shinies: ReadonlySet<Pokemon["id"]>;
   readonly completedAnswers: readonly CompletedDailyAnswer[];
   readonly lastScore: ScoreBreakdown | null;
   readonly gameOverReason: DailyGameOverReason | null;

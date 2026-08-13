@@ -52,6 +52,7 @@ export function createInitialDailyGameState(): DailyGameState {
     runEndsAt: null,
     skippedTypes: new Set(),
     usedPokemonIds: new Set(),
+    shinies: new Set(),
     completedAnswers: [],
     lastScore: null,
     gameOverReason: null,
@@ -76,6 +77,11 @@ export function dailyGameReducer(
       const usedPokemonIds = new Set(state.usedPokemonIds);
       usedPokemonIds.add(action.answer.pokemon.id);
 
+      const shinies = new Set(state.shinies);
+      if (action.answer.pokemon.shiny) {
+        shinies.add(action.answer.pokemon.id);
+      }
+
       const nextStreak = state.streak + 1;
       const nextEndTime = Math.min(
         (state.runEndsAt ?? Date.now()) + 10 * 1000,
@@ -90,6 +96,7 @@ export function dailyGameReducer(
         highestStreak: Math.max(state.highestStreak, nextStreak),
         currentChallenge: action.nextChallenge,
         usedPokemonIds,
+        shinies,
         completedAnswers: [...state.completedAnswers, action.answer],
         lastScore: action.answer.score,
         runEndsAt: nextEndTime,

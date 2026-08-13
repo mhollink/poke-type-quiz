@@ -29,6 +29,16 @@ function Pokedex({ entries, onExit }: PokedexProps) {
       .filter((pokemon) => !!pokemon),
   );
 
+    const unlockedShinies = new Set(
+        [...localPokedexRepository.findUnlockedIds({shiny: true})]
+            .map((pid) => pokemonData.find((p) => p.id === pid))
+            .map((pokemon) => {
+                if (!pokemon?.origin) return pokemon?.id;
+                return pokemonData.find((p) => p.nr === pokemon.origin)?.id;
+            })
+            .filter((pokemon) => !!pokemon),
+    );
+
   return (
     <Stack spacing={3}>
       <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
@@ -90,8 +100,10 @@ function Pokedex({ entries, onExit }: PokedexProps) {
       >
         {unlockables.map((pokemon) => {
           const isUnlocked = unlockedPokemonIds.has(pokemon.id);
+          const isShiny = unlockedShinies.has(pokemon.id);
 
-          return (
+
+            return (
             <Paper
               key={pokemon.id}
               variant="outlined"
@@ -119,7 +131,7 @@ function Pokedex({ entries, onExit }: PokedexProps) {
                 {isUnlocked ? (
                   <>
                     <Avatar
-                      src={getPokemonSpriteUrl(pokemon.nr)}
+                      src={getPokemonSpriteUrl(pokemon.nr, isShiny)}
                       alt=""
                       variant="square"
                       sx={{

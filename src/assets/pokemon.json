@@ -7919,54 +7919,6 @@
     "origin": 384
   },
   {
-    "nr": 10080,
-    "id": "pikachu-rock-star",
-    "name": "Pikachu Rock Star",
-    "types": ["electric"],
-    "gen": 9,
-    "origin": 25
-  },
-  {
-    "nr": 10081,
-    "id": "pikachu-belle",
-    "name": "Pikachu Belle",
-    "types": ["electric"],
-    "gen": 9,
-    "origin": 25
-  },
-  {
-    "nr": 10082,
-    "id": "pikachu-pop-star",
-    "name": "Pikachu Pop Star",
-    "types": ["electric"],
-    "gen": 9,
-    "origin": 25
-  },
-  {
-    "nr": 10083,
-    "id": "pikachu-phd",
-    "name": "Pikachu Ph.D.",
-    "types": ["electric"],
-    "gen": 9,
-    "origin": 25
-  },
-  {
-    "nr": 10084,
-    "id": "pikachu-libre",
-    "name": "Pikachu Libre",
-    "types": ["electric"],
-    "gen": 9,
-    "origin": 25
-  },
-  {
-    "nr": 10085,
-    "id": "pikachu-cosplay",
-    "name": "Cosplay Pikachu",
-    "types": ["electric"],
-    "gen": 9,
-    "origin": 25
-  },
-  {
     "nr": 10086,
     "id": "hoopa-unbound",
     "name": "Hoopa Unbound",
@@ -8029,54 +7981,6 @@
     "types": ["dark", "normal"],
     "gen": 7,
     "origin": 20
-  },
-  {
-    "nr": 10094,
-    "id": "pikachu-original-cap",
-    "name": "Original Cap Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
-  },
-  {
-    "nr": 10095,
-    "id": "pikachu-hoenn-cap",
-    "name": "Hoenn Cap Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
-  },
-  {
-    "nr": 10096,
-    "id": "pikachu-sinnoh-cap",
-    "name": "Sinnoh Cap Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
-  },
-  {
-    "nr": 10097,
-    "id": "pikachu-unova-cap",
-    "name": "Unova Cap Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
-  },
-  {
-    "nr": 10098,
-    "id": "pikachu-kalos-cap",
-    "name": "Kalos Cap Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
-  },
-  {
-    "nr": 10099,
-    "id": "pikachu-alola-cap",
-    "name": "Alola Cap Pikachu",
-    "types": ["electric"],
-    "gen": 7,
-    "origin": 25
   },
   {
     "nr": 10100,
@@ -8439,14 +8343,6 @@
     "origin": 801
   },
   {
-    "nr": 10148,
-    "id": "pikachu-partner-cap",
-    "name": "Partner Cap Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
-  },
-  {
     "nr": 10149,
     "id": "marowak-totem",
     "name": "Totem Alolan Marowak",
@@ -8517,30 +8413,6 @@
     "types": ["psychic", "dragon"],
     "gen": 7,
     "origin": 800
-  },
-  {
-    "nr": 10158,
-    "id": "pikachu-starter",
-    "name": "Partner Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
-  },
-  {
-    "nr": 10159,
-    "id": "eevee-starter",
-    "name": "Partner Eevee",
-    "types": ["normal"],
-    "gen": 1,
-    "origin": 133
-  },
-  {
-    "nr": 10160,
-    "id": "pikachu-world-cap",
-    "name": "World Cap Pikachu",
-    "types": ["electric"],
-    "gen": 1,
-    "origin": 25
   },
   {
     "nr": 10161,
@@ -9211,7 +9083,7 @@
     "id": "dialga-origin",
     "name": "Origin Dialga",
     "types": ["steel", "dragon"],
-    "gen": 4,
+    "gen": 8,
     "origin": 483
   },
   {
@@ -9219,7 +9091,7 @@
     "id": "palkia-origin",
     "name": "Origin Palkia",
     "types": ["water", "dragon"],
-    "gen": 4,
+    "gen": 8,
     "origin": 484
   },
   {
@@ -9251,7 +9123,7 @@
     "id": "tauros-paldea-combat-breed",
     "name": "Paldean Tauros (Combat Breed)",
     "types": ["fighting"],
-    "gen": 1,
+    "gen": 9,
     "origin": 128
   },
   {
@@ -9259,7 +9131,7 @@
     "id": "tauros-paldea-blaze-breed",
     "name": "Paldean Tauros (Blaze Breed)",
     "types": ["fighting", "fire"],
-    "gen": 1,
+    "gen": 9,
     "origin": 128
   },
   {
@@ -9267,7 +9139,7 @@
     "id": "tauros-paldea-aqua-breed",
     "name": "Paldean Tauros (Aqua Breed)",
     "types": ["fighting", "water"],
-    "gen": 1,
+    "gen": 9,
     "origin": 128
   },
   {
@@ -9275,7 +9147,7 @@
     "id": "wooper-paldea",
     "name": "Paldean Wooper",
     "types": ["poison", "ground"],
-    "gen": 2,
+    "gen": 9,
     "origin": 194
   },
   {

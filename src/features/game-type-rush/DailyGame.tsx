@@ -10,7 +10,7 @@ import { PokemonAutocomplete } from "../game-type-survival/components/PokemonAut
 import { DailyAnswerFeedback } from "./components/DailyAnswerFeedback.tsx";
 import { DailyChallenge } from "./components/DailyChallenge";
 import { DailyGameResult } from "./components/DailyGameResult.tsx";
-import { useDailyGame } from "./hooks/useDailyGame";
+import useDailyGame from "./hooks/useDailyGame";
 
 interface DailyGameProps {
   readonly onExit: () => void;

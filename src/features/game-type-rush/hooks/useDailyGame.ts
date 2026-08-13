@@ -76,7 +76,7 @@ const defaultDependencies: DailyGameDependencies = {
   attemptRepository: localDailyAttemptRepository,
 };
 
-export function useDailyGame(
+function useDailyGame(
   pokemon: readonly Pokemon[],
   dependencies: DailyGameDependencies = defaultDependencies,
 ): UseDailyGameResult {
@@ -137,18 +137,6 @@ export function useDailyGame(
       return;
     }
 
-    const initialAttempt: DailyAttemptRecord = {
-      dateKey,
-      startedAt,
-      completedAt: null,
-      score: 0,
-      correctAnswers: 0,
-      mistakes: 0,
-      highestStreak: 0,
-    };
-
-    dependencies.attemptRepository.save(initialAttempt);
-
     setNow(startedAt);
 
     dispatch({
@@ -204,6 +192,7 @@ export function useDailyGame(
       score: state.score,
     });
     localPokedexRepository.unlock(state.usedPokemonIds);
+    localPokedexRepository.unlock(state.shinies, true);
   }, [now, state]);
 
   const submitAnswer = useCallback(
@@ -332,6 +321,8 @@ export function useDailyGame(
           mistakes: state.mistakes,
           score: state.score,
         });
+        localPokedexRepository.unlock(state.usedPokemonIds);
+        localPokedexRepository.unlock(state.shinies, true);
       }
     },
     [
@@ -351,12 +342,14 @@ export function useDailyGame(
   );
 
   const skipRound = useCallback(() => {
+    const currentChallengeKey = !!state.currentChallenge ? createTypeKey(state.currentChallenge.types) : null
     const nextSkippedTypes = new Set(state.skippedTypes);
-    if (state.currentChallenge) {
-      nextSkippedTypes.add(createTypeKey(state.currentChallenge.types));
+
+    if (currentChallengeKey) {
+      nextSkippedTypes.add(currentChallengeKey);
     }
 
-    const nextChallenge = createDailyChallenge({
+    let nextChallenge = createDailyChallenge({
       pokemon,
       usedPokemonIds: state.usedPokemonIds,
       skippedTypes: nextSkippedTypes,
@@ -365,28 +358,51 @@ export function useDailyGame(
       random: randomRef.current!,
     });
 
-    if (!nextChallenge) {
-      runResolvedRef.current = true;
-
-      dispatch({
-        type: "END_GAME",
-        reason: "time-expired",
-      });
-      trackGameCompleted(analytics, {
-        mode: "type_rush",
-        startedAt: state.startedAt ?? now,
-        completedAt: now,
-        correctAnswers: state.correctAnswers,
-        mistakes: state.mistakes,
-        score: state.score,
-      });
-    } else {
+    if (nextChallenge) {
       dispatch({
         type: "SKIP_ROUND",
         skippedRound: state.currentChallenge,
         nextChallenge: nextChallenge,
       });
     }
+
+    if (currentChallengeKey) {
+      nextChallenge = createDailyChallenge({
+        pokemon,
+        usedPokemonIds: state.usedPokemonIds,
+        skippedTypes: new Set(currentChallengeKey),
+        previousChallenge: state.currentChallenge,
+        challengeIndex: state.correctAnswers + state.skippedRounds + 1,
+        random: randomRef.current!,
+      });
+
+      if (nextChallenge) {
+        dispatch({
+          type: "SKIP_ROUND",
+          skippedRound: state.currentChallenge,
+          nextChallenge: nextChallenge,
+        });
+        return;
+      }
+    }
+
+
+    runResolvedRef.current = true;
+
+    dispatch({
+      type: "END_GAME",
+      reason: "time-expired",
+    });
+    trackGameCompleted(analytics, {
+      mode: "type_rush",
+      startedAt: state.startedAt ?? now,
+      completedAt: now,
+      correctAnswers: state.correctAnswers,
+      mistakes: state.mistakes,
+      score: state.score,
+    });
+    localPokedexRepository.unlock(state.usedPokemonIds);
+    localPokedexRepository.unlock(state.shinies, true);
   }, [
     pokemon,
     state.usedPokemonIds,
@@ -460,3 +476,5 @@ export function useDailyGame(
     skipRound,
   };
 }
+
+export default useDailyGame

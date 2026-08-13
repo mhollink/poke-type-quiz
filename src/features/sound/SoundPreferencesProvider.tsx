@@ -11,7 +11,7 @@ import {
 
 export type SoundLevel = "on" | "mute";
 
-const STORAGE_KEY = "sound-level";
+const STORAGE_KEY = "poketype:sound-level:v1";
 
 const SoundPreferencesContext = createContext<SoundLevel | undefined>(
   undefined,
