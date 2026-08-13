@@ -19,6 +19,8 @@ import { BattleTacticsResult } from "./components/BattleTacticsResult.tsx";
 import { useBattleTacticsGame } from "./hooks/useBattleTacticsGame.ts";
 import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
+import {GameHeader} from "../game-shared/components/GameHeader.tsx";
+import {MoveBattleRoundedIcon} from "../gamemode-selection/gameModeOptions.tsx";
 
 type BattleTacticsGameProps = {
   onExit: () => void;
@@ -82,23 +84,20 @@ function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
     <Container
       component="main"
       maxWidth="md"
-      sx={{
-        py: {
-          xs: 4,
-          md: 8,
-        },
-      }}
     >
       <Stack spacing={4}>
         <Stack spacing={1} sx={{ textAlign: "center" }}>
           <Typography component="h1" variant="h5" sx={{ fontWeight: 700 }}>
-            Daily Battle
           </Typography>
 
           <Typography variant="body2" color="textSecondary">
-            Choose the move that deals the most potential damage.
           </Typography>
         </Stack>
+
+          <GameHeader title="Battle Tactics"
+                      description="Choose the move that deals the most potential damage."
+                      icon={MoveBattleRoundedIcon as any} />
+
 
         <BattleTacticsGameScore
           score={game.state.score}
