@@ -111,7 +111,6 @@ export function useTypeSurvivalGame(pokemon: readonly Pokemon[]): UseTypeSurviva
     });
 
     const pokemon = state.completedRounds.map((round) => round.answer);
-    console.log(pokemon);
     localPokedexRepository.unlock(pokemon.map((p) => p.id));
     localPokedexRepository.unlock(
       pokemon.filter((p) => p.shiny).map((p) => p.id),

@@ -41,7 +41,6 @@ export function createPokedexRepository(
   }
 
   function unlock(pokemonIds: Iterable<string>, shiny = false): void {
-    console.log("unlock", pokemonIds, shiny);
     const unlockedPokemonIds = new Set(findUnlockedIds({ shiny }));
 
     for (const pokemonId of pokemonIds) {

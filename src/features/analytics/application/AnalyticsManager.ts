@@ -21,7 +21,6 @@ export class AnalyticsManager implements Analytics {
     eventName: EventName,
     parameters: AnalyticsEventMap[EventName],
   ): void {
-    console.log({ analytics: { eventName, parameters } });
     this.delegate.track(eventName, parameters);
   }
 
