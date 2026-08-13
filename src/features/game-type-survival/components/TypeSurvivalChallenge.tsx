@@ -6,7 +6,9 @@ type TypeSurvivalChallengeProps = {
   readonly challenge: TypeChallenge;
 };
 
-export function TypeSurvivalChallenge({ challenge }: TypeSurvivalChallengeProps) {
+export function TypeSurvivalChallenge({
+  challenge,
+}: TypeSurvivalChallengeProps) {
   return (
     <Stack spacing={2} sx={{ alignItems: "center" }}>
       <Typography

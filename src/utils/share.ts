@@ -28,8 +28,7 @@ export function createTypeRushChallengeShareText(
     `Final score: ${result.score.toLocaleString()}`,
     `Correct answers: ${result.correctAnswers}`,
     `Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
-  ]
-    .join("\n")
+  ].join("\n");
 }
 
 export function createTypeSurvivalChallengeShareText(
@@ -41,8 +40,7 @@ export function createTypeSurvivalChallengeShareText(
     `Final score: ${result.score.toLocaleString()}`,
     `Correct answers: ${result.correctAnswers}`,
     `Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
-  ]
-    .join("\n")
+  ].join("\n");
 }
 
 export function createTypeRecallChallengeShareText(
@@ -55,8 +53,7 @@ export function createTypeRecallChallengeShareText(
     `Correct answers: ${result.correctAnswers}`,
     `Canonical answers: ${result.canonicalOrderAnswers}`,
     `Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
-  ]
-    .join("\n")
+  ].join("\n");
 }
 
 export function createDailyBattleShareText(
@@ -68,8 +65,7 @@ export function createDailyBattleShareText(
     `Final score: ${result.score.toLocaleString()}`,
     `Optimal moves chosen: ${result.correctAnswers}/${dailyGameConfig.rounds}`,
     `Percentage ${result.percentage}%`,
-  ]
-    .join("\n")
+  ].join("\n");
 }
 
 export async function shareGameResult(

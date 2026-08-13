@@ -5,7 +5,9 @@ export interface TypeRushAnswerFeedbackProps {
   readonly result: TypeRushSubmissionResult;
 }
 
-export function TypeRushAnswerFeedback({ result }: TypeRushAnswerFeedbackProps) {
+export function TypeRushAnswerFeedback({
+  result,
+}: TypeRushAnswerFeedbackProps) {
   const feedback = getFeedback(result);
 
   return (

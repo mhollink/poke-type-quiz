@@ -29,9 +29,9 @@ import type {
   TypeRecallGameState,
 } from "../model/typeRecallGameTypes.ts";
 import { validateTypeRecallAnswer } from "../model/validateTypeRecallAnswer.ts";
-import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
 import { calculateTypeRecallScore } from "../scoring/calculateTypeRecallScore.ts";
 import { typeRecallAttemptRepository } from "../storage/typeRecallAttemptRepository.ts";
+import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
 
 const timerIntervalMs = 100;
 

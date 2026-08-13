@@ -7,8 +7,8 @@ import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import { GameScore } from "../game-shared/components/GameScore";
 import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
 import { PokemonChallenge } from "./components/PokemonChallenge";
-import { TypeRecallGameResult } from "./components/TypeRecallGameResult.tsx";
 import { TypeRecallAnswerInput } from "./components/TypeRecallAnswerInput.tsx";
+import { TypeRecallGameResult } from "./components/TypeRecallGameResult.tsx";
 import { useTypeRecallGame } from "./hooks/useTypeRecallGame.ts";
 import { typeRecallAttemptRepository } from "./storage/typeRecallAttemptRepository.ts";
 

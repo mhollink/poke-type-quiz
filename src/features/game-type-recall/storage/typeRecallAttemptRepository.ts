@@ -49,7 +49,9 @@ function readAttempts(): readonly TypeRecallAttemptRecord[] {
   }
 }
 
-function isTypeRecallAttemptRecord(value: unknown): value is TypeRecallAttemptRecord {
+function isTypeRecallAttemptRecord(
+  value: unknown,
+): value is TypeRecallAttemptRecord {
   if (!value || typeof value !== "object") {
     return false;
   }

@@ -18,10 +18,9 @@ import { createDailyDateKey } from "../../game-type-rush/challenge/createDailySe
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import { createSurvivalChallenge } from "../challenge/createSurvivalChallenges.ts";
-import { typeSurvivalGameConfig } from "../typeSurvivalConfig.ts";
 import {
-  typeSurvivalGameReducer,
   createInitialTypeSurvivalGameState,
+  typeSurvivalGameReducer,
 } from "../model/typeSurvivalGameReducer.ts";
 import type {
   SurvivalGameOverReason,
@@ -29,6 +28,7 @@ import type {
 } from "../model/typeSurvivalGameTypes.ts";
 import { calculateSurvivalScore } from "../scoring/calculateSurvivalScore.ts";
 import { localDailyAttemptRepository } from "../storage/typeSurvivalAttemptRepository.ts";
+import { typeSurvivalGameConfig } from "../typeSurvivalConfig.ts";
 
 const timerIntervalMs = 100;
 
@@ -43,7 +43,9 @@ export interface UseTypeSurvivalGame {
   readonly startGame: () => void;
 }
 
-export function useTypeSurvivalGame(pokemon: readonly Pokemon[]): UseTypeSurvivalGame {
+export function useTypeSurvivalGame(
+  pokemon: readonly Pokemon[],
+): UseTypeSurvivalGame {
   const sound = useSoundLevel();
   const [state, dispatch] = useReducer(
     typeSurvivalGameReducer,
@@ -290,7 +292,8 @@ export function useTypeSurvivalGame(pokemon: readonly Pokemon[]): UseTypeSurviva
         return;
       }
 
-      const nextRoundEndsAt = submittedAt + typeSurvivalGameConfig.roundDurationMs;
+      const nextRoundEndsAt =
+        submittedAt + typeSurvivalGameConfig.roundDurationMs;
 
       dispatch({
         type: "CORRECT_ANSWER",

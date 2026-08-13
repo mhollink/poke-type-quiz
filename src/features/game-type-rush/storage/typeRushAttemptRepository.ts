@@ -49,7 +49,9 @@ function readAttempts(): readonly TypeRushAttemptRecord[] {
   }
 }
 
-function isTypeRushAttemptRecord(value: unknown): value is TypeRushAttemptRecord {
+function isTypeRushAttemptRecord(
+  value: unknown,
+): value is TypeRushAttemptRecord {
   if (!value || typeof value !== "object") {
     return false;
   }

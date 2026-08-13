@@ -11,12 +11,12 @@ import {
   shareGameResult,
 } from "../../../utils";
 import { GameResult } from "../../game-shared/components/GameResult";
-import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 import type {
   TypeRushAttemptRecord,
   TypeRushGameOverReason,
 } from "../model/typeRushGameTypes.ts";
 import { localTypeRushAttemptRepository } from "../storage/typeRushAttemptRepository.ts";
+import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 
 export interface TypeRushGameResultProps {
   readonly attempt: Pick<

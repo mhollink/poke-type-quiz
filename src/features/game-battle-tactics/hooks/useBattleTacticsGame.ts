@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import {
-  createInitialBattleTacticsGameState,
   battleTacticsGameReducer,
+  createInitialBattleTacticsGameState,
 } from "../model/battleTacticsGameReducer.ts";
 import type {
   BattleTacticsChallenge,
@@ -22,7 +22,9 @@ export type BattleTacticsGame = {
   continueGame: () => void;
 };
 
-export function useBattleTacticsGame(challenge: BattleTacticsChallenge): BattleTacticsGame {
+export function useBattleTacticsGame(
+  challenge: BattleTacticsChallenge,
+): BattleTacticsGame {
   const [state, dispatch] = useReducer(
     battleTacticsGameReducer,
     challenge,

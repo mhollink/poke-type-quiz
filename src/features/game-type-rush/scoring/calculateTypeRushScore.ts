@@ -21,7 +21,8 @@ export function calculateTypeRushScore({
 
   const progressionMultiplier =
     1 +
-    (Math.min(challengeIndex, 20) * typeRushGameConfig.difficultyMultiplierStep) /
+    (Math.min(challengeIndex, 20) *
+      typeRushGameConfig.difficultyMultiplierStep) /
       20;
 
   const challengeDifficultyMultiplier = 1 + difficulty;

@@ -128,7 +128,9 @@ function getTitle(reason: TypeRecallGameOverReason | "already-played"): string {
   }
 }
 
-function getMessage(reason: TypeRecallGameOverReason | "already-played"): string {
+function getMessage(
+  reason: TypeRecallGameOverReason | "already-played",
+): string {
   switch (reason) {
     case "incorrect-answer":
       return "The selected types did not match the displayed Pokémon.";

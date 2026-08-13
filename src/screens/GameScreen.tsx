@@ -18,7 +18,9 @@ const gameComponents: Record<GameMode, GameComponent> = {
   type_survival: lazy(
     () => import("../features/game-type-survival/./TypeSurvivalGame"),
   ),
-  type_recall: lazy(() => import("../features/game-type-recall/./TypeRecallGame.tsx")),
+  type_recall: lazy(
+    () => import("../features/game-type-recall/./TypeRecallGame.tsx"),
+  ),
   battle_tactics: lazy(
     () => import("../features/game-battle-tactics/BattleTacticsGame.tsx"),
   ),

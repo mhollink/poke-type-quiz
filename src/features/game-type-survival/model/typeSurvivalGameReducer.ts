@@ -1,8 +1,8 @@
 import type {
-  SurvivalGameOverReason,
-  TypeSurvivalGameState,
   CompletedSurvivalRound,
+  SurvivalGameOverReason,
   TypeChallenge,
+  TypeSurvivalGameState,
 } from "./typeSurvivalGameTypes.ts";
 
 export type TypeSurvivalGameAction =
@@ -24,20 +24,21 @@ export type TypeSurvivalGameAction =
       readonly reason: SurvivalGameOverReason;
     };
 
-export const createInitialTypeSurvivalGameState = (): TypeSurvivalGameState => ({
-  sessionId: "",
-  status: "playing",
-  score: 0,
-  correctAnswers: 0,
-  currentChallenge: null,
-  startedAt: null,
-  roundEndsAt: null,
-  usedPokemonIds: new Set<string>(),
-  completedRounds: [],
-  lastScore: null,
-  highestMultiplier: 1,
-  gameOverReason: null,
-});
+export const createInitialTypeSurvivalGameState =
+  (): TypeSurvivalGameState => ({
+    sessionId: "",
+    status: "playing",
+    score: 0,
+    correctAnswers: 0,
+    currentChallenge: null,
+    startedAt: null,
+    roundEndsAt: null,
+    usedPokemonIds: new Set<string>(),
+    completedRounds: [],
+    lastScore: null,
+    highestMultiplier: 1,
+    gameOverReason: null,
+  });
 
 export function typeSurvivalGameReducer(
   state: TypeSurvivalGameState,

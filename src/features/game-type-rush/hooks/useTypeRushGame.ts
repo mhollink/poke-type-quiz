@@ -17,16 +17,15 @@ import {
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import {
-  createTypeRushChallenge,
-  createTypeKey,
-} from "../challenge/createTypeRushChallenge.ts";
-import {
   createDailyDateKey,
   createDailySeed,
 } from "../challenge/createDailySeed";
 import { createSeededRandom } from "../challenge/createSeededRandom";
+import {
+  createTypeKey,
+  createTypeRushChallenge,
+} from "../challenge/createTypeRushChallenge.ts";
 import { matchesTypeRushChallenge } from "../challenge/matchesTypeRushChallenge.ts";
-import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 import {
   createInitialTypeRushGameState,
   typeRushGameReducer,
@@ -37,9 +36,10 @@ import type {
 } from "../model/typeRushGameTypes.ts";
 import { calculateTypeRushScore } from "../scoring/calculateTypeRushScore.ts";
 import {
-  type TypeRushAttemptRepository,
   localTypeRushAttemptRepository,
+  type TypeRushAttemptRepository,
 } from "../storage/typeRushAttemptRepository.ts";
+import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 
 const timerIntervalMs = 100;
 
