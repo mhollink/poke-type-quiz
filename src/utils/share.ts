@@ -30,7 +30,6 @@ export function createDailyChallengeShareText(
     `Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
   ]
     .join("\n")
-    .concat("\n");
 }
 
 export function createClassicChallengeShareText(
@@ -44,7 +43,6 @@ export function createClassicChallengeShareText(
     `Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
   ]
     .join("\n")
-    .concat("\n");
 }
 
 export function createReversedChallengeShareText(
@@ -59,7 +57,6 @@ export function createReversedChallengeShareText(
     `Highest multiplier: ×${result.highestMultiplier.toFixed(2)}`,
   ]
     .join("\n")
-    .concat("\n");
 }
 
 export function createDailyBattleShareText(
@@ -73,7 +70,6 @@ export function createDailyBattleShareText(
     `Percentage ${result.percentage}%`,
   ]
     .join("\n")
-    .concat("\n");
 }
 
 export async function shareGameResult(
@@ -86,8 +82,8 @@ export async function shareGameResult(
     try {
       await navigator.share({
         title,
-        text,
-        url,
+        text: text.concat("\n\n"),
+        url: url.trim(),
       });
 
       return "shared";
