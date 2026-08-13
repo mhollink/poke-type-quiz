@@ -1,4 +1,4 @@
-export interface ReversedGameConfig {
+export interface TypeRecallGameConfig {
   readonly roundDurationMs: number;
   readonly basePoints: number;
   readonly canonicalOrderMultiplier: number;
@@ -9,7 +9,7 @@ export interface ReversedGameConfig {
   readonly shinyChance: number;
 }
 
-export const reversedGameConfig: ReversedGameConfig = {
+export const typeRecallGameConfig: TypeRecallGameConfig = {
   roundDurationMs: 30_000,
   basePoints: 100,
   canonicalOrderMultiplier: 1.15,

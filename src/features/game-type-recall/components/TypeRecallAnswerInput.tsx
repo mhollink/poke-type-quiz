@@ -15,7 +15,7 @@ import {
 import { TYPE_COLORS } from "../../../theme/typeColors.ts";
 import { levenshteinDistance, normalizeSearchValue } from "../../../utils";
 import { TypeBadge } from "../../game-shared/components/TypeBadge";
-import type { PokemonType } from "../model/reversedGameTypes";
+import type { PokemonType } from "../model/typeRecallGameTypes.ts";
 
 export interface TypeAnswerInputProps {
   readonly challengeId: string;
@@ -68,7 +68,7 @@ function filterTypeOptions(
     .map((candidate) => candidate.type);
 }
 
-export function TypeAnswerInput({
+export function TypeRecallAnswerInput({
   challengeId,
   availableTypes,
   requiredTypeCount,

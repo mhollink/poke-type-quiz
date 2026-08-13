@@ -1,7 +1,7 @@
 import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
-import { reversedGameConfig } from "../reversedGameConfig";
+import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
 
-export interface CalculateReversedScoreInput {
+export interface CalculateTypeRecallScoreInput {
   readonly timeRemainingMs: number;
   readonly typeCount: number;
   readonly canonicalOrder: boolean;
@@ -9,15 +9,15 @@ export interface CalculateReversedScoreInput {
   readonly challengeDifficulty: number;
 }
 
-export function calculateReversedScore({
+export function calculateTypeRecallScore({
   timeRemainingMs,
   typeCount,
   canonicalOrder,
   correctAnswersBeforeRound,
   challengeDifficulty,
-}: CalculateReversedScoreInput): ScoreBreakdown {
+}: CalculateTypeRecallScoreInput): ScoreBreakdown {
   const remainingRatio = clamp(
-    timeRemainingMs / reversedGameConfig.roundDurationMs,
+    timeRemainingMs / typeRecallGameConfig.roundDurationMs,
     0,
     1,
   );
@@ -25,22 +25,22 @@ export function calculateReversedScore({
   const speedMultiplier = 1 + remainingRatio;
 
   const typeMultiplier =
-    typeCount > 1 ? reversedGameConfig.dualTypeMultiplier : 1;
+    typeCount > 1 ? typeRecallGameConfig.dualTypeMultiplier : 1;
 
   const difficultyMultiplier = typeMultiplier * (1 + challengeDifficulty);
 
   const precisionMultiplier =
     typeCount > 1 && canonicalOrder
-      ? reversedGameConfig.canonicalOrderMultiplier
+      ? typeRecallGameConfig.canonicalOrderMultiplier
       : 1;
 
   const streakMultiplier = Math.min(
-    reversedGameConfig.maximumStreakMultiplier,
-    1 + correctAnswersBeforeRound * reversedGameConfig.streakMultiplierStep,
+    typeRecallGameConfig.maximumStreakMultiplier,
+    1 + correctAnswersBeforeRound * typeRecallGameConfig.streakMultiplierStep,
   );
 
   const totalPoints = Math.round(
-    reversedGameConfig.basePoints *
+    typeRecallGameConfig.basePoints *
       speedMultiplier *
       difficultyMultiplier *
       precisionMultiplier *
@@ -48,7 +48,7 @@ export function calculateReversedScore({
   );
 
   return {
-    basePoints: reversedGameConfig.basePoints,
+    basePoints: typeRecallGameConfig.basePoints,
     speedMultiplier,
     difficultyMultiplier,
     streakMultiplier,

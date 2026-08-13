@@ -1,30 +1,30 @@
 import type {
-  CompletedReversedRound,
-  ReversedChallenge,
-  ReversedGameOverReason,
-  ReversedGameState,
-} from "./reversedGameTypes";
+  CompletedTypeRecallRound,
+  TypeRecallChallenge,
+  TypeRecallGameOverReason,
+  TypeRecallGameState,
+} from "./typeRecallGameTypes.ts";
 
-export type ReversedGameAction =
+export type TypeRecallGameAction =
   | {
       readonly type: "START_GAME";
       readonly sessionId: string;
-      readonly challenge: ReversedChallenge;
+      readonly challenge: TypeRecallChallenge;
       readonly startedAt: number;
       readonly roundEndsAt: number;
     }
   | {
       readonly type: "CORRECT_ANSWER";
-      readonly round: CompletedReversedRound;
-      readonly nextChallenge: ReversedChallenge | null;
+      readonly round: CompletedTypeRecallRound;
+      readonly nextChallenge: TypeRecallChallenge | null;
       readonly nextRoundEndsAt: number | null;
     }
   | {
       readonly type: "END_GAME";
-      readonly reason: ReversedGameOverReason;
+      readonly reason: TypeRecallGameOverReason;
     };
 
-export function createInitialReversedGameState(): ReversedGameState {
+export function createInitialTypeRecallGameState(): TypeRecallGameState {
   return {
     sessionId: "",
     status: "playing",
@@ -42,14 +42,14 @@ export function createInitialReversedGameState(): ReversedGameState {
   };
 }
 
-export function reversedGameReducer(
-  state: ReversedGameState,
-  action: ReversedGameAction,
-): ReversedGameState {
+export function typeRecallGameReducer(
+  state: TypeRecallGameState,
+  action: TypeRecallGameAction,
+): TypeRecallGameState {
   switch (action.type) {
     case "START_GAME":
       return {
-        ...createInitialReversedGameState(),
+        ...createInitialTypeRecallGameState(),
         sessionId: action.sessionId,
         currentChallenge: action.challenge,
         startedAt: action.startedAt,

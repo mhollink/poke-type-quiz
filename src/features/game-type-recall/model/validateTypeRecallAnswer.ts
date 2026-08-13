@@ -1,13 +1,13 @@
 import type {
   PokemonType,
-  ReversedAnswer,
-  ReversedAnswerResult,
-} from "./reversedGameTypes";
+  TypeRecallAnswer,
+  TypeRecallAnswerResult,
+} from "./typeRecallGameTypes.ts";
 
-export function validateReversedAnswer(
-  answer: ReversedAnswer,
+export function validateTypeRecallAnswer(
+  answer: TypeRecallAnswer,
   expectedTypes: readonly PokemonType[],
-): ReversedAnswerResult {
+): TypeRecallAnswerResult {
   if (answer.types.length !== expectedTypes.length) {
     return {
       correct: false,

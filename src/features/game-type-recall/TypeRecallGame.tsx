@@ -7,23 +7,23 @@ import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import { GameScore } from "../game-shared/components/GameScore";
 import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
 import { PokemonChallenge } from "./components/PokemonChallenge";
-import { ReversedGameResult } from "./components/ReversedGameResult";
-import { TypeAnswerInput } from "./components/TypeAnswerInput";
-import { useReversedGame } from "./hooks/useReversedGame";
-import { localDailyAttemptRepository } from "./storage/dailyAttemptRepository.ts";
+import { TypeRecallGameResult } from "./components/TypeRecallGameResult.tsx";
+import { TypeRecallAnswerInput } from "./components/TypeRecallAnswerInput.tsx";
+import { useTypeRecallGame } from "./hooks/useTypeRecallGame.ts";
+import { typeRecallAttemptRepository } from "./storage/typeRecallAttemptRepository.ts";
 
-interface ReversedGameProps {
+interface TypeRecallGameProps {
   readonly onExit: () => void;
   readonly onOpenPokedex: () => void;
 }
 
-function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
+function TypeRecallGame({ onExit, onOpenPokedex }: TypeRecallGameProps) {
   const { availablePokemon } = usePokemonData();
-  const game = useReversedGame(availablePokemon);
+  const game = useTypeRecallGame(availablePokemon);
 
   const todaysResult = useMemo(
     () =>
-      localDailyAttemptRepository.findByDate(createDailyDateKey(new Date())),
+      typeRecallAttemptRepository.findByDate(createDailyDateKey(new Date())),
     [],
   );
 
@@ -39,7 +39,7 @@ function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
           },
         }}
       >
-        <ReversedGameResult
+        <TypeRecallGameResult
           result={{
             score: todaysResult.score,
             correctAnswers: todaysResult.correctAnswers,
@@ -68,7 +68,7 @@ function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
       <Stack spacing={4}>
         {game.state.status === "game-over" &&
           game.state.gameOverReason !== null && (
-            <ReversedGameResult
+            <TypeRecallGameResult
               result={game.state}
               reason={game.state.gameOverReason}
               onExit={onExit}
@@ -85,7 +85,7 @@ function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
                   variant="h5"
                   sx={{ fontWeight: 700 }}
                 >
-                  Reversed
+                  Type Recall
                 </Typography>
 
                 <Typography variant="body2" color="textSecondary">
@@ -113,7 +113,7 @@ function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
                 <Stack spacing={4}>
                   <PokemonChallenge challenge={game.state.currentChallenge} />
 
-                  <TypeAnswerInput
+                  <TypeRecallAnswerInput
                     challengeId={game.state.currentChallenge.id}
                     availableTypes={game.availableTypes}
                     requiredTypeCount={
@@ -130,4 +130,4 @@ function ReversedGame({ onExit, onOpenPokedex }: ReversedGameProps) {
   );
 }
 
-export default ReversedGame;
+export default TypeRecallGame;

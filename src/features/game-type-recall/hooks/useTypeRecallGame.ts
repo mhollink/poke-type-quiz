@@ -17,38 +17,38 @@ import {
 import { createDailyDateKey } from "../../game-type-rush/challenge/createDailySeed.ts";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
-import { createReversedChallenge } from "../challenge/createReversedChallenge";
+import { createTypeRecallChallenge } from "../challenge/createTypeRecallChallenge.ts";
 import {
-  createInitialReversedGameState,
-  reversedGameReducer,
-} from "../model/reversedGameReducer";
+  createInitialTypeRecallGameState,
+  typeRecallGameReducer,
+} from "../model/typeRecallGameReducer.ts";
 import type {
   PokemonType,
-  ReversedAnswer,
-  ReversedGameOverReason,
-  ReversedGameState,
-} from "../model/reversedGameTypes";
-import { validateReversedAnswer } from "../model/validateReversedAnswer";
-import { reversedGameConfig } from "../reversedGameConfig";
-import { calculateReversedScore } from "../scoring/calculateReversedScore";
-import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
+  TypeRecallAnswer,
+  TypeRecallGameOverReason,
+  TypeRecallGameState,
+} from "../model/typeRecallGameTypes.ts";
+import { validateTypeRecallAnswer } from "../model/validateTypeRecallAnswer.ts";
+import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
+import { calculateTypeRecallScore } from "../scoring/calculateTypeRecallScore.ts";
+import { typeRecallAttemptRepository } from "../storage/typeRecallAttemptRepository.ts";
 
 const timerIntervalMs = 100;
 
-export interface ReversedGameDependencies {
+export interface TypeRecallGameDependencies {
   readonly now: () => number;
   readonly random: () => number;
   readonly createId: () => string;
 }
 
-const defaultDependencies: ReversedGameDependencies = {
+const defaultDependencies: TypeRecallGameDependencies = {
   now: Date.now,
   random: Math.random,
   createId: createId,
 };
 
-export interface UseReversedGameResult {
-  readonly state: ReversedGameState;
+export interface UseTypeRecallGameResult {
+  readonly state: TypeRecallGameState;
   readonly availableTypes: readonly PokemonType[];
   readonly timeRemainingMs: number;
   readonly timeRemainingSeconds: number;
@@ -59,15 +59,15 @@ export interface UseReversedGameResult {
   readonly startGame: () => void;
 }
 
-export function useReversedGame(
+export function useTypeRecallGame(
   pokemon: readonly Pokemon[],
-  dependencies: ReversedGameDependencies = defaultDependencies,
-): UseReversedGameResult {
+  dependencies: TypeRecallGameDependencies = defaultDependencies,
+): UseTypeRecallGameResult {
   const sound = useSoundLevel();
   const [state, dispatch] = useReducer(
-    reversedGameReducer,
+    typeRecallGameReducer,
     undefined,
-    createInitialReversedGameState,
+    createInitialTypeRecallGameState,
   );
 
   const [now, setNow] = useState(dependencies.now);
@@ -97,13 +97,13 @@ export function useReversedGame(
   const timeRemainingSeconds = Math.ceil(timeRemainingMs / 1_000);
 
   const timerProgress = clamp(
-    timeRemainingMs / reversedGameConfig.roundDurationMs,
+    timeRemainingMs / typeRecallGameConfig.roundDurationMs,
     0,
     1,
   );
 
   const saveGameResult = useCallback(() => {
-    localDailyAttemptRepository.save({
+    typeRecallAttemptRepository.save({
       dateKey: createDailyDateKey(
         state.startedAt ? new Date(state.startedAt) : new Date(),
       ),
@@ -125,7 +125,7 @@ export function useReversedGame(
   }, [state]);
 
   const endGame = useCallback(
-    (reason: ReversedGameOverReason): void => {
+    (reason: TypeRecallGameOverReason): void => {
       if (roundResolvedRef.current) {
         return;
       }
@@ -150,7 +150,7 @@ export function useReversedGame(
   );
 
   const startGame = useCallback((): void => {
-    const firstChallenge = createReversedChallenge({
+    const firstChallenge = createTypeRecallChallenge({
       pokemon,
       usedPokemonIds: new Set(),
       challengeIndex: 0,
@@ -185,7 +185,7 @@ export function useReversedGame(
       sessionId: dependencies.createId(),
       challenge: firstChallenge,
       startedAt,
-      roundEndsAt: startedAt + reversedGameConfig.roundDurationMs,
+      roundEndsAt: startedAt + typeRecallGameConfig.roundDurationMs,
     });
     trackGameStarted(analytics, { mode: "type_recall", startedAt });
   }, [dependencies, pokemon]);
@@ -209,11 +209,11 @@ export function useReversedGame(
         return;
       }
 
-      const answer: ReversedAnswer = {
+      const answer: TypeRecallAnswer = {
         types,
       };
 
-      const validation = validateReversedAnswer(
+      const validation = validateTypeRecallAnswer(
         answer,
         state.currentChallenge.pokemon.types,
       );
@@ -225,7 +225,7 @@ export function useReversedGame(
 
       roundResolvedRef.current = true;
 
-      const score = calculateReversedScore({
+      const score = calculateTypeRecallScore({
         timeRemainingMs: remainingMs,
         typeCount: state.currentChallenge.pokemon.types.length,
         canonicalOrder: validation.canonicalOrder,
@@ -237,7 +237,7 @@ export function useReversedGame(
 
       nextUsedPokemonIds.add(state.currentChallenge.pokemon.id);
 
-      const nextChallenge = createReversedChallenge({
+      const nextChallenge = createTypeRecallChallenge({
         pokemon,
         usedPokemonIds: nextUsedPokemonIds,
         challengeIndex: state.correctAnswers + 1,
@@ -246,7 +246,7 @@ export function useReversedGame(
       });
 
       const nextRoundEndsAt = nextChallenge
-        ? submittedAt + reversedGameConfig.roundDurationMs
+        ? submittedAt + typeRecallGameConfig.roundDurationMs
         : null;
 
       dispatch({

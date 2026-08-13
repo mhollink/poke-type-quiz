@@ -1,8 +1,8 @@
 import type { Pokemon } from "../../../types";
-import type { ReversedChallenge } from "../model/reversedGameTypes";
-import { reversedGameConfig } from "../reversedGameConfig.ts";
+import type { TypeRecallChallenge } from "../model/typeRecallGameTypes.ts";
+import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
 
-export interface CreateReversedChallengeInput {
+export interface CreateTypeRecallChallengeInput {
   readonly pokemon: readonly Pokemon[];
   readonly usedPokemonIds: ReadonlySet<Pokemon["id"]>;
   readonly challengeIndex: number;
@@ -15,13 +15,13 @@ interface ChallengeCandidate {
   readonly difficulty: number;
 }
 
-export function createReversedChallenge({
+export function createTypeRecallChallenge({
   pokemon,
   usedPokemonIds,
   challengeIndex,
   random = Math.random,
   createId = () => crypto.randomUUID(),
-}: CreateReversedChallengeInput): ReversedChallenge | null {
+}: CreateTypeRecallChallengeInput): TypeRecallChallenge | null {
   const candidates = pokemon
     .filter((candidate) => !usedPokemonIds.has(candidate.id))
     .map((candidate) => ({
@@ -56,7 +56,7 @@ export function createReversedChallenge({
   return {
     id: createId(),
     pokemon: selected.pokemon,
-    shiny: random() < reversedGameConfig.shinyChance,
+    shiny: random() < typeRecallGameConfig.shinyChance,
     difficulty: selected.difficulty,
   };
 }
@@ -80,7 +80,7 @@ function selectTypePool({
     return singleTypeCandidates;
   }
 
-  return random() < reversedGameConfig.dualTypeChance
+  return random() < typeRecallGameConfig.dualTypeChance
     ? dualTypeCandidates
     : singleTypeCandidates;
 }

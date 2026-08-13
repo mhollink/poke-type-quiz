@@ -45,7 +45,7 @@ export function createTypeSurvivalChallengeShareText(
     .join("\n")
 }
 
-export function createReversedChallengeShareText(
+export function createTypeRecallChallengeShareText(
   result: DailyReversalResultInput,
 ): string {
   return [

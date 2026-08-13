@@ -2,10 +2,10 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { getPokemonSpriteUrl } from "../../../utils";
-import type { ReversedChallenge } from "../model/reversedGameTypes";
+import type { TypeRecallChallenge } from "../model/typeRecallGameTypes.ts";
 
 export interface PokemonChallengeProps {
-  readonly challenge: ReversedChallenge;
+  readonly challenge: TypeRecallChallenge;
 }
 
 export function PokemonChallenge({ challenge }: PokemonChallengeProps) {

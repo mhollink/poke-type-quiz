@@ -6,43 +6,43 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { lazy, Suspense, useState } from "react";
 import {
-  createReversedChallengeShareText,
+  createTypeRecallChallengeShareText,
   type ShareResult,
   shareGameResult,
 } from "../../../utils";
 import { GameResult } from "../../game-shared/components/GameResult";
 import type {
-  ReversedGameOverReason,
-  ReversedGameState,
-} from "../model/reversedGameTypes";
-import { localDailyAttemptRepository } from "../storage/dailyAttemptRepository.ts";
+  TypeRecallGameOverReason,
+  TypeRecallGameState,
+} from "../model/typeRecallGameTypes.ts";
+import { typeRecallAttemptRepository } from "../storage/typeRecallAttemptRepository.ts";
 
 const DailyScoreHistory = lazy(
   () => import("../../game-shared/components/DailyScoreHistory"),
 );
 
-export interface ReversedGameResultProps {
+export interface TypeRecallGameResultProps {
   readonly result: Pick<
-    ReversedGameState,
+    TypeRecallGameState,
     "score" | "correctAnswers" | "highestMultiplier" | "canonicalOrderAnswers"
   >;
-  readonly reason: ReversedGameOverReason | "already-played";
+  readonly reason: TypeRecallGameOverReason | "already-played";
   readonly onExit: () => void;
   readonly onOpenPokedex: () => void;
 }
 
-export function ReversedGameResult({
+export function TypeRecallGameResult({
   result,
   reason,
   onExit,
   onOpenPokedex,
-}: ReversedGameResultProps) {
-  const dailyAttemptRecords = localDailyAttemptRepository.findAll();
+}: TypeRecallGameResultProps) {
+  const dailyAttemptRecords = typeRecallAttemptRepository.findAll();
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
   async function handleShare(): Promise<void> {
-    const text = createReversedChallengeShareText({
+    const text = createTypeRecallChallengeShareText({
       score: result.score,
       correctAnswers: result.correctAnswers,
       canonicalOrderAnswers: result.canonicalOrderAnswers,
@@ -112,7 +112,7 @@ export function ReversedGameResult({
   );
 }
 
-function getTitle(reason: ReversedGameOverReason | "already-played"): string {
+function getTitle(reason: TypeRecallGameOverReason | "already-played"): string {
   switch (reason) {
     case "incorrect-answer":
       return "Incorrect type";
@@ -128,7 +128,7 @@ function getTitle(reason: ReversedGameOverReason | "already-played"): string {
   }
 }
 
-function getMessage(reason: ReversedGameOverReason | "already-played"): string {
+function getMessage(reason: TypeRecallGameOverReason | "already-played"): string {
   switch (reason) {
     case "incorrect-answer":
       return "The selected types did not match the displayed Pokémon.";
