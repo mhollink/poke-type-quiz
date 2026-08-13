@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import {
   createReversedChallengeShareText,
   type ShareResult,
@@ -37,10 +37,7 @@ export function ReversedGameResult({
   onExit,
   onOpenPokedex,
 }: ReversedGameResultProps) {
-  const dailyAttemptRecords = useMemo(
-    () => localDailyAttemptRepository.findAll(),
-    [],
-  );
+  const dailyAttemptRecords = localDailyAttemptRepository.findAll();
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 

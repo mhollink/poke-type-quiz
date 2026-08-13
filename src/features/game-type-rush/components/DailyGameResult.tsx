@@ -38,10 +38,7 @@ export function DailyGameResult({
   onExit,
   onOpenPokedex,
 }: DailyGameResultProps) {
-  const dailyAttemptRecords = useMemo(
-    () => localDailyAttemptRepository.findAll(),
-    [],
-  );
+  const dailyAttemptRecords = localDailyAttemptRepository.findAll();
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
   const highestMultiplier = useMemo(

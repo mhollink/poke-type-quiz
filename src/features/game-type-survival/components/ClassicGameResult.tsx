@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import {
   createClassicChallengeShareText,
   type ShareResult,
@@ -38,10 +38,7 @@ export function ClassicGameResult({
   onExit,
   onOpenPokedex,
 }: ClassicGameResultProps) {
-  const dailyAttemptRecords = useMemo(
-    () => localDailyAttemptRepository.findAll(),
-    [],
-  );
+  const dailyAttemptRecords = localDailyAttemptRepository.findAll();
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
