@@ -11,6 +11,7 @@ import { TypeSurvivalGameResult } from "./components/TypeSurvivalGameResult.tsx"
 import { useTypeSurvivalGame } from "./hooks/useTypeSurvivalGame.ts";
 import { localDailyAttemptRepository } from "./storage/typeSurvivalAttemptRepository.ts";
 import { typeSurvivalGameConfig } from "./typeSurvivalConfig.ts";
+import {useMemo} from "react";
 
 interface TypeSurvivalGameProps {
   readonly onExit: () => void;
@@ -20,9 +21,9 @@ interface TypeSurvivalGameProps {
 function TypeSurvivalGame({ onExit, onOpenPokedex }: TypeSurvivalGameProps) {
   const { availablePokemon } = usePokemonData();
   const game = useTypeSurvivalGame(availablePokemon);
-  const todaysResult = localDailyAttemptRepository.findByDate(
+  const todaysResult = useMemo(() => localDailyAttemptRepository.findByDate(
     createDailyDateKey(new Date()),
-  );
+  ), []);
 
   function handleSubmit(pokemon: Pokemon): void {
     game.submitAnswer(pokemon);
@@ -110,9 +111,11 @@ function TypeSurvivalGame({ onExit, onOpenPokedex }: TypeSurvivalGameProps) {
           game.state.gameOverReason !== null && (
             <TypeSurvivalGameResult
               result={game.state}
-              reason="already-played"
+              reason={game.state.gameOverReason}
               onExit={onExit}
               onOpenPokedex={onOpenPokedex}
+              incorrectType={game.state.currentChallenge!.type}
+              usedPokemonIds={game.state.usedPokemonIds}
             />
           )}
       </Stack>
