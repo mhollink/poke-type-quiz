@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-type DailyMoveGameScoreProps = {
+type BattleTacticsGameScoreProps = {
   score: number;
   maxScore: number;
   roundNumber: number;
@@ -11,13 +11,13 @@ type DailyMoveGameScoreProps = {
   optimalSelections: number;
 };
 
-export function DailyMoveGameScore({
+export function BattleTacticsGameScore({
   score,
   maxScore,
   roundNumber,
   roundCount,
   optimalSelections,
-}: DailyMoveGameScoreProps) {
+}: BattleTacticsGameScoreProps) {
   const progress = roundCount === 0 ? 0 : (roundNumber / roundCount) * 100;
 
   return (

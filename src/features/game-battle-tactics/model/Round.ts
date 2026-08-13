@@ -1,27 +1,27 @@
 import type { Move, Pokemon } from "../../../types";
 import type { MoveScoreBreakdown } from "./Score.ts";
 
-export type DailyMoveOptionSelection = {
-  options: readonly DailyMoveOption[];
+export type BattleTacticsOptionSelection = {
+  options: readonly BattleTacticsOption[];
   bestMoveId: string;
 };
 
-export type DailyMoveOption = {
+export type BattleTacticsOption = {
   move: Move;
   hitCount: number;
   score: MoveScoreBreakdown;
 };
 
-export type DailyMoveRound = {
+export type BattleTacticsRound = {
   index: number;
   pokemon: Pokemon;
-  options: readonly DailyMoveOption[];
+  options: readonly BattleTacticsOption[];
   maxScore: number;
 };
 
-export type DailyMoveChallenge = {
+export type BattleTacticsChallenge = {
   dateKey: string;
-  rounds: readonly DailyMoveRound[];
+  rounds: readonly BattleTacticsRound[];
   maxScore: number;
 };
 

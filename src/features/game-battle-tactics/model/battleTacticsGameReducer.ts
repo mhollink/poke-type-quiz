@@ -1,7 +1,7 @@
 import { localDailyBattleRepository } from "../storage/dailyAttemptRepository.ts";
-import type { DailyMoveChallenge } from "./Round";
+import type { BattleTacticsChallenge } from "./Round";
 
-export type DailyMoveSelection = {
+export type BattleTacticsSelection = {
   roundIndex: number;
   pokemonId: string;
   moveId: string;
@@ -10,17 +10,17 @@ export type DailyMoveSelection = {
   isOptimal: boolean;
 };
 
-export type DailyMoveGameState = {
+export type BattleTacticsGameState = {
   status: "playing" | "completed";
-  challenge: DailyMoveChallenge;
+  challenge: BattleTacticsChallenge;
   roundIndex: number;
   score: number;
   optimalSelections: number;
   selectedMoveId: string | null;
-  selections: readonly DailyMoveSelection[];
+  selections: readonly BattleTacticsSelection[];
 };
 
-export type DailyMoveGameAction =
+export type BattleTacticsGameAction =
   | {
       type: "select-move";
       moveId: string;
@@ -30,12 +30,12 @@ export type DailyMoveGameAction =
     }
   | {
       type: "replace-challenge";
-      challenge: DailyMoveChallenge;
+      challenge: BattleTacticsChallenge;
     };
 
-export function createInitialDailyMoveGameState(
-  challenge: DailyMoveChallenge,
-): DailyMoveGameState {
+export function createInitialBattleTacticsGameState(
+  challenge: BattleTacticsChallenge,
+): BattleTacticsGameState {
   return {
     status: "playing",
     challenge,
@@ -47,10 +47,10 @@ export function createInitialDailyMoveGameState(
   };
 }
 
-export function dailyMoveGameReducer(
-  state: DailyMoveGameState,
-  action: DailyMoveGameAction,
-): DailyMoveGameState {
+export function battleTacticsGameReducer(
+  state: BattleTacticsGameState,
+  action: BattleTacticsGameAction,
+): BattleTacticsGameState {
   switch (action.type) {
     case "select-move": {
       if (state.status !== "playing" || state.selectedMoveId !== null) {
@@ -76,7 +76,7 @@ export function dailyMoveGameReducer(
       const awardedScore = selectedOption.score.score;
       const isOptimal = awardedScore === round.maxScore;
 
-      const selection: DailyMoveSelection = {
+      const selection: BattleTacticsSelection = {
         roundIndex: state.roundIndex,
         pokemonId: round.pokemon.id,
         moveId: selectedOption.move.id,
@@ -129,6 +129,6 @@ export function dailyMoveGameReducer(
     }
 
     case "replace-challenge":
-      return createInitialDailyMoveGameState(action.challenge);
+      return createInitialBattleTacticsGameState(action.challenge);
   }
 }

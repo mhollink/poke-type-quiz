@@ -5,23 +5,23 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { TypeBadge } from "../../game-shared/components/TypeBadge.tsx";
-import type { DailyMoveOption } from "../model/Round.ts";
+import type { BattleTacticsOption } from "../model/Round.ts";
 
-type DailyMoveOptionProps = {
-  option: DailyMoveOption;
+type BattleTacticsOptionProps = {
+  option: BattleTacticsOption;
   resolved: boolean;
   selected: boolean;
   optimal: boolean;
   onSelect: (moveId: string) => void;
 };
 
-export function DailyMoveOptionCard({
+export function BattleTacticsOptionCard({
   option,
   resolved,
   selected,
   optimal,
   onSelect,
-}: DailyMoveOptionProps) {
+}: BattleTacticsOptionProps) {
   const { move } = option;
 
   const hitLabel =

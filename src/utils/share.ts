@@ -1,4 +1,4 @@
-import { dailyGameConfig } from "../features/game-battle-tactics/dailyMoveGameConfig.ts";
+import { dailyGameConfig } from "../features/game-battle-tactics/battleTacticsGameConfig.ts";
 
 type ShareGameResultInput = {
   score: number;
@@ -63,7 +63,7 @@ export function createDailyBattleShareText(
   result: DailyBattleResultInput,
 ): string {
   return [
-    "PokeType: Daily Battle",
+    "PokeType: Battle Tactics",
     "",
     `Final score: ${result.score.toLocaleString()}`,
     `Optimal moves chosen: ${result.correctAnswers}/${dailyGameConfig.rounds}`,

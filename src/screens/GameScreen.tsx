@@ -20,7 +20,7 @@ const gameComponents: Record<GameMode, GameComponent> = {
   ),
   type_recall: lazy(() => import("../features/game-type-recall/./TypeRecallGame.tsx")),
   battle_tactics: lazy(
-    () => import("../features/game-battle-tactics/DailyMoveGame"),
+    () => import("../features/game-battle-tactics/BattleTacticsGame.tsx"),
   ),
 };
 

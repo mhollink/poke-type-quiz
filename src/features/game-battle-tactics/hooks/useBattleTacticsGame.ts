@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import {
-  createInitialDailyMoveGameState,
-  dailyMoveGameReducer,
-} from "../model/dailyMoveGameReducer.ts";
+  createInitialBattleTacticsGameState,
+  battleTacticsGameReducer,
+} from "../model/battleTacticsGameReducer.ts";
 import type {
-  DailyMoveChallenge,
-  DailyMoveOption,
-  DailyMoveRound,
+  BattleTacticsChallenge,
+  BattleTacticsOption,
+  BattleTacticsRound,
 } from "../model/Round.ts";
 
-export type DailyMoveGame = {
-  state: ReturnType<typeof createInitialDailyMoveGameState>;
-  currentRound: DailyMoveRound | null;
-  selectedOption: DailyMoveOption | null;
+export type BattleTacticsGame = {
+  state: ReturnType<typeof createInitialBattleTacticsGameState>;
+  currentRound: BattleTacticsRound | null;
+  selectedOption: BattleTacticsOption | null;
   roundNumber: number;
   roundCount: number;
   isResolved: boolean;
@@ -22,11 +22,11 @@ export type DailyMoveGame = {
   continueGame: () => void;
 };
 
-export function useDailyMoveGame(challenge: DailyMoveChallenge): DailyMoveGame {
+export function useBattleTacticsGame(challenge: BattleTacticsChallenge): BattleTacticsGame {
   const [state, dispatch] = useReducer(
-    dailyMoveGameReducer,
+    battleTacticsGameReducer,
     challenge,
-    createInitialDailyMoveGameState,
+    createInitialBattleTacticsGameState,
   );
 
   useEffect(() => {

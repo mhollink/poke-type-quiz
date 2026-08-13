@@ -2,17 +2,17 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import type { DailyMoveOption } from "../model/Round.ts";
+import type { BattleTacticsOption } from "../model/Round.ts";
 
-type DailyMoveResultProps = {
-  option: DailyMoveOption;
+type BattleTacticsResultProps = {
+  option: BattleTacticsOption;
   roundMaximum: number;
 };
 
-export function DailyMoveResult({
+export function BattleTacticsResult({
   option,
   roundMaximum,
-}: DailyMoveResultProps) {
+}: BattleTacticsResultProps) {
   const { move, hitCount, score } = option;
   const isOptimal = score.score === roundMaximum;
 

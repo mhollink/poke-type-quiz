@@ -18,15 +18,15 @@ import type { DailyBattleAttemptRecord } from "../model/Score.ts";
 
 const DailyScoreHistory = lazy(() => import("./DailyBattleScoreHistory.tsx"));
 
-type DailyMoveGameResultProps = {
+type BattleTacticsGameResultProps = {
   state: DailyBattleAttemptRecord;
   onExit: () => void;
 };
 
-export function DailyMoveGameResult({
+export function BattleTacticsGameResult({
   state,
   onExit,
-}: DailyMoveGameResultProps) {
+}: BattleTacticsGameResultProps) {
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
   async function handleShare(): Promise<void> {

@@ -1,22 +1,22 @@
 import type { Move, Pokemon } from "../../../types";
-import { dailyGameConfig } from "../dailyMoveGameConfig.ts";
+import { dailyGameConfig } from "../battleTacticsGameConfig.ts";
 import type {
-  DailyMoveChallenge,
-  DailyMoveOption,
-  DailyMoveOptionSelection,
+  BattleTacticsChallenge,
+  BattleTacticsOption,
+  BattleTacticsOptionSelection,
 } from "../model/Round.ts";
 import type { TypeEffectivenessLookup } from "../utils/effectiveness.ts";
 import { createScopedRandom, shuffle } from "../utils/random.ts";
 import { sampleWithoutReplacement } from "../utils/stablize.ts";
 import { pickBestCandidate, pickRelativeCandidate } from "./candidates.ts";
-import { createRankedMoveCandidates } from "./createDailyMoveRound.ts";
+import { createRankedMoveCandidates } from "./createBattleTacticsRound.ts";
 
-export function createDailyMoveChallenge(
+export function createBattleTacticsChallenge(
   dateKey: string,
   pokemon: readonly Pokemon[],
   moves: readonly Move[],
   getEffectiveness: TypeEffectivenessLookup,
-): DailyMoveChallenge {
+): BattleTacticsChallenge {
   const selectedPokemon = selectDailyPokemon(dateKey, pokemon);
 
   const eligibleMoves = moves.toSorted((left, right) => left.nr - right.nr);
@@ -24,7 +24,7 @@ export function createDailyMoveChallenge(
   const usedBestMoveIds = new Set<string>();
 
   const rounds = selectedPokemon.map((selectedPokemon, index) => {
-    const selection = selectDailyMoveOptions(
+    const selection = selectBattleTacticsOptions(
       dateKey,
       index,
       selectedPokemon,
@@ -64,14 +64,14 @@ function selectDailyPokemon(dateKey: string, pokemon: readonly Pokemon[]) {
   );
 }
 
-function selectDailyMoveOptions(
+function selectBattleTacticsOptions(
   dateKey: string,
   roundIndex: number,
   pokemon: Pokemon,
   moves: readonly Move[],
   getEffectiveness: TypeEffectivenessLookup,
   usedBestMoveIds: ReadonlySet<string>,
-): DailyMoveOptionSelection {
+): BattleTacticsOptionSelection {
   const candidates = createRankedMoveCandidates(
     dateKey,
     roundIndex,
@@ -90,7 +90,7 @@ function selectDailyMoveOptions(
     createScopedRandom(dateKey, `round:${roundIndex}:best`),
   );
 
-  const selected: DailyMoveOption[] = [best];
+  const selected: BattleTacticsOption[] = [best];
   let upperScoreExclusive = best.score.score;
 
   for (const tier of dailyGameConfig.tierConfig) {

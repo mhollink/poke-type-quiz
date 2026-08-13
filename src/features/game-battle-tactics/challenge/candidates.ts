@@ -1,12 +1,12 @@
-import { dailyGameConfig } from "../dailyMoveGameConfig.ts";
-import type { DailyMoveOption } from "../model/Round.ts";
+import { dailyGameConfig } from "../battleTacticsGameConfig.ts";
+import type { BattleTacticsOption } from "../model/Round.ts";
 import { pickRandomItem, type RandomSource } from "../utils/random.ts";
 
 export function pickBestCandidate(
-  candidates: readonly DailyMoveOption[],
+  candidates: readonly BattleTacticsOption[],
   usedBestMoveIds: ReadonlySet<string>,
   random: RandomSource,
-): DailyMoveOption {
+): BattleTacticsOption {
   if (candidates.length === 0) {
     throw new Error("Cannot select a best move without candidates");
   }
@@ -44,13 +44,13 @@ export function pickBestCandidate(
 }
 
 export function pickRelativeCandidate(
-  candidates: readonly DailyMoveOption[],
+  candidates: readonly BattleTacticsOption[],
   bestScore: number,
   upperScoreExclusive: number,
   targetRatio: number,
-  selected: readonly DailyMoveOption[],
+  selected: readonly BattleTacticsOption[],
   random: RandomSource,
-): DailyMoveOption {
+): BattleTacticsOption {
   const selectedMoveIds = new Set(selected.map((option) => option.move.id));
 
   const selectedMoveTypes = new Set(selected.map((option) => option.move.type));

@@ -11,20 +11,20 @@ import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import { moveData } from "../../utils/moves.ts";
 import { PokemonChallenge } from "../game-type-recall/components/PokemonChallenge.tsx";
 import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
-import { createDailyMoveChallenge } from "./challenge/createDailyChallenge.ts";
-import { DailyMoveGameResult } from "./components/DailyMoveGameResult.tsx";
-import { DailyMoveGameScore } from "./components/DailyMoveGameScore.tsx";
-import { DailyMoveOptionCard } from "./components/DailyMoveOption.tsx";
-import { DailyMoveResult } from "./components/DailyMoveResult.tsx";
-import { useDailyMoveGame } from "./hooks/useDailyMoveGame.ts";
+import { createBattleTacticsChallenge } from "./challenge/createDailyBattleTacticsChallenge.ts";
+import { BattleTacticsGameResult } from "./components/BattleTacticsGameResult.tsx";
+import { BattleTacticsGameScore } from "./components/BattleTacticsGameScore.tsx";
+import { BattleTacticsOptionCard } from "./components/BattleTacticsOption.tsx";
+import { BattleTacticsResult } from "./components/BattleTacticsResult.tsx";
+import { useBattleTacticsGame } from "./hooks/useBattleTacticsGame.ts";
 import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
 
-type DailyMoveGameProps = {
+type BattleTacticsGameProps = {
   onExit: () => void;
 };
 
-function DailyMoveGame({ onExit }: DailyMoveGameProps) {
+function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
   const dateKey = useMemo(() => createDailyDateKey(new Date()), []);
   const exitingResult = localDailyBattleRepository.findByDate(dateKey);
 
@@ -36,7 +36,7 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
 
   const challenge = useMemo(
     () =>
-      createDailyMoveChallenge(
+      createBattleTacticsChallenge(
         dateKey,
         availablePokemon,
         availableMoves,
@@ -45,16 +45,16 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
     [dateKey, availablePokemon, availableMoves],
   );
 
-  const game = useDailyMoveGame(challenge);
+  const game = useBattleTacticsGame(challenge);
 
   if (exitingResult) {
-    return <DailyMoveGameResult state={exitingResult} onExit={onExit} />;
+    return <BattleTacticsGameResult state={exitingResult} onExit={onExit} />;
   }
 
   if (game.state.status === "completed") {
     const state = game.state;
     return (
-      <DailyMoveGameResult
+      <BattleTacticsGameResult
         state={{
           dateKey: state.challenge.dateKey,
           completedAt: Date.now(),
@@ -100,7 +100,7 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
           </Typography>
         </Stack>
 
-        <DailyMoveGameScore
+        <BattleTacticsGameScore
           score={game.state.score}
           maxScore={game.state.challenge.maxScore}
           roundNumber={game.roundNumber}
@@ -138,7 +138,7 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
               }}
             >
               {round.options.map((option) => (
-                <DailyMoveOptionCard
+                <BattleTacticsOptionCard
                   key={option.move.id}
                   option={option}
                   resolved={game.isResolved}
@@ -153,7 +153,7 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
 
             {game.selectedOption !== null && (
               <>
-                <DailyMoveResult
+                <BattleTacticsResult
                   option={game.selectedOption}
                   roundMaximum={round.maxScore}
                 />
@@ -181,4 +181,4 @@ function DailyMoveGame({ onExit }: DailyMoveGameProps) {
   );
 }
 
-export default DailyMoveGame;
+export default BattleTacticsGame;
