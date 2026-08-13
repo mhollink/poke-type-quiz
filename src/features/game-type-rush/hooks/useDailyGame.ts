@@ -342,7 +342,9 @@ function useDailyGame(
   );
 
   const skipRound = useCallback(() => {
-    const currentChallengeKey = !!state.currentChallenge ? createTypeKey(state.currentChallenge.types) : null
+    const currentChallengeKey = state.currentChallenge
+      ? createTypeKey(state.currentChallenge.types)
+      : null;
     const nextSkippedTypes = new Set(state.skippedTypes);
 
     if (currentChallengeKey) {
@@ -385,7 +387,6 @@ function useDailyGame(
         return;
       }
     }
-
 
     runResolvedRef.current = true;
 
@@ -477,4 +478,4 @@ function useDailyGame(
   };
 }
 
-export default useDailyGame
+export default useDailyGame;

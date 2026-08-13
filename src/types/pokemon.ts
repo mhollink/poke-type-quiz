@@ -34,5 +34,5 @@ export type Pokemon = {
   gen: number;
   origin?: number;
   pastTypes?: PastType[];
-  shiny?: boolean
+  shiny?: boolean;
 };

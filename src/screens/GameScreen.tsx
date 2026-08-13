@@ -15,9 +15,13 @@ type GameComponent = ComponentType<
 
 const gameComponents: Record<GameMode, GameComponent> = {
   type_rush: lazy(() => import("../features/game-type-rush/DailyGame")),
-  type_survival: lazy(() => import("../features/game-type-survival/ClassicGame")),
+  type_survival: lazy(
+    () => import("../features/game-type-survival/ClassicGame"),
+  ),
   type_recall: lazy(() => import("../features/game-type-recall/ReversedGame")),
-  battle_tactics: lazy(() => import("../features/game-battle-tactics/DailyMoveGame")),
+  battle_tactics: lazy(
+    () => import("../features/game-battle-tactics/DailyMoveGame"),
+  ),
 };
 
 export function GameScreen({

@@ -112,8 +112,11 @@ export function useClassicGame(pokemon: readonly Pokemon[]): UseClassicGame {
 
     const pokemon = state.completedRounds.map((round) => round.answer);
     console.log(pokemon);
-    localPokedexRepository.unlock(pokemon.map(p => p.id));
-    localPokedexRepository.unlock(pokemon.filter(p => p.shiny).map(p => p.id), true)
+    localPokedexRepository.unlock(pokemon.map((p) => p.id));
+    localPokedexRepository.unlock(
+      pokemon.filter((p) => p.shiny).map((p) => p.id),
+      true,
+    );
   }, [state]);
 
   const endGame = useCallback(
