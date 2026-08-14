@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { Pokemon } from "../../../types";
 import { getPokemonSpriteUrl } from "../../../utils";
-import {TypeBadge} from "./TypeBadge.tsx";
+import { TypeBadge } from "./TypeBadge.tsx";
 
 export interface PotentialValidOptionsProps {
   potentialAnswers: readonly Pokemon[];
@@ -54,11 +54,11 @@ export function PotentialValidOptions({
               {pokemon.name}
             </Typography>
 
-              <Stack direction="row" spacing={1}>
-                  {pokemon.types.map(type => (
-                      <TypeBadge key={type} type={type} size="small" />
-                  ))}
-              </Stack>
+            <Stack direction="row" spacing={1}>
+              {pokemon.types.map((type) => (
+                <TypeBadge key={type} type={type} size="small" />
+              ))}
+            </Stack>
           </Stack>
         ))}
       </Stack>

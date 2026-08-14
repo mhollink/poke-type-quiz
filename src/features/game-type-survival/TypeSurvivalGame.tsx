@@ -1,5 +1,6 @@
 import BoltIcon from "@mui/icons-material/Bolt";
 import { Container, Paper, Stack, Typography } from "@mui/material";
+import { useMemo } from "react";
 import { usePokemonData } from "../../hooks/usePokemonData.ts";
 import type { Pokemon } from "../../types";
 import { GameHeader } from "../game-shared/components/GameHeader.tsx";
@@ -11,7 +12,6 @@ import { TypeSurvivalGameResult } from "./components/TypeSurvivalGameResult.tsx"
 import { useTypeSurvivalGame } from "./hooks/useTypeSurvivalGame.ts";
 import { localDailyAttemptRepository } from "./storage/typeSurvivalAttemptRepository.ts";
 import { typeSurvivalGameConfig } from "./typeSurvivalConfig.ts";
-import {useMemo} from "react";
 
 interface TypeSurvivalGameProps {
   readonly onExit: () => void;
@@ -21,9 +21,11 @@ interface TypeSurvivalGameProps {
 function TypeSurvivalGame({ onExit, onOpenPokedex }: TypeSurvivalGameProps) {
   const { availablePokemon } = usePokemonData();
   const game = useTypeSurvivalGame(availablePokemon);
-  const todaysResult = useMemo(() => localDailyAttemptRepository.findByDate(
-    createDailyDateKey(new Date()),
-  ), []);
+  const todaysResult = useMemo(
+    () =>
+      localDailyAttemptRepository.findByDate(createDailyDateKey(new Date())),
+    [],
+  );
 
   function handleSubmit(pokemon: Pokemon): void {
     game.submitAnswer(pokemon);

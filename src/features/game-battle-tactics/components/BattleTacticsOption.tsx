@@ -1,9 +1,11 @@
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useMemo } from "react";
 import { TypeBadge } from "../../game-shared/components/TypeBadge.tsx";
 import type { BattleTacticsOption } from "../model/Round.ts";
 
@@ -29,18 +31,46 @@ export function BattleTacticsOptionCard({
       ? `${move.minHits} hit`
       : `${move.minHits}-${move.maxHits} hits`;
 
+  const color = useMemo(() => {
+    if (!resolved)
+      // Round is still playing, cards have default background
+      return {
+        borderColor: "divider",
+        bgcolor: "background.paper",
+      };
+
+    if (optimal)
+      // Optiomal card will always be green, regardless of selection
+      return {
+        borderColor: "#00FF0066",
+        bgcolor: "#00FF0022",
+      };
+
+    if (selected)
+      // If selection is other than optimal, tint it red.
+      return {
+        borderColor: "#FF000066",
+        bgcolor: "#FF000022",
+      };
+
+    return {
+      // Other (less important cards) can be muted.
+      borderColor: "divider",
+      bgcolor: "background.disabled",
+      opacity: 0.7,
+    };
+  }, [resolved, selected, optimal]);
+
   return (
     <Card
       variant="outlined"
-      sx={{
-        height: "100%",
-        borderWidth: selected || optimal ? 2 : 1,
-        borderColor: selected
-          ? "primary.main"
-          : optimal
-            ? "success.main"
-            : "divider",
-      }}
+      sx={[
+        {
+          height: "100%",
+          borderWidth: selected || optimal ? 2 : 1,
+        },
+        color,
+      ]}
     >
       <CardActionArea
         disabled={resolved}
@@ -66,45 +96,59 @@ export function BattleTacticsOptionCard({
             <TypeBadge type={move.type} size="small" />
           </Stack>
 
-          <Stack
-            direction="row"
-            spacing={1}
-            useFlexGap
-            sx={{
-              flexWrap: "wrap",
-            }}
-          >
-            <Typography variant="caption" color="textSecondary">
-              Power {move.power}
-            </Typography>
-
-            <Typography variant="caption" color="textSecondary">
-              Accuracy {move.accuracy}%
-            </Typography>
-
-            <Typography variant="caption" color="textSecondary">
-              {hitLabel}
-            </Typography>
-          </Stack>
-
-          {resolved && (
+          {!resolved ? (
             <Stack
               direction="row"
+              spacing={2}
+              useFlexGap
               sx={{
-                mt: "auto",
-                alignItems: "center",
-                justifyContent: "space-between",
+                flexWrap: "wrap",
               }}
             >
-              <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                {option.score.score.toLocaleString()} points
+              <Typography variant="caption" color="textSecondary">
+                Power {move.power}
               </Typography>
 
-              {selected && <CheckCircleRoundedIcon color="primary" />}
+              <Typography variant="caption" color="textSecondary">
+                Accuracy {move.accuracy}%
+              </Typography>
 
-              {!selected && optimal && (
-                <EmojiEventsRoundedIcon color="success" />
-              )}
+              <Typography variant="caption" color="textSecondary">
+                {hitLabel}
+              </Typography>
+            </Stack>
+          ) : (
+            <Stack>
+              <Typography variant="caption">
+                {move.power} power × {option.hitCount}{" "}
+                {option.hitCount === 1 ? "hit" : "hits"} ×{" "}
+                {option.score.typeMultiplier} effectiveness ×{" "}
+                {option.score.accuracyMultiplier} accuracy
+              </Typography>
+
+              <Stack
+                direction="row"
+                sx={{
+                  mt: "auto",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                  {option.score.score.toLocaleString()} points
+                </Typography>
+
+                {selected &&
+                  (optimal ? (
+                    <CheckCircleRoundedIcon color="success" />
+                  ) : (
+                    <CancelRoundedIcon color="warning" />
+                  ))}
+
+                {!selected && optimal && (
+                  <EmojiEventsRoundedIcon color="success" />
+                )}
+              </Stack>
             </Stack>
           )}
         </Stack>

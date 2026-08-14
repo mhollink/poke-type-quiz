@@ -17,7 +17,6 @@ import { createBattleTacticsChallenge } from "./challenge/createDailyBattleTacti
 import { BattleTacticsGameResult } from "./components/BattleTacticsGameResult.tsx";
 import { BattleTacticsGameScore } from "./components/BattleTacticsGameScore.tsx";
 import { BattleTacticsOptionCard } from "./components/BattleTacticsOption.tsx";
-import { BattleTacticsResult } from "./components/BattleTacticsResult.tsx";
 import { useBattleTacticsGame } from "./hooks/useBattleTacticsGame.ts";
 import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
@@ -81,7 +80,16 @@ function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
   const round = game.currentRound;
 
   return (
-    <Container component="main" maxWidth="md">
+    <Container
+      component="main"
+      maxWidth="md"
+      sx={{
+        py: {
+          xs: 4,
+          md: 8,
+        },
+      }}
+    >
       <Stack spacing={4}>
         <Stack spacing={1} sx={{ textAlign: "center" }}>
           <Typography
@@ -151,27 +159,20 @@ function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
             </Box>
 
             {game.selectedOption !== null && (
-              <>
-                <BattleTacticsResult
-                  option={game.selectedOption}
-                  roundMaximum={round.maxScore}
-                />
-
-                <Button
-                  variant="contained"
-                  size="large"
-                  endIcon={
-                    game.isFinalRound ? (
-                      <DoneRoundedIcon />
-                    ) : (
-                      <ArrowForwardRoundedIcon />
-                    )
-                  }
-                  onClick={game.continueGame}
-                >
-                  {game.isFinalRound ? "Finish daily" : "Next Pokémon"}
-                </Button>
-              </>
+              <Button
+                variant="contained"
+                size="large"
+                endIcon={
+                  game.isFinalRound ? (
+                    <DoneRoundedIcon />
+                  ) : (
+                    <ArrowForwardRoundedIcon />
+                  )
+                }
+                onClick={game.continueGame}
+              >
+                {game.isFinalRound ? "Finish daily" : "Next Pokémon"}
+              </Button>
             )}
           </Stack>
         </Paper>
