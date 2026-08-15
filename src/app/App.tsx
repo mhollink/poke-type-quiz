@@ -41,6 +41,13 @@ export function App() {
             type: "RETURN_HOME",
           })
         }
+        onNext={(gameMode) => {
+          dispatch({
+            type: "START_GAME",
+            mode: gameMode,
+          });
+          analytics.track("mode_selected", { game_mode: gameMode });
+        }}
         onOpenPokedex={() => {
           dispatch({
             type: "OPEN_POKEDEX",

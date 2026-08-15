@@ -4,6 +4,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { useMemo } from "react";
 import { usePokemonData } from "../../hooks/usePokemonData.ts";
+import type { GameMode } from "../../types";
 import { GameHeader } from "../game-shared/components/GameHeader.tsx";
 import { GameScore } from "../game-shared/components/GameScore";
 import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
@@ -15,10 +16,15 @@ import { typeRecallAttemptRepository } from "./storage/typeRecallAttemptReposito
 
 interface TypeRecallGameProps {
   readonly onExit: () => void;
+  readonly onNext: (next: GameMode) => void;
   readonly onOpenPokedex: () => void;
 }
 
-function TypeRecallGame({ onExit, onOpenPokedex }: TypeRecallGameProps) {
+function TypeRecallGame({
+  onNext,
+  onExit,
+  onOpenPokedex,
+}: TypeRecallGameProps) {
   const { availablePokemon } = usePokemonData();
   const game = useTypeRecallGame(availablePokemon);
 
@@ -49,6 +55,7 @@ function TypeRecallGame({ onExit, onOpenPokedex }: TypeRecallGameProps) {
           }}
           reason="already-played"
           onExit={onExit}
+          onNext={() => onNext("battle_tactics")}
           onOpenPokedex={onOpenPokedex}
         />
       </Container>
@@ -64,6 +71,7 @@ function TypeRecallGame({ onExit, onOpenPokedex }: TypeRecallGameProps) {
               result={game.state}
               reason={game.state.gameOverReason}
               onExit={onExit}
+              onNext={() => onNext("battle_tactics")}
               onOpenPokedex={onOpenPokedex}
             />
           )}

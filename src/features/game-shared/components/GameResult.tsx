@@ -1,17 +1,12 @@
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
-import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-
-export interface GameResultAction {
-  readonly label: "Play again" | "Exit" | "Share";
-  readonly onClick: () => void;
-}
 
 export interface GameResultStatistic {
   readonly label: string;
@@ -25,8 +20,9 @@ export interface GameResultProps {
   readonly correctAnswers: number;
   readonly highestMultiplier: number;
   readonly statistics?: readonly GameResultStatistic[];
-  readonly primaryAction: GameResultAction;
-  readonly secondaryAction?: GameResultAction;
+  readonly onShare: () => void;
+  readonly onNext: () => void;
+  readonly onExit: () => void;
 }
 
 export function GameResult({
@@ -36,8 +32,9 @@ export function GameResult({
   correctAnswers,
   highestMultiplier,
   statistics = [],
-  primaryAction,
-  secondaryAction,
+  onShare,
+  onNext,
+  onExit,
 }: GameResultProps) {
   const displayedStatistics: readonly GameResultStatistic[] = [
     {
@@ -133,7 +130,6 @@ export function GameResult({
         <Stack
           direction={{
             xs: "column",
-            sm: "row",
           }}
           spacing={1.5}
           sx={{
@@ -144,30 +140,29 @@ export function GameResult({
           <Button
             variant="contained"
             size="large"
-            startIcon={
-              primaryAction.label === "Share" ? (
-                <SendRoundedIcon />
-              ) : primaryAction.label === "Play again" ? (
-                <ReplayRoundedIcon />
-              ) : (
-                <ArrowBackRoundedIcon />
-              )
-            }
-            onClick={primaryAction.onClick}
+            startIcon={<PlayCircleIcon />}
+            onClick={onNext}
           >
-            {primaryAction.label}
+            Next mode
           </Button>
 
-          {secondaryAction && (
-            <Button
-              variant="outlined"
-              size="large"
-              startIcon={<ArrowBackRoundedIcon />}
-              onClick={secondaryAction.onClick}
-            >
-              {secondaryAction.label}
-            </Button>
-          )}
+          <Button
+            variant="text"
+            size="large"
+            startIcon={<SendRoundedIcon />}
+            onClick={onShare}
+          >
+            Share your score
+          </Button>
+
+          <Button
+            variant="text"
+            size="large"
+            startIcon={<ArrowBackRoundedIcon />}
+            onClick={onExit}
+          >
+            Return home
+          </Button>
         </Stack>
       </Stack>
     </Paper>

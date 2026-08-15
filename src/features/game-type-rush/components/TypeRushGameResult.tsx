@@ -31,6 +31,7 @@ export interface TypeRushGameResultProps {
   >;
   readonly reason: TypeRushGameOverReason | "already-played";
   readonly onExit: () => void;
+  readonly onNext: () => void;
   readonly onOpenPokedex: () => void;
   readonly usedPokemonIds?: ReadonlySet<string>;
   readonly skippedTypes?: ReadonlySet<string>;
@@ -44,6 +45,7 @@ export function TypeRushGameResult({
   attempt,
   reason,
   onExit,
+  onNext,
   onOpenPokedex,
   usedPokemonIds,
   skippedTypes,
@@ -104,14 +106,9 @@ export function TypeRushGameResult({
             value: attempt.highestStreak.toLocaleString(),
           },
         ]}
-        primaryAction={{
-          label: "Share",
-          onClick: handleShare,
-        }}
-        secondaryAction={{
-          label: "Exit",
-          onClick: onExit,
-        }}
+        onShare={handleShare}
+        onExit={onExit}
+        onNext={onNext}
       />
 
       {!!skippedTypes && !!usedPokemonIds && skippedTypes.size > 0 && (

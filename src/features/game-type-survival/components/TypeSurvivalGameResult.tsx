@@ -34,6 +34,7 @@ export interface TypeSurvivalGameResultProps {
     | "no-challenges-left"
     | "already-played";
   readonly onExit: () => void;
+  readonly onNext: () => void;
   readonly onOpenPokedex: () => void;
 
   readonly incorrectType?: PokemonType;
@@ -44,6 +45,7 @@ export function TypeSurvivalGameResult({
   result,
   reason,
   onExit,
+  onNext,
   onOpenPokedex,
   incorrectType,
   usedPokemonIds,
@@ -96,14 +98,9 @@ export function TypeSurvivalGameResult({
         correctAnswers={result.correctAnswers}
         highestMultiplier={result.highestMultiplier}
         message={getGameOverMessage(reason)}
-        primaryAction={{
-          label: "Share",
-          onClick: handleShare,
-        }}
-        secondaryAction={{
-          label: "Exit",
-          onClick: onExit,
-        }}
+        onShare={handleShare}
+        onExit={onExit}
+        onNext={onNext}
       />
 
       {incorrectType && usedPokemonIds && (

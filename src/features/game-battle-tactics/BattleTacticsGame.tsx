@@ -22,7 +22,7 @@ import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts"
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
 
 type BattleTacticsGameProps = {
-  onExit: () => void;
+  readonly onExit: () => void;
 };
 
 function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {

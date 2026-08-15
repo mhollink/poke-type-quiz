@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { usePokemonData } from "../../hooks/usePokemonData.ts";
+import type { GameMode } from "../../types";
 import { GameHeader } from "../game-shared/components/GameHeader.tsx";
 import { GameScore } from "../game-shared/components/GameScore";
 import { PokemonAutocomplete } from "../game-type-survival/components/PokemonAutocomplete.tsx";
@@ -15,10 +16,11 @@ import useTypeRushGame from "./hooks/useTypeRushGame.ts";
 
 interface TypeRushGameProps {
   readonly onExit: () => void;
+  readonly onNext: (next: GameMode) => void;
   readonly onOpenPokedex: () => void;
 }
 
-function TypeRushGame({ onExit, onOpenPokedex }: TypeRushGameProps) {
+function TypeRushGame({ onNext, onExit, onOpenPokedex }: TypeRushGameProps) {
   const { availablePokemon } = usePokemonData();
   const game = useTypeRushGame(availablePokemon);
 
@@ -29,6 +31,7 @@ function TypeRushGame({ onExit, onOpenPokedex }: TypeRushGameProps) {
           attempt={game.existingAttempt}
           reason="already-played"
           onExit={onExit}
+          onNext={() => onNext("type_survival")}
           onOpenPokedex={onOpenPokedex}
         />
       </Container>
@@ -108,6 +111,7 @@ function TypeRushGame({ onExit, onOpenPokedex }: TypeRushGameProps) {
               }}
               reason={game.state.gameOverReason}
               onExit={onExit}
+              onNext={() => onNext("type_survival")}
               onOpenPokedex={onOpenPokedex}
               usedPokemonIds={game.state.usedPokemonIds}
               skippedTypes={game.state.skippedTypes}

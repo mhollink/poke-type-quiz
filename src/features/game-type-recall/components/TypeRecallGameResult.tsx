@@ -28,6 +28,7 @@ export interface TypeRecallGameResultProps {
   >;
   readonly reason: TypeRecallGameOverReason | "already-played";
   readonly onExit: () => void;
+  readonly onNext: () => void;
   readonly onOpenPokedex: () => void;
 }
 
@@ -35,6 +36,7 @@ export function TypeRecallGameResult({
   result,
   reason,
   onExit,
+  onNext,
   onOpenPokedex,
 }: TypeRecallGameResultProps) {
   const dailyAttemptRecords = typeRecallAttemptRepository.findAll();
@@ -89,14 +91,9 @@ export function TypeRecallGameResult({
             value: result.canonicalOrderAnswers.toLocaleString(),
           },
         ]}
-        primaryAction={{
-          label: "Share",
-          onClick: handleShare,
-        }}
-        secondaryAction={{
-          label: "Exit",
-          onClick: onExit,
-        }}
+        onShare={handleShare}
+        onNext={onNext}
+        onExit={onExit}
       />
 
       <Button onClick={onOpenPokedex} color="primary">

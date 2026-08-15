@@ -2,7 +2,7 @@ import BoltIcon from "@mui/icons-material/Bolt";
 import { Container, Paper, Stack, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { usePokemonData } from "../../hooks/usePokemonData.ts";
-import type { Pokemon } from "../../types";
+import type { GameMode, Pokemon } from "../../types";
 import { GameHeader } from "../game-shared/components/GameHeader.tsx";
 import { GameScore } from "../game-shared/components/GameScore";
 import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
@@ -15,10 +15,15 @@ import { typeSurvivalGameConfig } from "./typeSurvivalConfig.ts";
 
 interface TypeSurvivalGameProps {
   readonly onExit: () => void;
+  readonly onNext: (next: GameMode) => void;
   readonly onOpenPokedex: () => void;
 }
 
-function TypeSurvivalGame({ onExit, onOpenPokedex }: TypeSurvivalGameProps) {
+function TypeSurvivalGame({
+  onNext,
+  onExit,
+  onOpenPokedex,
+}: TypeSurvivalGameProps) {
   const { availablePokemon } = usePokemonData();
   const game = useTypeSurvivalGame(availablePokemon);
   const todaysResult = useMemo(
@@ -51,6 +56,7 @@ function TypeSurvivalGame({ onExit, onOpenPokedex }: TypeSurvivalGameProps) {
           }}
           reason="already-played"
           onExit={onExit}
+          onNext={() => onNext("type_recall")}
           onOpenPokedex={onOpenPokedex}
         />
       </Container>
@@ -115,6 +121,7 @@ function TypeSurvivalGame({ onExit, onOpenPokedex }: TypeSurvivalGameProps) {
               result={game.state}
               reason={game.state.gameOverReason}
               onExit={onExit}
+              onNext={() => onNext("type_recall")}
               onOpenPokedex={onOpenPokedex}
               incorrectType={game.state.currentChallenge!.type}
               usedPokemonIds={game.state.usedPokemonIds}

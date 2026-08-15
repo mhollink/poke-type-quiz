@@ -6,36 +6,38 @@ import type { GameMode } from "../types";
 interface GameScreenProps {
   gameMode: GameMode;
   onExit: () => void;
+  onNext: (gamemode: GameMode) => void;
   onOpenPokedex: () => void;
 }
 
 type GameComponent = ComponentType<
-  Pick<GameScreenProps, "onExit" | "onOpenPokedex">
+  Pick<GameScreenProps, "onExit" | "onNext" | "onOpenPokedex">
 >;
 
 const gameComponents: Record<GameMode, GameComponent> = {
-  type_rush: lazy(() => import("../features/game-type-rush/./TypeRushGame")),
+  type_rush: lazy(() => import("../features/game-type-rush/TypeRushGame")),
   type_survival: lazy(
-    () => import("../features/game-type-survival/./TypeSurvivalGame"),
+    () => import("../features/game-type-survival/TypeSurvivalGame"),
   ),
   type_recall: lazy(
-    () => import("../features/game-type-recall/./TypeRecallGame.tsx"),
+    () => import("../features/game-type-recall/TypeRecallGame"),
   ),
   battle_tactics: lazy(
-    () => import("../features/game-battle-tactics/BattleTacticsGame.tsx"),
+    () => import("../features/game-battle-tactics/BattleTacticsGame"),
   ),
 };
 
 export function GameScreen({
   gameMode,
   onExit,
+  onNext,
   onOpenPokedex,
 }: GameScreenProps) {
   const Game = gameComponents[gameMode];
 
   return (
     <Suspense fallback={<GameLoadingFallback />}>
-      <Game onExit={onExit} onOpenPokedex={onOpenPokedex} />
+      <Game onExit={onExit} onNext={onNext} onOpenPokedex={onOpenPokedex} />
     </Suspense>
   );
 }
