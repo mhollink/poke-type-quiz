@@ -2,10 +2,14 @@ import BoltIcon from "@mui/icons-material/Bolt";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 import SvgIcon, { type SvgIconProps } from "@mui/material/SvgIcon";
-import { dailyGameConfig } from "../game-battle-tactics/battleTacticsGameConfig.ts";
-
+import { localDailyBattleRepository } from "../game-battle-tactics/storage/dailyAttemptRepository.ts";
+import { typeRecallAttemptRepository } from "../game-type-recall/storage/typeRecallAttemptRepository.ts";
+import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
+import { localTypeRushAttemptRepository } from "../game-type-rush/storage/typeRushAttemptRepository.ts";
+import { localDailyAttemptRepository } from "../game-type-survival/storage/typeSurvivalAttemptRepository.ts";
 import type { GameModeOption } from "./gameModeTypes.ts";
 
+const dateKey = createDailyDateKey(new Date());
 export const gameModes: GameModeOption[] = [
   {
     id: "type_rush",
@@ -13,8 +17,9 @@ export const gameModes: GameModeOption[] = [
     description:
       "Name Pokémon with the exact type combination before time runs out. Correct answers add time, while mistakes cost time.",
     icon: <CalendarMonthRoundedIcon fontSize="inherit" />,
-    badge: "5-minute challenge",
+    badge: "Exact typing",
     pokedexRewards: true,
+    checkCompletion: () => !!localTypeRushAttemptRepository.findByDate(dateKey),
   },
   {
     id: "type_survival",
@@ -22,8 +27,9 @@ export const gameModes: GameModeOption[] = [
     description:
       "Name a Pokémon with the displayed type within 30 seconds. One incorrect answer ends your run.",
     icon: <BoltIcon fontSize="inherit" />,
-    badge: "One mistake ends the run",
+    badge: "Partial match",
     pokedexRewards: true,
+    checkCompletion: () => !!localDailyAttemptRepository.findByDate(dateKey),
   },
   {
     id: "type_recall",
@@ -31,8 +37,9 @@ export const gameModes: GameModeOption[] = [
     description:
       "Identify the displayed Pokémon's complete typing within 30 seconds. Correct type order earns bonus points.",
     icon: <SwapHorizRoundedIcon fontSize="inherit" />,
-    badge: "30 seconds per round",
+    badge: "Guess the type",
     pokedexRewards: true,
+    checkCompletion: () => !!typeRecallAttemptRepository.findByDate(dateKey),
   },
   {
     id: "battle_tactics",
@@ -40,7 +47,8 @@ export const gameModes: GameModeOption[] = [
     description:
       "Choose the strongest of four moves for each Pokémon. Better matchups earn more points, with no penalty for guessing.",
     icon: <MoveBattleRoundedIcon fontSize="inherit" />,
-    badge: `${dailyGameConfig.rounds} battles`,
+    badge: `Best move`,
+    checkCompletion: () => !!localDailyBattleRepository.findByDate(dateKey),
   },
 ];
 

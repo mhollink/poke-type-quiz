@@ -85,11 +85,11 @@ function Pokedex({ entries, onExit }: PokedexProps) {
             </Typography>
           </Stack>
 
-       <CompletionProgress
-           totalPokemon={unlockables.length}
-           unlockedPokemon={unlockedPokemonIds.size}
-           unlockedShinies={unlockedShinies.size}
-       />
+          <CompletionProgress
+            totalPokemon={unlockables.length}
+            unlockedPokemon={unlockedPokemonIds.size}
+            unlockedShinies={unlockedShinies.size}
+          />
         </Stack>
       </Paper>
 
@@ -206,53 +206,59 @@ function Pokedex({ entries, onExit }: PokedexProps) {
   );
 }
 
-type CompletionProgressProps = { unlockedPokemon: number, unlockedShinies: number, totalPokemon: number };
+type CompletionProgressProps = {
+  unlockedPokemon: number;
+  unlockedShinies: number;
+  totalPokemon: number;
+};
 
-function CompletionProgress({unlockedPokemon, unlockedShinies, totalPokemon}: CompletionProgressProps) {
-    const unlockedPercentage = (unlockedPokemon / totalPokemon) * 100;
-    const shinyPercentage = (unlockedShinies / totalPokemon) * 100;
+function CompletionProgress({
+  unlockedPokemon,
+  unlockedShinies,
+  totalPokemon,
+}: CompletionProgressProps) {
+  const unlockedPercentage = (unlockedPokemon / totalPokemon) * 100;
+  const shinyPercentage = (unlockedShinies / totalPokemon) * 100;
 
-    return <Box
-        sx={{
-            position: "relative",
-            height: 16,
-        }}
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        height: 16,
+      }}
     >
-        <LinearProgress
-            variant="determinate"
-            value={unlockedPercentage}
-            color={
-                unlockedPokemon === totalPokemon
-                    ? "success"
-                    : "primary"
-            }
-            sx={{
-                height: 16,
-                borderRadius: 5,
-            }}
-        />
+      <LinearProgress
+        variant="determinate"
+        value={unlockedPercentage}
+        color={unlockedPokemon === totalPokemon ? "success" : "primary"}
+        sx={{
+          height: 16,
+          borderRadius: 5,
+        }}
+      />
 
-        <LinearProgress
-            variant="determinate"
-            value={shinyPercentage}
-            color="warning"
-            sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: 16,
-                borderRadius: 2,
-                backgroundColor: "transparent",
+      <LinearProgress
+        variant="determinate"
+        value={shinyPercentage}
+        color="warning"
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: 16,
+          borderRadius: 2,
+          backgroundColor: "transparent",
 
-                "& .MuiLinearProgress-bar": {
-                    borderRadius: 2,
-                    background:
-                        "linear-gradient(90deg, #b8860b 0%, #ffd700 35%, #fff1a8 50%, #ffd700 65%, #b8860b 100%)",
-                },
-            }}
-        />
+          "& .MuiLinearProgress-bar": {
+            borderRadius: 2,
+            background:
+              "linear-gradient(90deg, #b8860b 0%, #ffd700 35%, #fff1a8 50%, #ffd700 65%, #b8860b 100%)",
+          },
+        }}
+      />
     </Box>
+  );
 }
 
 export default Pokedex;

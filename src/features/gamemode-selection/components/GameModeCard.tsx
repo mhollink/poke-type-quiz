@@ -1,10 +1,12 @@
 import CatchingPokemonRoundedIcon from "@mui/icons-material/CatchingPokemonRounded";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useMemo } from "react";
 import type { GameModeOption } from "../gameModeTypes.ts";
 
 export interface GameModeCardProps {
@@ -13,6 +15,10 @@ export interface GameModeCardProps {
 }
 
 export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
+  const completed = useMemo(gameMode.checkCompletion, [
+    gameMode.checkCompletion,
+  ]);
+
   const accessibilityLabel = gameMode.disabled
     ? `${gameMode.title} (Coming Soon)`
     : gameMode.pokedexRewards
@@ -75,8 +81,9 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
       >
         {(gameMode.badge || gameMode.disabled) && (
           <Chip
-            label={gameMode.disabled ? "Coming Soon" : gameMode.badge}
-            color={gameMode.disabled ? "default" : "primary"}
+            icon={completed ? <CheckRoundedIcon /> : undefined}
+            label={completed ? "Completed" : gameMode.badge}
+            color={completed ? "success" : "default"}
             size="small"
             variant="filled"
             sx={{
