@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import { GameHeader, GameScore } from "~/features/game-shared";
+import { typeRushGameConfig } from "~/features/game-type-rush/typeRushGameConfig.ts";
 import { usePokemonData } from "~/hooks/usePokemonData.ts";
 import type { GameMode } from "~/types";
 
@@ -14,7 +15,6 @@ import { TypeRushAnswerFeedback } from "./components/TypeRushAnswerFeedback.tsx"
 import { TypeRushChallenge } from "./components/TypeRushChallenge.tsx";
 import { TypeRushGameResult } from "./components/TypeRushGameResult.tsx";
 import useTypeRushGame from "./hooks/useTypeRushGame.ts";
-import {typeRushGameConfig} from "~/features/game-type-rush/typeRushGameConfig.ts";
 
 interface TypeRushGameProps {
   readonly onExit: () => void;

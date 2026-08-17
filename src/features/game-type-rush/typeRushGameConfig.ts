@@ -17,5 +17,5 @@ export const typeRushGameConfig: TypeRushGameConfig = {
   difficultyMultiplierStep: 0.15,
   skipPenaltySec: 30,
   correctAnswerTimeBonus: 10,
-  incorrectAnswerTimePenalty: 10
+  incorrectAnswerTimePenalty: 10,
 };

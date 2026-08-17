@@ -1,8 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Badge } from "@mui/material";
+import { Badge, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -12,10 +12,13 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import { TypeBadge } from "~/features/game-shared";
+import { usePokedex } from "~/features/pokedex/hooks/usePokedex.ts";
+import {
+  type PokedexFilter,
+  usePokedexFilter,
+} from "~/features/pokedex/hooks/usePokedexFilter.ts";
 import type { Pokemon } from "~/types";
-import { getPokemonSpriteUrl, pokemonData } from "~/utils";
-
-import { localPokedexRepository } from "./storage/pokedexRepository.ts";
+import { getPokemonSpriteUrl } from "~/utils";
 
 interface PokedexProps {
   entries: readonly Pokemon[];
@@ -23,38 +26,20 @@ interface PokedexProps {
 }
 
 function Pokedex({ entries, onExit }: PokedexProps) {
-  const unlockables = useMemo(
-    () => entries.filter((pokemon) => !pokemon.origin),
-    [entries],
-  );
+  const dex = usePokedex(entries);
+  const filter = usePokedexFilter(dex);
 
-  const unlockedPokemonIds = useMemo(
-    () =>
-      new Set(
-        [...localPokedexRepository.findUnlockedIds()]
-          .map((pid) => pokemonData.find((p) => p.id === pid))
-          .map((pokemon) => {
-            if (!pokemon?.origin) return pokemon?.id;
-            return pokemonData.find((p) => p.nr === pokemon.origin)?.id;
-          })
-          .filter((pokemon) => !!pokemon),
-      ),
-    [],
-  );
+  const generations = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [generation, setGeneration] = useState<number | "all">("all");
+  const [status, setStatus] = useState<PokedexFilter["status"]>("all");
 
-  const unlockedShinies = useMemo(
-    () =>
-      new Set(
-        [...localPokedexRepository.findUnlockedIds({ shiny: true })]
-          .map((pid) => pokemonData.find((p) => p.id === pid))
-          .map((pokemon) => {
-            if (!pokemon?.origin) return pokemon?.id;
-            return pokemonData.find((p) => p.nr === pokemon.origin)?.id;
-          })
-          .filter((pokemon) => !!pokemon),
-      ),
-    [],
-  );
+  const visibleDex = useMemo(() => {
+    return filter({ generation, status });
+  }, [generation, status]);
+
+  const total = visibleDex.length;
+  const unlocked = visibleDex.filter((p) => p.isUnlocked).length;
+  const shinies = visibleDex.filter((p) => p.isShiny).length;
 
   return (
     <Stack spacing={3}>
@@ -83,17 +68,55 @@ function Pokedex({ entries, onExit }: PokedexProps) {
             <Typography variant="h6">Discovered</Typography>
 
             <Typography color="textSecondary">
-              {unlockedPokemonIds.size} / {unlockables.length}
+              {unlocked} / {total}
             </Typography>
           </Stack>
 
           <CompletionProgress
-            totalPokemon={unlockables.length}
-            unlockedPokemon={unlockedPokemonIds.size}
-            unlockedShinies={unlockedShinies.size}
+            totalPokemon={total}
+            unlockedPokemon={unlocked}
+            unlockedShinies={shinies}
           />
         </Stack>
       </Paper>
+
+      <Stack spacing={1.5}>
+        <ToggleButtonGroup
+          value={generation}
+          exclusive
+          onChange={(_, value) => {
+            if (value !== null) {
+              setGeneration(value);
+            }
+          }}
+          size="small"
+          fullWidth
+        >
+          <ToggleButton value="all">All</ToggleButton>
+          {generations.map((gen) => (
+            <ToggleButton key={gen} value={gen}>
+              {gen}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+
+        <ToggleButtonGroup
+          value={status}
+          exclusive
+          fullWidth
+          onChange={(_, value) => {
+            if (value !== null) {
+              setStatus(value);
+            }
+          }}
+          size="small"
+        >
+          <ToggleButton value="all">All</ToggleButton>
+          <ToggleButton value="unlocked">Unlocked</ToggleButton>
+          <ToggleButton value="locked">Locked</ToggleButton>
+          <ToggleButton value="shiny">Shiny</ToggleButton>
+        </ToggleButtonGroup>
+      </Stack>
 
       <Box
         sx={{
@@ -107,10 +130,7 @@ function Pokedex({ entries, onExit }: PokedexProps) {
           gap: 2,
         }}
       >
-        {unlockables.map((pokemon) => {
-          const isUnlocked = unlockedPokemonIds.has(pokemon.id);
-          const isShiny = unlockedShinies.has(pokemon.id);
-
+        {visibleDex.map(({ pokemon, isShiny, isUnlocked }) => {
           return (
             <Paper
               key={pokemon.id}
