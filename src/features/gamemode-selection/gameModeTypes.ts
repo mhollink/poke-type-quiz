@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import type { GameMode } from "../../types";
+
+import type { GameMode } from "~/types";
 
 export interface GameModeOption {
   id: GameMode;

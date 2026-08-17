@@ -1,6 +1,7 @@
-import type { GameMode } from "../../../types";
+import type { AbandonmentStage } from "~/features/analytics";
+import type { GameMode } from "~/types";
+
 import type { Analytics } from "../model/Analytics";
-import type { AbandonmentStage } from "../model/AnalyticsEventMap";
 
 export interface StartedGame {
   mode: GameMode;

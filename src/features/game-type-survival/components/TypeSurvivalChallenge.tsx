@@ -1,5 +1,7 @@
 import { Stack, Typography } from "@mui/material";
-import { TypeBadge } from "../../game-shared/components/TypeBadge.tsx";
+
+import { TypeBadge } from "~/features/game-shared";
+
 import type { TypeChallenge } from "../model/typeSurvivalGameTypes.ts";
 
 type TypeSurvivalChallengeProps = {

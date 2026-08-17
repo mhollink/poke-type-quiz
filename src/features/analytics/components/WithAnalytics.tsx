@@ -1,4 +1,5 @@
 import { type PropsWithChildren, useEffect } from "react";
+
 import { analyticsFeature } from "../application/analyticsFeature";
 
 export function WithAnalytics({ children }: PropsWithChildren) {

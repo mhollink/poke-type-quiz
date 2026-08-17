@@ -8,7 +8,6 @@ import type {
 export type TypeSurvivalGameAction =
   | {
       readonly type: "START_GAME";
-      readonly sessionId: string;
       readonly challenge: TypeChallenge;
       readonly startedAt: number;
       readonly roundEndsAt: number;
@@ -26,7 +25,6 @@ export type TypeSurvivalGameAction =
 
 export const createInitialTypeSurvivalGameState =
   (): TypeSurvivalGameState => ({
-    sessionId: "",
     status: "playing",
     score: 0,
     correctAnswers: 0,
@@ -48,7 +46,6 @@ export function typeSurvivalGameReducer(
     case "START_GAME":
       return {
         ...createInitialTypeSurvivalGameState(),
-        sessionId: action.sessionId,
         currentChallenge: action.challenge,
         roundEndsAt: action.roundEndsAt,
         startedAt: action.startedAt,

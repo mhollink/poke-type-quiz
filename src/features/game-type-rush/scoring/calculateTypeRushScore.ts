@@ -1,4 +1,5 @@
-import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
+import type { ScoreBreakdown } from "~/features/game-shared";
+
 import { typeRushGameConfig } from "../typeRushGameConfig.ts";
 
 export interface CalculateTypeRushScoreInput {

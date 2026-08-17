@@ -1,10 +1,3 @@
-import type { FilterOptionsState } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import { darken, lighten } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import {
   type KeyboardEvent,
   useEffect,
@@ -12,9 +5,18 @@ import {
   useRef,
   useState,
 } from "react";
-import { TYPE_COLORS } from "../../../theme/typeColors.ts";
-import { levenshteinDistance, normalizeSearchValue } from "../../../utils";
-import { TypeBadge } from "../../game-shared/components/TypeBadge";
+import type { FilterOptionsState } from "@mui/material";
+import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import { darken, lighten } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+
+import { TypeBadge } from "~/features/game-shared";
+import { TYPE_COLORS } from "~/theme/typeColors.ts";
+import { levenshteinDistance, normalizeSearchValue } from "~/utils";
+
 import type { PokemonType } from "../model/typeRecallGameTypes.ts";
 
 export interface TypeAnswerInputProps {

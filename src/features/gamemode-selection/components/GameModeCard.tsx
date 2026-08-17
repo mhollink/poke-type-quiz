@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import CatchingPokemonRoundedIcon from "@mui/icons-material/CatchingPokemonRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Box from "@mui/material/Box";
@@ -6,7 +7,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useMemo } from "react";
+
 import type { GameModeOption } from "../gameModeTypes.ts";
 
 export interface GameModeCardProps {
@@ -85,7 +86,7 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
             label={completed ? "Completed" : gameMode.badge}
             color={completed ? "success" : "default"}
             size="small"
-            variant="filled"
+            variant="outlined"
             sx={{
               position: "absolute",
               top: 16,

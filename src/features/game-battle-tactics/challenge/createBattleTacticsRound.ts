@@ -1,4 +1,5 @@
-import type { Move, Pokemon } from "../../../types";
+import type { Move, Pokemon } from "~/types";
+
 import type { BattleTacticsOption } from "../model/Round.ts";
 import { calculateMoveScore } from "../scoring/calculateMoveScore.ts";
 import type { TypeEffectivenessLookup } from "../utils/effectiveness.ts";

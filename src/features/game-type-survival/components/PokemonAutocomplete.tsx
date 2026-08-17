@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import Autocomplete from "@mui/material/Autocomplete";
 import Avatar from "@mui/material/Avatar";
@@ -5,9 +6,9 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
-import type { Pokemon } from "../../../types";
-import { filterPokemonByName, getPokemonSpriteUrl } from "../../../utils";
+
+import type { Pokemon } from "~/types";
+import { filterPokemonByName, getPokemonSpriteUrl } from "~/utils";
 
 type PokemonAutocompleteProps = {
   pokemon: readonly Pokemon[];

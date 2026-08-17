@@ -1,10 +1,11 @@
-import { NoOpAnalytics } from "../infrastructure/NoOpAnalytics";
-import type { Analytics } from "../model/Analytics";
 import type {
   AnalyticsEventMap,
   AnalyticsEventName,
-} from "../model/AnalyticsEventMap";
-import type { AnalyticsScreen } from "../model/AnalyticsScreen";
+  AnalyticsScreen,
+} from "~/features/analytics";
+
+import { NoOpAnalytics } from "../infrastructure/NoOpAnalytics";
+import type { Analytics } from "../model/Analytics";
 
 export class AnalyticsManager implements Analytics {
   private delegate: Analytics = new NoOpAnalytics();

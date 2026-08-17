@@ -1,4 +1,4 @@
-import type { GameMode } from "../../../types";
+import type { GameMode } from "~/types";
 
 export type AbandonmentStage = "early" | "mid" | "late";
 

@@ -2,14 +2,14 @@ import type { DailyBattleAttemptRecord } from "../model/Score";
 
 const storageKey = "poketype.daily-moves.v1";
 
-export interface DailyAttemptRepository {
+export interface BattleTacticsAttemptRepository {
   readonly findByDate: (dateKey: string) => DailyBattleAttemptRecord | null;
   readonly findAll: () => readonly DailyBattleAttemptRecord[];
 
   readonly save: (attempt: DailyBattleAttemptRecord) => void;
 }
 
-export const localDailyBattleRepository: DailyAttemptRepository = {
+export const battleTacticsAttemptRepository: BattleTacticsAttemptRepository = {
   findByDate(dateKey) {
     return (
       readAttempts().find((attempt) => attempt.dateKey === dateKey) ?? null

@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { Tooltip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { blue } from "@mui/material/colors";
 import Stack from "@mui/material/Stack";
-import { useEffect, useState } from "react";
-import { getPokemonSpriteUrl } from "../../utils";
+
+import { getPokemonSpriteUrl } from "~/utils";
+
 import { localGenerationSelectionRepository } from "./storage/localGenerationSelectionRepository.ts";
 
 const GENERATIONS = [

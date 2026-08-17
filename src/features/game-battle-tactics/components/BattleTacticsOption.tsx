@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
@@ -5,8 +6,9 @@ import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useMemo } from "react";
-import { TypeBadge } from "../../game-shared/components/TypeBadge.tsx";
+
+import { TypeBadge } from "~/features/game-shared";
+
 import type { BattleTacticsOption } from "../model/Round.ts";
 
 type BattleTacticsOptionProps = {

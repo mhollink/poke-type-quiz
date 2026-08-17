@@ -1,4 +1,4 @@
-import { localDailyBattleRepository } from "../storage/dailyAttemptRepository.ts";
+import { battleTacticsAttemptRepository } from "../storage/battleTacticsAttemptRepository.ts";
 import type { BattleTacticsChallenge } from "./Round";
 
 export type BattleTacticsSelection = {
@@ -103,7 +103,7 @@ export function battleTacticsGameReducer(
         state.roundIndex === state.challenge.rounds.length - 1;
 
       if (isLastRound) {
-        localDailyBattleRepository.save({
+        battleTacticsAttemptRepository.save({
           dateKey: state.challenge.dateKey,
           completedAt: Date.now(),
           correctAnswers: state.optimalSelections,

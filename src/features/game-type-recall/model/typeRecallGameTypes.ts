@@ -1,6 +1,5 @@
-import type { Pokemon } from "../../../types";
-import type { GameStatus } from "../../game-shared/model/gameStatus";
-import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
+import type { GameStatus, ScoreBreakdown } from "~/features/game-shared";
+import type { Pokemon } from "~/types";
 
 export type PokemonType = Pokemon["types"][number];
 

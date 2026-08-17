@@ -1,4 +1,5 @@
-import type { Pokemon } from "../../../types";
+import type { Pokemon } from "~/types";
+
 import type { TypeRushChallenge } from "../model/typeRushGameTypes.ts";
 
 export type TypeRushChallengeMatch =

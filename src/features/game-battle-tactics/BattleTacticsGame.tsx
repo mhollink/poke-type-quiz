@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import Box from "@mui/material/Box";
@@ -6,19 +7,19 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useMemo } from "react";
-import { usePokemonData } from "../../hooks/usePokemonData.ts";
-import { moveData } from "../../utils/moves.ts";
-import { GameHeader } from "../game-shared/components/GameHeader.tsx";
+
+import { GameHeader } from "~/features/game-shared";
+import { usePokemonData } from "~/hooks/usePokemonData.ts";
+import { createDailyDateKey, moveData } from "~/utils";
+
 import { PokemonChallenge } from "../game-type-recall/components/PokemonChallenge.tsx";
-import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
 import { MoveBattleRoundedIcon } from "../gamemode-selection/gameModeOptions.tsx";
 import { createBattleTacticsChallenge } from "./challenge/createDailyBattleTacticsChallenge.ts";
 import { BattleTacticsGameResult } from "./components/BattleTacticsGameResult.tsx";
 import { BattleTacticsGameScore } from "./components/BattleTacticsGameScore.tsx";
 import { BattleTacticsOptionCard } from "./components/BattleTacticsOption.tsx";
 import { useBattleTacticsGame } from "./hooks/useBattleTacticsGame.ts";
-import { localDailyBattleRepository } from "./storage/dailyAttemptRepository.ts";
+import { battleTacticsAttemptRepository } from "./storage/battleTacticsAttemptRepository.ts";
 import { getTypeEffectiveness } from "./utils/effectiveness.ts";
 
 type BattleTacticsGameProps = {
@@ -27,7 +28,7 @@ type BattleTacticsGameProps = {
 
 function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
   const dateKey = useMemo(() => createDailyDateKey(new Date()), []);
-  const exitingResult = localDailyBattleRepository.findByDate(dateKey);
+  const exitingResult = battleTacticsAttemptRepository.findByDate(dateKey);
 
   const { enabledGens, availablePokemon } = usePokemonData();
   const availableMoves = useMemo(

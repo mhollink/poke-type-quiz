@@ -1,3 +1,4 @@
+import { lazy, Suspense, useMemo, useState } from "react";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -5,17 +6,17 @@ import Skeleton from "@mui/material/Skeleton";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { lazy, Suspense, useMemo, useState } from "react";
-import { usePokemonData } from "../../../hooks/usePokemonData.ts";
-import type { Pokemon, PokemonType } from "../../../types";
+
+import { GameResult, PotentialValidOptions } from "~/features/game-shared";
+import { usePokemonData } from "~/hooks/usePokemonData.ts";
+import type { Pokemon, PokemonType } from "~/types";
 import {
   createTypeSurvivalChallengeShareText,
   type ShareResult,
   shareGameResult,
-} from "../../../utils";
-import { shuffle } from "../../../utils/shuffle.ts";
-import { GameResult } from "../../game-shared/components/GameResult.tsx";
-import { PotentialValidOptions } from "../../game-shared/components/PotentialValidAnswers.tsx";
+} from "~/utils";
+import { shuffle } from "~/utils/shuffle.ts";
+
 import type { TypeSurvivalGameState } from "../model/typeSurvivalGameTypes.ts";
 import { localDailyAttemptRepository } from "../storage/typeSurvivalAttemptRepository.ts";
 

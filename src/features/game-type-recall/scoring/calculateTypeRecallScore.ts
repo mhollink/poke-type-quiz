@@ -1,4 +1,5 @@
-import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
+import type { ScoreBreakdown } from "~/features/game-shared";
+
 import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
 
 export interface CalculateTypeRecallScoreInput {

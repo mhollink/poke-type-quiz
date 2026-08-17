@@ -1,6 +1,7 @@
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+
 import type { Pokemon } from "../../../types";
 import { getPokemonSpriteUrl } from "../../../utils";
 import { TypeBadge } from "./TypeBadge.tsx";

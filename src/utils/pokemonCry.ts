@@ -1,4 +1,4 @@
-import type { Pokemon } from "../types/pokemon";
+import type { Pokemon } from "../types";
 
 const CRY_BASE_URL =
   "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest";

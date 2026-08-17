@@ -1,9 +1,10 @@
 import type {
   ChallengeKey,
+  Pokemon,
+  PokemonType,
   TypeChallenge,
   UsedAnswersByChallenge,
-} from "../types/game";
-import type { Pokemon, PokemonType } from "../types/pokemon";
+} from "../types";
 
 export function createChallengeKey(
   types: readonly PokemonType[],

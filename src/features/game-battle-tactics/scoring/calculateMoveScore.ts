@@ -1,4 +1,5 @@
-import type { Move, PokemonType } from "../../../types";
+import type { Move, PokemonType } from "~/types";
+
 import type { MoveScoreBreakdown } from "../model/Score.ts";
 import {
   calculateTypeMultiplier,

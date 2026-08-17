@@ -2,9 +2,11 @@ import BoltIcon from "@mui/icons-material/Bolt";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 import SvgIcon, { type SvgIconProps } from "@mui/material/SvgIcon";
-import { localDailyBattleRepository } from "../game-battle-tactics/storage/dailyAttemptRepository.ts";
+
+import { createDailyDateKey } from "~/utils";
+
+import { battleTacticsAttemptRepository } from "../game-battle-tactics/storage/battleTacticsAttemptRepository.ts";
 import { typeRecallAttemptRepository } from "../game-type-recall/storage/typeRecallAttemptRepository.ts";
-import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
 import { localTypeRushAttemptRepository } from "../game-type-rush/storage/typeRushAttemptRepository.ts";
 import { localDailyAttemptRepository } from "../game-type-survival/storage/typeSurvivalAttemptRepository.ts";
 import type { GameModeOption } from "./gameModeTypes.ts";
@@ -48,7 +50,7 @@ export const gameModes: GameModeOption[] = [
       "Choose the strongest of four moves for each Pokémon. Better matchups earn more points, with no penalty for guessing.",
     icon: <MoveBattleRoundedIcon fontSize="inherit" />,
     badge: `Best move`,
-    checkCompletion: () => !!localDailyBattleRepository.findByDate(dateKey),
+    checkCompletion: () => !!battleTacticsAttemptRepository.findByDate(dateKey),
   },
 ];
 

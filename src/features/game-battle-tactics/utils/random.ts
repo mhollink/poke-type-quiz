@@ -1,4 +1,4 @@
-import { createSeededRandom } from "../../game-type-rush/challenge/createSeededRandom.ts";
+import { createSeededRandom } from "~/utils";
 
 export type RandomSource = () => number;
 

@@ -1,4 +1,4 @@
-import type { ScoreBreakdown } from "../../game-shared/model/scoreBreakdown";
+import type { ScoreBreakdown } from "~/features/game-shared";
 
 export interface CalculateTypeSurvivalScoreInput {
   readonly roundDurationMs: number;

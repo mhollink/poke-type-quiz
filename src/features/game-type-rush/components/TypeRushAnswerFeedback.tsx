@@ -1,4 +1,5 @@
 import Alert from "@mui/material/Alert";
+
 import type { TypeRushSubmissionResult } from "../hooks/useTypeRushGame.ts";
 
 export interface TypeRushAnswerFeedbackProps {

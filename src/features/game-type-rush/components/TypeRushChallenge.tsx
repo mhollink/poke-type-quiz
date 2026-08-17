@@ -1,6 +1,8 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { TypeBadge } from "../../game-shared/components/TypeBadge.tsx";
+
+import { TypeBadge } from "~/features/game-shared";
+
 import type { TypeRushChallenge as TypeRushChallengeModel } from "../model/typeRushGameTypes.ts";
 
 export interface TypeRushChallengeProps {

@@ -6,15 +6,15 @@ import {
   useRef,
   useState,
 } from "react";
-import type { Pokemon, PokemonType } from "../../../types";
-import { playPokemonCry } from "../../../utils";
+
+import type { Pokemon, PokemonType } from "~/types";
+import { createDailyDateKey, playPokemonCry } from "~/utils";
+
 import {
   analytics,
   trackGameCompleted,
   trackGameStarted,
 } from "../../analytics";
-import { createSessionId } from "../../game-shared/utils/createSessionId";
-import { createDailyDateKey } from "../../game-type-rush/challenge/createDailySeed.ts";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import { createSurvivalChallenge } from "../challenge/createSurvivalChallenges.ts";
@@ -193,7 +193,6 @@ export function useTypeSurvivalGame(
 
     dispatch({
       type: "START_GAME",
-      sessionId: createSessionId(),
       challenge: firstChallenge.challenge,
       startedAt,
       roundEndsAt: startedAt + typeSurvivalGameConfig.roundDurationMs,

@@ -1,11 +1,12 @@
+import { useMemo } from "react";
 import BoltIcon from "@mui/icons-material/Bolt";
 import { Container, Paper, Stack, Typography } from "@mui/material";
-import { useMemo } from "react";
-import { usePokemonData } from "../../hooks/usePokemonData.ts";
-import type { GameMode, Pokemon } from "../../types";
-import { GameHeader } from "../game-shared/components/GameHeader.tsx";
-import { GameScore } from "../game-shared/components/GameScore";
-import { createDailyDateKey } from "../game-type-rush/challenge/createDailySeed.ts";
+
+import { GameHeader, GameScore } from "~/features/game-shared";
+import { usePokemonData } from "~/hooks/usePokemonData.ts";
+import type { GameMode, Pokemon } from "~/types";
+import { createDailyDateKey } from "~/utils";
+
 import { PokemonAutocomplete } from "./components/PokemonAutocomplete";
 import { TypeSurvivalChallenge } from "./components/TypeSurvivalChallenge.tsx";
 import { TypeSurvivalGameResult } from "./components/TypeSurvivalGameResult.tsx";

@@ -1,4 +1,5 @@
-import type { Move, Pokemon } from "../../../types";
+import type { Move, Pokemon } from "~/types";
+
 import { dailyGameConfig } from "../battleTacticsGameConfig.ts";
 import type {
   BattleTacticsChallenge,

@@ -1,4 +1,5 @@
-import type { Move, Pokemon } from "../../../types";
+import type { Move, Pokemon } from "~/types";
+
 import type { MoveScoreBreakdown } from "./Score.ts";
 
 export type BattleTacticsOptionSelection = {

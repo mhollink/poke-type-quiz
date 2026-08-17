@@ -1,6 +1,7 @@
-import type { Pokemon, PokemonType } from "../../../types";
+import type { Pokemon, PokemonType } from "~/types";
+import type { RandomSource } from "~/utils";
+
 import type { TypeRushChallenge } from "../model/typeRushGameTypes.ts";
-import type { RandomSource } from "./createSeededRandom";
 
 interface ChallengeCandidate {
   readonly types: readonly PokemonType[];

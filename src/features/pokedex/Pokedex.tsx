@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -9,10 +10,11 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { useMemo } from "react";
-import type { Pokemon } from "../../types";
-import { getPokemonSpriteUrl, pokemonData } from "../../utils";
-import { TypeBadge } from "../game-shared/components/TypeBadge.tsx";
+
+import { TypeBadge } from "~/features/game-shared";
+import type { Pokemon } from "~/types";
+import { getPokemonSpriteUrl, pokemonData } from "~/utils";
+
 import { localPokedexRepository } from "./storage/pokedexRepository.ts";
 
 interface PokedexProps {

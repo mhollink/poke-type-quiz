@@ -1,4 +1,5 @@
 import { Chip } from "@mui/material";
+
 import { TYPE_COLORS } from "../../../theme/typeColors";
 import type { PokemonType } from "../../../types";
 

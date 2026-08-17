@@ -1,5 +1,3 @@
-import { dailyGameConfig } from "../features/game-battle-tactics/battleTacticsGameConfig.ts";
-
 type ShareGameResultInput = {
   score: number;
   correctAnswers: number;
@@ -15,6 +13,7 @@ type DailyReversalResultInput = DailyChallengeResultInput & {
 
 type DailyBattleResultInput = ShareGameResultInput & {
   percentage: number;
+  rounds: number;
 };
 
 export type ShareResult = "shared" | "copied" | "cancelled";
@@ -63,7 +62,7 @@ export function createDailyBattleShareText(
     "PokeType: Battle Tactics",
     "",
     `Final score: ${result.score.toLocaleString()}`,
-    `Optimal moves chosen: ${result.correctAnswers}/${dailyGameConfig.rounds}`,
+    `Optimal moves chosen: ${result.correctAnswers}/${result.rounds}`,
     `Percentage ${result.percentage}%`,
   ].join("\n");
 }

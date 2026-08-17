@@ -1,4 +1,5 @@
-import type { Pokemon, PokemonType } from "../../../types";
+import type { Pokemon, PokemonType } from "~/types";
+
 import type { TypeChallenge } from "../model/typeSurvivalGameTypes.ts";
 
 export interface CreateSurvivalChallengeInput {

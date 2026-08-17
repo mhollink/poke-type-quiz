@@ -7,14 +7,14 @@ import {
   useState,
 } from "react";
 
-import type { Pokemon } from "../../../types/pokemon";
-import { playPokemonCry } from "../../../utils";
+import type { Pokemon } from "~/types";
+import { createDailyDateKey, playPokemonCry } from "~/utils";
+
 import {
   analytics,
   trackGameCompleted,
   trackGameStarted,
 } from "../../analytics";
-import { createDailyDateKey } from "../../game-type-rush/challenge/createDailySeed.ts";
 import { localPokedexRepository } from "../../pokedex/storage/pokedexRepository.ts";
 import { useSoundLevel } from "../../sound/SoundPreferencesProvider.tsx";
 import { createTypeRecallChallenge } from "../challenge/createTypeRecallChallenge.ts";

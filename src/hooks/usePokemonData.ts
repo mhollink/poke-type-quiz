@@ -1,7 +1,9 @@
 import { useMemo } from "react";
+
+import type { Pokemon, PokemonType } from "~/types";
+import { pokemonData } from "~/utils";
+
 import { localGenerationSelectionRepository } from "../features/generation-selection/storage/localGenerationSelectionRepository.ts";
-import type { Pokemon, PokemonType } from "../types";
-import { pokemonData } from "../utils";
 
 export function usePokemonData() {
   const enabledGens = useMemo(

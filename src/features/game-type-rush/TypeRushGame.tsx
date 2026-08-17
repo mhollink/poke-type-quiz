@@ -4,10 +4,11 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { usePokemonData } from "../../hooks/usePokemonData.ts";
-import type { GameMode } from "../../types";
-import { GameHeader } from "../game-shared/components/GameHeader.tsx";
-import { GameScore } from "../game-shared/components/GameScore";
+
+import { GameHeader, GameScore } from "~/features/game-shared";
+import { usePokemonData } from "~/hooks/usePokemonData.ts";
+import type { GameMode } from "~/types";
+
 import { PokemonAutocomplete } from "../game-type-survival/components/PokemonAutocomplete.tsx";
 import { TypeRushAnswerFeedback } from "./components/TypeRushAnswerFeedback.tsx";
 import { TypeRushChallenge } from "./components/TypeRushChallenge.tsx";

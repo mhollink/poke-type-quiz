@@ -1,6 +1,7 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
 import { App } from "./app/App";
 import { WithAnalytics } from "./features/analytics";
 import { theme } from "./theme/theme";

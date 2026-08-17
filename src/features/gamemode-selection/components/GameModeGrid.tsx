@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
-import type { GameMode } from "../../../types";
+
+import type { GameMode } from "~/types";
+
 import { gameModes } from "../gameModeOptions";
 import { GameModeCard } from "./GameModeCard";
 

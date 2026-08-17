@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { alpha, useTheme } from "@mui/material/styles";
@@ -10,9 +11,9 @@ import { ChartsTooltip } from "@mui/x-charts/ChartsTooltip";
 import { ChartsXAxis } from "@mui/x-charts/ChartsXAxis";
 import { ChartsYAxis } from "@mui/x-charts/ChartsYAxis";
 import { LinePlot, MarkPlot } from "@mui/x-charts/LineChart";
-import { useMemo } from "react";
+
 import type { DailyBattleAttemptRecord } from "../model/Score.ts";
-import { localDailyBattleRepository } from "../storage/dailyAttemptRepository.ts";
+import { battleTacticsAttemptRepository } from "../storage/battleTacticsAttemptRepository.ts";
 
 type DailyScoreDatum = {
   dateKey: string;
@@ -115,7 +116,7 @@ function DailyScoreHistory() {
   const theme = useTheme();
 
   const dailyAttemptRecords = useMemo(
-    () => localDailyBattleRepository.findAll(),
+    () => battleTacticsAttemptRepository.findAll(),
     [],
   );
 

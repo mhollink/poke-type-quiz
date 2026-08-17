@@ -1,7 +1,8 @@
+import { type ComponentType, lazy, Suspense } from "react";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-import { type ComponentType, lazy, Suspense } from "react";
-import type { GameMode } from "../types";
+
+import type { GameMode } from "~/types";
 
 interface GameScreenProps {
   gameMode: GameMode;

@@ -1,9 +1,11 @@
 import { useReducer } from "react";
-import { analytics } from "../features/analytics";
+
+import { analytics } from "~/features/analytics";
+import { assertNever } from "~/utils";
+
 import { EntryScreen } from "../screens/EntryScreen.tsx";
 import { GameScreen } from "../screens/GameScreen.tsx";
 import { PokedexScreen } from "../screens/PokedexScreen.tsx";
-import { assertNever } from "../utils";
 import { appReducer } from "./appReducer.ts";
 import { initialAppState } from "./appState.ts";
 

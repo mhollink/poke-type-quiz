@@ -1,16 +1,18 @@
+import { lazy, Suspense, useState } from "react";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Skeleton from "@mui/material/Skeleton";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { lazy, Suspense, useState } from "react";
+
+import { GameResult } from "~/features/game-shared";
 import {
   createTypeRecallChallengeShareText,
   type ShareResult,
   shareGameResult,
-} from "../../../utils";
-import { GameResult } from "../../game-shared/components/GameResult";
+} from "~/utils";
+
 import type {
   TypeRecallGameOverReason,
   TypeRecallGameState,

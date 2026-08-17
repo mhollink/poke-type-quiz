@@ -1,9 +1,9 @@
+import { useMemo } from "react";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
-import { useMemo } from "react";
 
 export interface DailyAttemptRecord {
   readonly dateKey: string;

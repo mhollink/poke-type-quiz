@@ -1,6 +1,3 @@
-import VolumeOffIcon from "@mui/icons-material/VolumeOff";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import Fab from "@mui/material/Fab";
 import {
   createContext,
   type PropsWithChildren,
@@ -8,6 +5,9 @@ import {
   useEffect,
   useState,
 } from "react";
+import VolumeOffIcon from "@mui/icons-material/VolumeOff";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import Fab from "@mui/material/Fab";
 
 export type SoundLevel = "on" | "mute";
 

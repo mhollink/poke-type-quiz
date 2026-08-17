@@ -1,3 +1,4 @@
+import { lazy, Suspense, useState } from "react";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import Alert from "@mui/material/Alert";
@@ -8,7 +9,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { lazy, Suspense, useState } from "react";
+
 import {
   createDailyBattleShareText,
   type ShareResult,
@@ -34,6 +35,7 @@ export function BattleTacticsGameResult({
       score: state.score,
       correctAnswers: state.correctAnswers,
       percentage: state.percentage,
+      rounds: state.totalRounds,
     });
 
     const result = await shareGameResult(text, "PokeType Quiz: Daily Battle");

@@ -1,4 +1,5 @@
-import type { Pokemon } from "../../../types";
+import type { Pokemon } from "~/types";
+
 import type { TypeRecallChallenge } from "../model/typeRecallGameTypes.ts";
 import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
 
