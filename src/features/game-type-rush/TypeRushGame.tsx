@@ -14,6 +14,7 @@ import { TypeRushAnswerFeedback } from "./components/TypeRushAnswerFeedback.tsx"
 import { TypeRushChallenge } from "./components/TypeRushChallenge.tsx";
 import { TypeRushGameResult } from "./components/TypeRushGameResult.tsx";
 import useTypeRushGame from "./hooks/useTypeRushGame.ts";
+import {typeRushGameConfig} from "~/features/game-type-rush/typeRushGameConfig.ts";
 
 interface TypeRushGameProps {
   readonly onExit: () => void;
@@ -94,7 +95,7 @@ function TypeRushGame({ onNext, onExit, onOpenPokedex }: TypeRushGameProps) {
                     variant="text"
                     onClick={game.skipRound}
                   >
-                    Skip current round (-30sec)
+                    Skip current round (-{typeRushGameConfig.skipPenaltySec}sec)
                   </Button>
                 </Stack>
               </Paper>

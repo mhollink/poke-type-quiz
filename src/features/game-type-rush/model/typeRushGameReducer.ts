@@ -84,7 +84,7 @@ export function typeRushGameReducer(
 
       const nextStreak = state.streak + 1;
       const nextEndTime = Math.min(
-        (state.runEndsAt ?? Date.now()) + 10 * 1000,
+        (state.runEndsAt ?? Date.now()) + typeRushGameConfig.correctAnswerTimeBonus * 1000,
         Date.now() + typeRushGameConfig.durationMs - 1000,
       );
 
@@ -108,7 +108,7 @@ export function typeRushGameReducer(
         skippedTypes.add(createTypeKey(action.skippedRound.types));
       }
 
-      const nextEndTime = (state.runEndsAt ?? Date.now()) - 30 * 1000;
+      const nextEndTime = (state.runEndsAt ?? Date.now()) - typeRushGameConfig.skipPenaltySec * 1000;
       return {
         ...state,
         streak: 0,
@@ -127,7 +127,7 @@ export function typeRushGameReducer(
     }
 
     case "INCORRECT_ANSWER": {
-      const nextEndTime = (state.runEndsAt ?? Date.now()) - 15 * 1000;
+      const nextEndTime = (state.runEndsAt ?? Date.now()) - typeRushGameConfig.incorrectAnswerTimePenalty * 1000;
       return {
         ...state,
         mistakes: state.mistakes + 1,
