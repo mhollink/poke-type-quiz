@@ -1,19 +1,18 @@
 import type { Move, Pokemon } from "~/types";
+import { createScopedRandom } from "~/utils";
 
 import type { BattleTacticsOption } from "../model/Round.ts";
 import { calculateMoveScore } from "../scoring/calculateMoveScore.ts";
 import type { TypeEffectivenessLookup } from "../utils/effectiveness.ts";
-import { createScopedRandom, randomIntegerInclusive } from "../utils/random.ts";
+import { randomIntegerInclusive } from "../utils/random.ts";
 
 function createMoveCandidate(
-  dateKey: string,
   roundIndex: number,
   pokemon: Pokemon,
   move: Move,
   getEffectiveness: TypeEffectivenessLookup,
 ): BattleTacticsOption {
   const hitRandom = createScopedRandom(
-    dateKey,
     ["round", roundIndex, "pokemon", pokemon.nr, "move", move.nr, "hits"].join(
       ":",
     ),
@@ -33,7 +32,6 @@ function createMoveCandidate(
 }
 
 export function createRankedMoveCandidates(
-  dateKey: string,
   roundIndex: number,
   pokemon: Pokemon,
   moves: readonly Move[],
@@ -41,7 +39,7 @@ export function createRankedMoveCandidates(
 ): BattleTacticsOption[] {
   return moves
     .map((move) =>
-      createMoveCandidate(dateKey, roundIndex, pokemon, move, getEffectiveness),
+      createMoveCandidate(roundIndex, pokemon, move, getEffectiveness),
     )
     .toSorted(
       (left, right) =>

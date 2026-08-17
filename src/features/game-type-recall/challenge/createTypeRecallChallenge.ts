@@ -57,7 +57,7 @@ export function createTypeRecallChallenge({
   return {
     id: createId(),
     pokemon: selected.pokemon,
-    shiny: random() < typeRecallGameConfig.shinyChance,
+    shiny: !!selected.pokemon.shiny,
     difficulty: selected.difficulty,
   };
 }

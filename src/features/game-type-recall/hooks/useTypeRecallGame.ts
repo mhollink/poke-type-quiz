@@ -8,7 +8,11 @@ import {
 } from "react";
 
 import type { Pokemon } from "~/types";
-import { createDailyDateKey, playPokemonCry } from "~/utils";
+import {
+  createDailyDateKey,
+  createScopedRandom,
+  playPokemonCry,
+} from "~/utils";
 
 import {
   analytics,
@@ -43,7 +47,7 @@ export interface TypeRecallGameDependencies {
 
 const defaultDependencies: TypeRecallGameDependencies = {
   now: Date.now,
-  random: Math.random,
+  random: createScopedRandom("type-recall"),
   createId: createId,
 };
 

@@ -1,4 +1,5 @@
 import type { Move, Pokemon } from "~/types";
+import { createScopedRandom, shuffle } from "~/utils";
 
 import { dailyGameConfig } from "../battleTacticsGameConfig.ts";
 import type {
@@ -7,7 +8,6 @@ import type {
   BattleTacticsOptionSelection,
 } from "../model/Round.ts";
 import type { TypeEffectivenessLookup } from "../utils/effectiveness.ts";
-import { createScopedRandom, shuffle } from "../utils/random.ts";
 import { sampleWithoutReplacement } from "../utils/stablize.ts";
 import { pickBestCandidate, pickRelativeCandidate } from "./candidates.ts";
 import { createRankedMoveCandidates } from "./createBattleTacticsRound.ts";
@@ -18,7 +18,7 @@ export function createBattleTacticsChallenge(
   moves: readonly Move[],
   getEffectiveness: TypeEffectivenessLookup,
 ): BattleTacticsChallenge {
-  const selectedPokemon = selectDailyPokemon(dateKey, pokemon);
+  const selectedPokemon = selectDailyPokemon(pokemon);
 
   const eligibleMoves = moves.toSorted((left, right) => left.nr - right.nr);
 
@@ -26,7 +26,6 @@ export function createBattleTacticsChallenge(
 
   const rounds = selectedPokemon.map((selectedPokemon, index) => {
     const selection = selectBattleTacticsOptions(
-      dateKey,
       index,
       selectedPokemon,
       eligibleMoves,
@@ -48,12 +47,12 @@ export function createBattleTacticsChallenge(
 
   return {
     dateKey,
-    rounds: shuffle(rounds, () => Math.random()),
+    rounds: shuffle(rounds),
     maxScore: rounds.reduce((total, round) => total + round.maxScore, 0),
   };
 }
 
-function selectDailyPokemon(dateKey: string, pokemon: readonly Pokemon[]) {
+function selectDailyPokemon(pokemon: readonly Pokemon[]) {
   const eligiblePokemon = [...pokemon].sort(
     (left, right) => left.nr - right.nr,
   );
@@ -61,12 +60,11 @@ function selectDailyPokemon(dateKey: string, pokemon: readonly Pokemon[]) {
   return sampleWithoutReplacement(
     eligiblePokemon,
     dailyGameConfig.rounds,
-    createScopedRandom(dateKey, "pokemon-selection"),
+    createScopedRandom("pokemon-selection"),
   );
 }
 
 function selectBattleTacticsOptions(
-  dateKey: string,
   roundIndex: number,
   pokemon: Pokemon,
   moves: readonly Move[],
@@ -74,7 +72,6 @@ function selectBattleTacticsOptions(
   usedBestMoveIds: ReadonlySet<string>,
 ): BattleTacticsOptionSelection {
   const candidates = createRankedMoveCandidates(
-    dateKey,
     roundIndex,
     pokemon,
     moves,
@@ -88,7 +85,7 @@ function selectBattleTacticsOptions(
   const best = pickBestCandidate(
     candidates,
     usedBestMoveIds,
-    createScopedRandom(dateKey, `round:${roundIndex}:best`),
+    createScopedRandom(`round:${roundIndex}:best`),
   );
 
   const selected: BattleTacticsOption[] = [best];
@@ -101,7 +98,7 @@ function selectBattleTacticsOptions(
       upperScoreExclusive,
       tier.targetRatio,
       selected,
-      createScopedRandom(dateKey, `round:${roundIndex}:tier:${tier.id}`),
+      createScopedRandom(`round:${roundIndex}:tier:${tier.id}`),
     );
 
     selected.push(option);
@@ -110,6 +107,6 @@ function selectBattleTacticsOptions(
 
   return {
     bestMoveId: best.move.id,
-    options: shuffle(selected, () => Math.random()),
+    options: shuffle(selected),
   };
 }

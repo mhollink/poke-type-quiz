@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 
 import type { Pokemon, PokemonType } from "~/types";
-import { pokemonData } from "~/utils";
+import { createScopedRandom, pokemonData } from "~/utils";
 
 import { localGenerationSelectionRepository } from "../features/generation-selection/storage/localGenerationSelectionRepository.ts";
 
 export function usePokemonData() {
+  const random = useMemo(() => createScopedRandom("shiny-roll"), []);
+
   const enabledGens = useMemo(
     () => localGenerationSelectionRepository.findEnabledGenerations(),
     [],
@@ -16,16 +18,21 @@ export function usePokemonData() {
     [enabledGens],
   );
 
+  const pokemon = useMemo(
+    () =>
+      pokemonData.map((pokemon) => ({ ...pokemon, shiny: random() < 0.04 })),
+    [],
+  );
+
   const availablePokemon: Pokemon[] = useMemo(
     () =>
-      pokemonData
+      pokemon
         .filter((pokemon) => enabledGens.has(pokemon.gen))
         .map(
           (pokemon) =>
             ({
               ...pokemon,
               types: resolvePokemonTypes(pokemon, effectiveGeneration),
-              shiny: Math.random() > 0.98, // 2% of available pokemon are shiny in the selection box.
             }) satisfies Pokemon,
         ),
     [enabledGens, effectiveGeneration],

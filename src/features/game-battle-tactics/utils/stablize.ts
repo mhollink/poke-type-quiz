@@ -1,4 +1,4 @@
-import type { RandomSource } from "./random.ts";
+import type { RandomSource } from "~/utils";
 
 export function sampleWithoutReplacement<T>(
   items: readonly T[],

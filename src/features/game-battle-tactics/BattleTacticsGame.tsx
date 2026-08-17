@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 
 import { GameHeader } from "~/features/game-shared";
 import { usePokemonData } from "~/hooks/usePokemonData.ts";
-import { createDailyDateKey, moveData } from "~/utils";
+import { moveData, today } from "~/utils";
 
 import { PokemonChallenge } from "../game-type-recall/components/PokemonChallenge.tsx";
 import { MoveBattleRoundedIcon } from "../gamemode-selection/gameModeOptions.tsx";
@@ -27,7 +27,7 @@ type BattleTacticsGameProps = {
 };
 
 function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
-  const dateKey = useMemo(() => createDailyDateKey(new Date()), []);
+  const dateKey = useMemo(() => today(), []);
   const exitingResult = battleTacticsAttemptRepository.findByDate(dateKey);
 
   const { enabledGens, availablePokemon } = usePokemonData();

@@ -8,6 +8,10 @@ export function createDailyDateKey(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
+export function today(): string {
+  return createDailyDateKey(new Date());
+}
+
 export function createDailySeed(dateKey: string): number {
   let hash = 2166136261;
 
@@ -45,8 +49,7 @@ function hashSeed(value: string): number {
 }
 
 export function createScopedRandom(scope: string = "default"): RandomSource {
-  const today = new Date();
-  const key = createDailyDateKey(today);
+  const key = today();
   const dailySeed = createDailySeed(key);
   const seed = hashSeed(`poketype.${scope}.${dailySeed}`);
 

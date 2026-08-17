@@ -10,9 +10,9 @@ import {
 import type { Pokemon } from "~/types";
 import {
   createDailyDateKey,
-  createDailySeed,
-  createSeededRandom,
+  createScopedRandom,
   playPokemonCry,
+  type RandomSource,
 } from "~/utils";
 
 import {
@@ -69,11 +69,13 @@ export interface TypeRushGameDependencies {
   readonly now: () => number;
   readonly createDate: () => Date;
   readonly attemptRepository: TypeRushAttemptRepository;
+  readonly random: RandomSource;
 }
 
 const defaultDependencies: TypeRushGameDependencies = {
   now: Date.now,
   createDate: () => new Date(),
+  random: createScopedRandom("type-rush"),
   attemptRepository: localTypeRushAttemptRepository,
 };
 
@@ -103,12 +105,6 @@ function useTypeRushGame(
     [dependencies],
   );
 
-  const randomRef = useRef<ReturnType<typeof createSeededRandom> | null>(null);
-
-  if (randomRef.current === null) {
-    randomRef.current = createSeededRandom(createDailySeed(dateKey));
-  }
-
   const startGame = useCallback((): void => {
     if (initializedRef.current) {
       return;
@@ -131,7 +127,7 @@ function useTypeRushGame(
       skippedTypes: new Set(),
       previousChallenge: null,
       challengeIndex: 0,
-      random: randomRef.current!,
+      random: dependencies.random,
     });
 
     if (!firstChallenge) {
@@ -267,7 +263,7 @@ function useTypeRushGame(
         skippedTypes: state.skippedTypes,
         previousChallenge: state.currentChallenge,
         challengeIndex: state.correctAnswers + state.skippedRounds + 1,
-        random: randomRef.current!,
+        random: dependencies.random,
       });
 
       setSubmissionResult("correct");
@@ -296,7 +292,7 @@ function useTypeRushGame(
             skippedTypes: new Set(),
             previousChallenge: state.currentChallenge,
             challengeIndex: state.correctAnswers + state.skippedRounds + 1,
-            random: randomRef.current!,
+            random: dependencies.random,
           });
           if (newSkippedRound) {
             dispatch({
@@ -358,7 +354,7 @@ function useTypeRushGame(
       skippedTypes: nextSkippedTypes,
       previousChallenge: state.currentChallenge,
       challengeIndex: state.correctAnswers + state.skippedRounds + 1,
-      random: randomRef.current!,
+      random: dependencies.random,
     });
 
     if (nextChallenge) {
@@ -376,7 +372,7 @@ function useTypeRushGame(
         skippedTypes: new Set(currentChallengeKey),
         previousChallenge: state.currentChallenge,
         challengeIndex: state.correctAnswers + state.skippedRounds + 1,
-        random: randomRef.current!,
+        random: dependencies.random,
       });
 
       if (nextChallenge) {

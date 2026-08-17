@@ -7,8 +7,17 @@ import {
   useState,
 } from "react";
 
+import {
+  localTypeRushAttemptRepository,
+  type TypeRushAttemptRepository,
+} from "~/features/game-type-rush/storage/typeRushAttemptRepository.ts";
 import type { Pokemon, PokemonType } from "~/types";
-import { createDailyDateKey, playPokemonCry } from "~/utils";
+import {
+  createDailyDateKey,
+  createScopedRandom,
+  playPokemonCry,
+  type RandomSource,
+} from "~/utils";
 
 import {
   analytics,
@@ -43,8 +52,23 @@ export interface UseTypeSurvivalGame {
   readonly startGame: () => void;
 }
 
+export interface TypeSurvivalGameDependencies {
+  readonly now: () => number;
+  readonly createDate: () => Date;
+  readonly attemptRepository: TypeRushAttemptRepository;
+  readonly random: RandomSource;
+}
+
+const defaultDependencies: TypeSurvivalGameDependencies = {
+  now: Date.now,
+  createDate: () => new Date(),
+  random: createScopedRandom("type-survival"),
+  attemptRepository: localTypeRushAttemptRepository,
+};
+
 export function useTypeSurvivalGame(
   pokemon: readonly Pokemon[],
+  dependencies: TypeSurvivalGameDependencies = defaultDependencies,
 ): UseTypeSurvivalGame {
   const sound = useSoundLevel();
   const [state, dispatch] = useReducer(
@@ -53,7 +77,7 @@ export function useTypeSurvivalGame(
     createInitialTypeSurvivalGameState,
   );
 
-  const [now, setNow] = useState(() => Date.now());
+  const [now, setNow] = useState(dependencies.now);
 
   /*
    * Prevent two events from resolving the same round.
@@ -167,6 +191,7 @@ export function useTypeSurvivalGame(
       pokemon,
       usedPokemonIds: new Set(),
       previousChallenge: null,
+      random: dependencies.random,
     });
 
     if (!firstChallenge) {
@@ -256,6 +281,7 @@ export function useTypeSurvivalGame(
         pokemon,
         usedPokemonIds: nextUsedPokemonIds,
         previousChallenge: state.currentChallenge,
+        random: dependencies.random,
       });
 
       if (!nextChallenge) {

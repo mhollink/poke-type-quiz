@@ -1,6 +1,8 @@
+import type { RandomSource } from "~/utils";
+
 import { dailyGameConfig } from "../battleTacticsGameConfig.ts";
 import type { BattleTacticsOption } from "../model/Round.ts";
-import { pickRandomItem, type RandomSource } from "../utils/random.ts";
+import { pickRandomItem } from "../utils/random.ts";
 
 export function pickBestCandidate(
   candidates: readonly BattleTacticsOption[],

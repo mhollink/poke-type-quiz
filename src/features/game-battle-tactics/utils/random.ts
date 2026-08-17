@@ -1,26 +1,4 @@
-import { createSeededRandom } from "~/utils";
-
-export type RandomSource = () => number;
-
-export function createScopedRandom(
-  dateKey: string,
-  scope: string,
-): RandomSource {
-  const seed = `move-daily:v1:${dateKey}:${scope}`;
-  const state = hashSeed(seed);
-  return createSeededRandom(state);
-}
-
-function hashSeed(value: string): number {
-  let hash = 2166136261;
-
-  for (let index = 0; index < value.length; index += 1) {
-    hash ^= value.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
-  }
-
-  return hash >>> 0;
-}
+import type { RandomSource } from "~/utils";
 
 export function randomIntegerInclusive(
   minimum: number,
@@ -59,19 +37,4 @@ export function pickRandomItem<T>(
   const index = randomIntegerInclusive(0, items.length - 1, random);
 
   return items[index];
-}
-
-export function shuffle<T>(items: readonly T[], random: RandomSource): T[] {
-  const shuffled = [...items];
-
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const swapIndex = randomIntegerInclusive(0, index, random);
-
-    [shuffled[index], shuffled[swapIndex]] = [
-      shuffled[swapIndex],
-      shuffled[index],
-    ];
-  }
-
-  return shuffled;
 }
