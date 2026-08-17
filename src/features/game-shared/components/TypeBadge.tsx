@@ -1,7 +1,8 @@
 import { Chip } from "@mui/material";
+import { darken } from "@mui/material/styles";
 
-import { TYPE_COLORS } from "../../../theme/typeColors";
-import type { PokemonType } from "../../../types";
+import { TYPE_COLORS } from "~/theme/typeColors.ts";
+import type { PokemonType } from "~/types";
 
 type TypeBadgeProps =
   | {
@@ -36,22 +37,37 @@ export function TypeBadge(props: TypeBadgeProps) {
     );
   }
 
-  const colors = TYPE_COLORS[props.type];
+  const typeColor = TYPE_COLORS[props.type].background;
 
   return (
     <Chip
-      label={props.type}
+      label={props.type.toUpperCase()}
       size={size}
       sx={{
-        minWidth: size === "small" ? 46 : 96,
-        backgroundColor: colors.background,
-        color: colors.foreground,
-        fontWeight: size === "small" ? 400 : 700,
-        textTransform: "capitalize",
-        border: "1px solid",
-        borderColor: "rgba(0, 0, 0, 0.12)",
+        background: `linear-gradient(
+          180deg,
+          ${typeColor} 0%,
+          ${darken(typeColor, 0.18)} 50%,
+          ${typeColor} 100%
+        )`,
+
+        border: "1px solid white",
+        boxShadow: "0 0 0 1px black",
+
+        color: "white",
+        fontWeight: 700,
+
         "& .MuiChip-label": {
-          px: 2,
+          textShadow: `
+            -1px -1px 0 #000,
+             0   -1px 0 #000,
+             1px -1px 0 #000,
+            -1px  0   0 #000,
+             1px  0   0 #000,
+            -1px  1px 0 #000,
+             0    1px 0 #000,
+             1px  1px 0 #000
+          `,
         },
       }}
     />
