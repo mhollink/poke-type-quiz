@@ -51,9 +51,9 @@ export function TypeSurvivalGameResult({
   incorrectType,
   usedPokemonIds,
 }: TypeSurvivalGameResultProps) {
-  const dailyAttemptRecords = useMemo(
-    () => localDailyAttemptRepository.findAll(),
-    [],
+  const dailyAttemptRecords = localDailyAttemptRepository.findAll();
+  const highScore = Math.max(
+    ...dailyAttemptRecords.map((attempt) => attempt.score),
   );
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
@@ -96,6 +96,7 @@ export function TypeSurvivalGameResult({
       <GameResult
         title="Type Survival complete"
         score={result.score}
+        highscore={highScore}
         correctAnswers={result.correctAnswers}
         highestMultiplier={result.highestMultiplier}
         message={getGameOverMessage(reason)}

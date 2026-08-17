@@ -17,6 +17,7 @@ export interface GameResultProps {
   readonly title: string;
   readonly message: string;
   readonly score: number;
+  readonly highscore?: number;
   readonly correctAnswers: number;
   readonly highestMultiplier: number;
   readonly statistics?: readonly GameResultStatistic[];
@@ -29,6 +30,7 @@ export function GameResult({
   title,
   message,
   score,
+  highscore = 0,
   correctAnswers,
   highestMultiplier,
   statistics = [],
@@ -37,10 +39,6 @@ export function GameResult({
   onExit,
 }: GameResultProps) {
   const displayedStatistics: readonly GameResultStatistic[] = [
-    {
-      label: "Final score",
-      value: score.toLocaleString(),
-    },
     {
       label: "Correct answers",
       value: correctAnswers.toLocaleString(),
@@ -104,17 +102,23 @@ export function GameResult({
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: {
-              xs: "repeat(1, minmax(0, 1fr))",
-              sm: `repeat(${Math.min(
-                displayedStatistics.length,
-                5,
-              )}, minmax(0, 1fr))`,
-            },
+            gridTemplateColumns: `repeat(2, minmax(0, 2fr))`,
             width: "100%",
-            border: 1,
-            borderColor: "divider",
-            borderRadius: 1,
+            overflow: "hidden",
+          }}
+        >
+          <ResultMetric label="Final Score" value={score.toLocaleString()} />
+          <ResultMetric
+            label="Personal Best"
+            value={highscore.toLocaleString()}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${Math.min(displayedStatistics.length, 3)}, minmax(0, 2fr))`,
+            width: "100%",
             overflow: "hidden",
           }}
         >
@@ -180,8 +184,6 @@ function ResultMetric({ label, value }: ResultMetricProps) {
       sx={{
         minWidth: 0,
         py: 1,
-        border: 1,
-        borderColor: "divider",
         justifyContent: "center",
         alignItems: "center",
       }}

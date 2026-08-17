@@ -52,6 +52,9 @@ export function TypeRushGameResult({
   skippedTypes,
 }: TypeRushGameResultProps) {
   const dailyAttemptRecords = localTypeRushAttemptRepository.findAll();
+  const highScore = Math.max(
+    ...dailyAttemptRecords.map((attempt) => attempt.score),
+  );
 
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
   const highestMultiplier = useMemo(
@@ -99,6 +102,7 @@ export function TypeRushGameResult({
         title={getTitle(reason)}
         message={getMessage(reason)}
         score={attempt.score}
+        highscore={highScore}
         correctAnswers={attempt.correctAnswers}
         highestMultiplier={highestMultiplier}
         statistics={[

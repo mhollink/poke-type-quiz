@@ -42,7 +42,9 @@ export function TypeRecallGameResult({
   onOpenPokedex,
 }: TypeRecallGameResultProps) {
   const dailyAttemptRecords = typeRecallAttemptRepository.findAll();
-
+  const highScore = Math.max(
+    ...dailyAttemptRecords.map((attempt) => attempt.score),
+  );
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
   async function handleShare(): Promise<void> {
@@ -85,6 +87,7 @@ export function TypeRecallGameResult({
         title={getTitle(reason)}
         message={getMessage(reason)}
         score={result.score}
+        highscore={highScore}
         correctAnswers={result.correctAnswers}
         highestMultiplier={result.highestMultiplier}
         statistics={[
