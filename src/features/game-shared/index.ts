@@ -7,6 +7,10 @@ export {
 } from "./components/GameResult";
 export { GameScore, type GameScoreProps } from "./components/GameScore";
 export {
+  PokemonSprite,
+  type PokemonSpriteProps,
+} from "./components/PokemonSprite";
+export {
   PotentialValidOptions,
   type PotentialValidOptionsProps,
 } from "./components/PotentialValidAnswers";

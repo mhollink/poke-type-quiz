@@ -4,8 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import { blue } from "@mui/material/colors";
 import Stack from "@mui/material/Stack";
 
-import { getPokemonSpriteUrl } from "~/utils";
-
 import { localGenerationSelectionRepository } from "./storage/localGenerationSelectionRepository.ts";
 
 const GENERATIONS = [
@@ -144,4 +142,13 @@ function GenSelector({ gen, dexNr, enabled, setEnabled }: GenSelectorProps) {
       </Avatar>
     </Tooltip>
   );
+}
+
+export function getPokemonSpriteUrl(
+  dexNumber: number,
+  shiny: boolean = false,
+): string {
+  return shiny
+    ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${dexNumber}.png`
+    : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${dexNumber}.png`;
 }

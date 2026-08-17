@@ -1,9 +1,7 @@
 import { useMemo, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Badge, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -11,14 +9,13 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { TypeBadge } from "~/features/game-shared";
+import { PokemonSprite, TypeBadge } from "~/features/game-shared";
 import { usePokedex } from "~/features/pokedex/hooks/usePokedex.ts";
 import {
   type PokedexFilter,
   usePokedexFilter,
 } from "~/features/pokedex/hooks/usePokedexFilter.ts";
 import type { Pokemon } from "~/types";
-import { getPokemonSpriteUrl } from "~/utils";
 
 interface PokedexProps {
   entries: readonly Pokemon[];
@@ -164,44 +161,11 @@ function Pokedex({ entries, onExit }: PokedexProps) {
               >
                 {isUnlocked ? (
                   <>
-                    <Badge
-                      overlap="rectangular"
-                      invisible={!isShiny}
-                      badgeContent={
-                        <AutoAwesomeRoundedIcon
-                          aria-hidden
-                          sx={{
-                            fontSize: 16,
-                          }}
-                        />
-                      }
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      sx={{
-                        "& .MuiBadge-badge": {
-                          width: 20,
-                          height: 20,
-                          minWidth: 20,
-                          borderRadius: "50%",
-                          color: "darkorange",
-                        },
-                      }}
-                    >
-                      <Avatar
-                        src={getPokemonSpriteUrl(pokemon.nr, isShiny)}
-                        alt=""
-                        variant="square"
-                        sx={{
-                          width: 80,
-                          height: 80,
-                          bgcolor: "transparent",
-                          imageRendering: "pixelated",
-                        }}
-                      />
-                    </Badge>
-
+                    <PokemonSprite
+                      pokemon={pokemon}
+                      shiny={isShiny}
+                      size="medium"
+                    />
                     <Stack
                       direction="row"
                       spacing={0.5}

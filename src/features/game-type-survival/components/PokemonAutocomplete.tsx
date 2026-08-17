@@ -1,14 +1,14 @@
 import { useState } from "react";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import Autocomplete from "@mui/material/Autocomplete";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
+import { PokemonSprite } from "~/features/game-shared";
 import type { Pokemon } from "~/types";
-import { filterPokemonByName, getPokemonSpriteUrl } from "~/utils";
+import { filterPokemonByName } from "~/utils";
 
 type PokemonAutocompleteProps = {
   pokemon: readonly Pokemon[];
@@ -83,17 +83,7 @@ export function PokemonAutocomplete({
               py: 1,
             }}
           >
-            <Avatar
-              src={getPokemonSpriteUrl(option.nr, option.shiny)}
-              alt=""
-              variant="square"
-              sx={{
-                width: 48,
-                height: 48,
-                bgcolor: "transparent",
-                imageRendering: "pixelated",
-              }}
-            />
+            <PokemonSprite pokemon={option} shiny={option.shiny} size="small" />
 
             <Stack
               direction="row"

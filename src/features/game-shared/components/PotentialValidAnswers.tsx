@@ -1,9 +1,9 @@
-import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import type { Pokemon } from "../../../types";
-import { getPokemonSpriteUrl } from "../../../utils";
+import { PokemonSprite } from "~/features/game-shared";
+import type { Pokemon } from "~/types";
+
 import { TypeBadge } from "./TypeBadge.tsx";
 
 export interface PotentialValidOptionsProps {
@@ -34,16 +34,10 @@ export function PotentialValidOptions({
               alignItems: "center",
             }}
           >
-            <Avatar
-              src={getPokemonSpriteUrl(pokemon.nr)}
-              alt=""
-              variant="square"
-              sx={{
-                width: 40,
-                height: 40,
-                bgcolor: "transparent",
-                imageRendering: "pixelated",
-              }}
+            <PokemonSprite
+              pokemon={pokemon}
+              shiny={pokemon.shiny}
+              size="small"
             />
 
             <Typography

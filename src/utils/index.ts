@@ -10,4 +10,3 @@ export * from "./pokemonSearch";
 export * from "./random";
 export * from "./share";
 export * from "./shuffle";
-export * from "./sprite";

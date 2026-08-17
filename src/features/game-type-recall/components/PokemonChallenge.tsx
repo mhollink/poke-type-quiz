@@ -1,10 +1,7 @@
-import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
-import { Badge } from "@mui/material";
-import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { getPokemonSpriteUrl } from "~/utils";
+import { PokemonSprite } from "~/features/game-shared";
 
 import type { TypeRecallChallenge } from "../model/typeRecallGameTypes.ts";
 
@@ -27,52 +24,7 @@ export function PokemonChallenge({ challenge }: PokemonChallengeProps) {
         Select this Pokémon&apos;s type
       </Typography>
 
-      <Badge
-        overlap="rectangular"
-        invisible={!shiny}
-        badgeContent={
-          <AutoAwesomeRoundedIcon
-            aria-hidden
-            sx={{
-              fontSize: 36,
-            }}
-          />
-        }
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        sx={{
-          "& .MuiBadge-badge": {
-            top: 20,
-            right: 20,
-            width: 40,
-            height: 40,
-            minWidth: 40,
-            borderRadius: "50%",
-            color: "darkorange",
-          },
-        }}
-      >
-        <Box
-          component="img"
-          src={getPokemonSpriteUrl(pokemon.nr, shiny)}
-          alt={pokemon.name}
-          sx={{
-            display: "block",
-            width: {
-              xs: 180,
-              sm: 220,
-            },
-            height: {
-              xs: 180,
-              sm: 220,
-            },
-            objectFit: "contain",
-            imageRendering: "auto",
-          }}
-        />
-      </Badge>
+      <PokemonSprite pokemon={pokemon} shiny={shiny} size="large" />
 
       <Typography component="h1" variant="h4" sx={{ fontWeight: 700 }}>
         {pokemon.name}
