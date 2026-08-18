@@ -1,5 +1,5 @@
 import type { Pokemon, PokemonType } from "~/types";
-import type { RandomSource } from "~/utils";
+import {type RandomSource, shuffle} from "~/utils";
 
 import type { TypeRushChallenge } from "../model/typeRushGameTypes.ts";
 
@@ -41,13 +41,7 @@ export function createTypeRushChallenge({
     return null;
   }
 
-  const sortedCandidates = [...candidates].sort((left, right) => {
-    if (left.scarcityDifficulty !== right.scarcityDifficulty) {
-      return left.scarcityDifficulty - right.scarcityDifficulty;
-    }
-
-    return left.key.localeCompare(right.key);
-  });
+  const sortedCandidates = shuffle(candidates, random)
 
   const progression = Math.min(
     1,

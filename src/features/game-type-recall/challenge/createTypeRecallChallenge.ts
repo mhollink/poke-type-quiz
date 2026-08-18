@@ -2,6 +2,7 @@ import type { Pokemon } from "~/types";
 
 import type { TypeRecallChallenge } from "../model/typeRecallGameTypes.ts";
 import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
+import {shuffle} from "~/utils";
 
 export interface CreateTypeRecallChallengeInput {
   readonly pokemon: readonly Pokemon[];
@@ -97,13 +98,7 @@ function selectCandidateByProgression({
   challengeIndex,
   random,
 }: SelectCandidateByProgressionInput): ChallengeCandidate {
-  const sortedCandidates = [...candidates].sort((left, right) => {
-    if (left.difficulty !== right.difficulty) {
-      return left.difficulty - right.difficulty;
-    }
-
-    return left.pokemon.name.localeCompare(right.pokemon.name);
-  });
+  const sortedCandidates = shuffle([...candidates], random);
 
   const progression = Math.min(
     1,

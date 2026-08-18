@@ -1,6 +1,7 @@
 import type { Pokemon, PokemonType } from "~/types";
 
 import type { TypeChallenge } from "../model/typeSurvivalGameTypes.ts";
+import {shuffle} from "~/utils";
 
 export interface CreateSurvivalChallengeInput {
   readonly pokemon: readonly Pokemon[];
@@ -35,9 +36,7 @@ export function createSurvivalChallenge({
     return null;
   }
 
-  const sortedCandidates = [...candidates].sort(
-    (left, right) => left.availableAnswerCount - right.availableAnswerCount,
-  );
+  const sortedCandidates = shuffle(candidates, random)
 
   const difficultCandidatePool = sortedCandidates.slice(
     0,
@@ -65,7 +64,7 @@ interface ChallengeCandidate {
 function getChallengeCandidates(
   pokemon: readonly Pokemon[],
   previousChallenge: TypeChallenge | null,
-): readonly ChallengeCandidate[] {
+): ChallengeCandidate[] {
   const types = Array.from(
     new Set(pokemon.flatMap((candidate) => candidate.types)),
   );

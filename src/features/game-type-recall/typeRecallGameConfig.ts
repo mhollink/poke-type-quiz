@@ -16,6 +16,6 @@ export const typeRecallGameConfig: TypeRecallGameConfig = {
   dualTypeMultiplier: 1.25,
   maximumStreakMultiplier: 1.5,
   streakMultiplierStep: 0.025,
-  dualTypeChance: 0.7,
+  dualTypeChance: 0.33,
   shinyChance: 0.005, // 0.5% of pokemon might be shiny in this game mode.
 };
