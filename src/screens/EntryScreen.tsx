@@ -158,6 +158,8 @@ export function EntryScreen({
               localStorage.removeItem("poketype.daily-classic.v1");
               localStorage.removeItem("poketype.daily-reversed.v1");
               localStorage.removeItem("poketype.daily-moves.v1");
+              localStorage.removeItem("poketype:pokedex:v1");
+              localStorage.removeItem("poketype:shinydex:v1");
               window.location.reload();
             }
           }}

@@ -255,7 +255,7 @@ function useTypeRushGame(
       });
 
       const nextUsedPokemonIds = new Set(state.usedPokemonIds);
-      nextUsedPokemonIds.add(knownPokemon.id);
+      nextUsedPokemonIds.add(knownPokemon.id)
 
       const nextChallenge = createTypeRushChallenge({
         pokemon,
@@ -308,8 +308,19 @@ function useTypeRushGame(
         dispatch({
           type: "END_GAME",
           reason:
-            state.skippedRounds === 0 ? "no-challenges-left" : "time-expired",
+            state.skippedTypes.size === 0 ? "no-challenges-left" : "time-expired",
         });
+
+        localPokedexRepository.unlock(nextUsedPokemonIds);
+
+        if (knownPokemon.shiny) {
+          localPokedexRepository.unlock([...state.shinies, knownPokemon.id], true);
+        } else {
+          localPokedexRepository.unlock(state.shinies, true);
+
+        }
+
+
         trackGameCompleted(analytics, {
           mode: "type_rush",
           startedAt: state.startedAt ?? now,
@@ -318,8 +329,6 @@ function useTypeRushGame(
           mistakes: state.mistakes,
           score: state.score,
         });
-        localPokedexRepository.unlock(state.usedPokemonIds);
-        localPokedexRepository.unlock(state.shinies, true);
       }
     },
     [
@@ -363,6 +372,7 @@ function useTypeRushGame(
         skippedRound: state.currentChallenge,
         nextChallenge: nextChallenge,
       });
+      return;
     }
 
     if (currentChallengeKey) {

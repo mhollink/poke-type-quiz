@@ -112,6 +112,8 @@ export function typeRushGameReducer(
       const nextEndTime =
         (state.runEndsAt ?? Date.now()) -
         typeRushGameConfig.skipPenaltySec * 1000;
+
+      console.log({text: typeRushGameConfig.skipPenaltySec});
       return {
         ...state,
         streak: 0,
