@@ -7,16 +7,18 @@ import type { Pokemon } from "~/types";
 import { TypeBadge } from "./TypeBadge.tsx";
 
 export interface PotentialValidOptionsProps {
+    title?: string;
   potentialAnswers: readonly Pokemon[];
 }
 
 export function PotentialValidOptions({
+    title = "Possible answers",
   potentialAnswers,
 }: PotentialValidOptionsProps) {
   return potentialAnswers.length === 0 ? null : (
     <Stack spacing={1.5} sx={{ width: "100%" }}>
       <Typography component="h3" variant="subtitle1" sx={{ fontWeight: 700 }}>
-        Possible answers
+          {title}
       </Typography>
 
       <Stack spacing={1}>

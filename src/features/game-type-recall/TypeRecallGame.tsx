@@ -71,6 +71,7 @@ function TypeRecallGame({
             <TypeRecallGameResult
               result={game.state}
               reason={game.state.gameOverReason}
+              missedChallenge={game.state.currentChallenge}
               onExit={onExit}
               onNext={() => onNext("battle_tactics")}
               onOpenPokedex={onOpenPokedex}
