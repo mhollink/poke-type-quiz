@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import { GameHeader, GameScore } from "~/features/game-shared";
+import { createTypeKey } from "~/features/game-type-rush/challenge/createTypeRushChallenge.ts";
 import { typeRushGameConfig } from "~/features/game-type-rush/typeRushGameConfig.ts";
 import { usePokemonData } from "~/hooks/usePokemonData.ts";
 import type { GameMode } from "~/types";
@@ -116,7 +117,14 @@ function TypeRushGame({ onNext, onExit, onOpenPokedex }: TypeRushGameProps) {
               onNext={() => onNext("type_survival")}
               onOpenPokedex={onOpenPokedex}
               usedPokemonIds={game.state.usedPokemonIds}
-              skippedTypes={game.state.skippedTypes}
+              skippedTypes={
+                new Set(
+                  [
+                    ...game.state.skippedTypes,
+                    createTypeKey(game.state.currentChallenge?.types),
+                  ].filter((v) => !!v),
+                )
+              }
             />
           )}
       </Stack>
