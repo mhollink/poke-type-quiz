@@ -22,11 +22,13 @@ const DailyScoreHistory = lazy(() => import("./DailyBattleScoreHistory.tsx"));
 type BattleTacticsGameResultProps = {
   state: DailyBattleAttemptRecord;
   onExit: () => void;
+  onOpenMovedex: () => void;
 };
 
 export function BattleTacticsGameResult({
   state,
   onExit,
+  onOpenMovedex,
 }: BattleTacticsGameResultProps) {
   const [shareResult, setShareResult] = useState<ShareResult | null>(null);
 
@@ -143,6 +145,10 @@ export function BattleTacticsGameResult({
             </Stack>
           </Stack>
         </Paper>
+
+        <Button onClick={onOpenMovedex} color="primary">
+          Go to movedex
+        </Button>
 
         <Suspense
           fallback={

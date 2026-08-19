@@ -15,6 +15,13 @@ export function appReducer(state: AppState, action: AppAction): AppState {
         selectedMode: null,
       };
 
+    case "OPEN_MOVEDEX":
+      return {
+        ...state,
+        screen: "movedex",
+        selectedMode: null,
+      };
+
     case "START_GAME":
       return {
         ...state,

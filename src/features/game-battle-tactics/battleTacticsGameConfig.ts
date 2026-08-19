@@ -13,7 +13,7 @@ export interface DailyGameConfig {
 }
 
 export const dailyGameConfig: DailyGameConfig = {
-  rounds: 5,
+  rounds: 20,
   bestShortListSize: 8,
   tierShortListSize: 5,
   minimumBestRatio: 0.85,

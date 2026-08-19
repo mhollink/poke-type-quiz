@@ -24,9 +24,10 @@ import { getTypeEffectiveness } from "./utils/effectiveness.ts";
 
 type BattleTacticsGameProps = {
   readonly onExit: () => void;
+  readonly onOpenMovedex: () => void;
 };
 
-function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
+function BattleTacticsGame({ onExit, onOpenMovedex }: BattleTacticsGameProps) {
   const dateKey = useMemo(() => today(), []);
   const exitingResult = battleTacticsAttemptRepository.findByDate(dateKey);
 
@@ -50,7 +51,13 @@ function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
   const game = useBattleTacticsGame(challenge);
 
   if (exitingResult) {
-    return <BattleTacticsGameResult state={exitingResult} onExit={onExit} />;
+    return (
+      <BattleTacticsGameResult
+        state={exitingResult}
+        onExit={onExit}
+        onOpenMovedex={onOpenMovedex}
+      />
+    );
   }
 
   if (game.state.status === "completed") {
@@ -70,6 +77,7 @@ function BattleTacticsGame({ onExit }: BattleTacticsGameProps) {
           maxScore: state.challenge.maxScore,
         }}
         onExit={onExit}
+        onOpenMovedex={onOpenMovedex}
       />
     );
   }

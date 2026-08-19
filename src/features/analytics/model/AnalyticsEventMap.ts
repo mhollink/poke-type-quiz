@@ -31,6 +31,7 @@ export interface AnalyticsEventMap {
   };
 
   open_pokedex: {};
+  open_movedex: {};
 }
 
 export type AnalyticsEventName = keyof AnalyticsEventMap;

@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
 import { analytics } from "~/features/analytics";
+import { MoveDexScreen } from "~/screens/MoveDexScreen.tsx";
 import { assertNever } from "~/utils";
 
 import { EntryScreen } from "../screens/EntryScreen.tsx";
@@ -56,12 +57,22 @@ export function App() {
           });
           analytics.track("open_pokedex", {});
         }}
+        onOpenMovedex={() => {
+          dispatch({
+            type: "OPEN_MOVEDEX",
+          });
+          analytics.track("open_movedex", {});
+        }}
       />
     );
   }
 
   if (state.screen === "pokedex") {
     return <PokedexScreen onExit={() => dispatch({ type: "RETURN_HOME" })} />;
+  }
+
+  if (state.screen === "movedex") {
+    return <MoveDexScreen onExit={() => dispatch({ type: "RETURN_HOME" })} />;
   }
 
   if (state.screen === "settings") {

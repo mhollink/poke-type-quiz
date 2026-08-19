@@ -9,10 +9,11 @@ interface GameScreenProps {
   onExit: () => void;
   onNext: (gamemode: GameMode) => void;
   onOpenPokedex: () => void;
+  onOpenMovedex: () => void;
 }
 
 type GameComponent = ComponentType<
-  Pick<GameScreenProps, "onExit" | "onNext" | "onOpenPokedex">
+  Pick<GameScreenProps, "onExit" | "onNext" | "onOpenPokedex" | "onOpenMovedex">
 >;
 
 const gameComponents: Record<GameMode, GameComponent> = {
@@ -33,12 +34,18 @@ export function GameScreen({
   onExit,
   onNext,
   onOpenPokedex,
+  onOpenMovedex,
 }: GameScreenProps) {
   const Game = gameComponents[gameMode];
 
   return (
     <Suspense fallback={<GameLoadingFallback />}>
-      <Game onExit={onExit} onNext={onNext} onOpenPokedex={onOpenPokedex} />
+      <Game
+        onExit={onExit}
+        onNext={onNext}
+        onOpenPokedex={onOpenPokedex}
+        onOpenMovedex={onOpenMovedex}
+      />
     </Suspense>
   );
 }
