@@ -1,8 +1,8 @@
 import type { Pokemon } from "~/types";
+import { shuffle } from "~/utils";
 
 import type { TypeRecallChallenge } from "../model/typeRecallGameTypes.ts";
 import { typeRecallGameConfig } from "../typeRecallGameConfig.ts";
-import {shuffle} from "~/utils";
 
 export interface CreateTypeRecallChallengeInput {
   readonly pokemon: readonly Pokemon[];

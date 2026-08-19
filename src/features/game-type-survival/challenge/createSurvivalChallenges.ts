@@ -1,7 +1,7 @@
 import type { Pokemon, PokemonType } from "~/types";
+import { shuffle } from "~/utils";
 
 import type { TypeChallenge } from "../model/typeSurvivalGameTypes.ts";
-import {shuffle} from "~/utils";
 
 export interface CreateSurvivalChallengeInput {
   readonly pokemon: readonly Pokemon[];
@@ -36,7 +36,7 @@ export function createSurvivalChallenge({
     return null;
   }
 
-  const sortedCandidates = shuffle(candidates, random)
+  const sortedCandidates = shuffle(candidates, random);
 
   const difficultCandidatePool = sortedCandidates.slice(
     0,

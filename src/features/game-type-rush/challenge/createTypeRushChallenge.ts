@@ -1,5 +1,5 @@
 import type { Pokemon, PokemonType } from "~/types";
-import {type RandomSource, shuffle} from "~/utils";
+import { type RandomSource, shuffle } from "~/utils";
 
 import type { TypeRushChallenge } from "../model/typeRushGameTypes.ts";
 
@@ -41,7 +41,7 @@ export function createTypeRushChallenge({
     return null;
   }
 
-  const sortedCandidates = shuffle(candidates, random)
+  const sortedCandidates = shuffle(candidates, random);
 
   const progression = Math.min(
     1,

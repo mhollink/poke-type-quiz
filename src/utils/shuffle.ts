@@ -1,6 +1,9 @@
-import type {RandomSource} from "~/utils/random.ts";
+import type { RandomSource } from "~/utils/random.ts";
 
-export function shuffle<T>(array: T[], random: RandomSource = Math.random): T[] {
+export function shuffle<T>(
+  array: T[],
+  random: RandomSource = Math.random,
+): T[] {
   const result = [...array];
 
   for (let i = result.length - 1; i > 0; i--) {

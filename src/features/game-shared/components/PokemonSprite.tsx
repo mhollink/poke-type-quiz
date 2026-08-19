@@ -68,44 +68,44 @@ export function PokemonSprite({
         },
       }}
     >
-        <Box
-            role="img"
-            aria-label={pokemon.name}
-            sx={{
-                position: "relative",
-                display: "block",
-                width: displaySize,
-                height: displaySize,
-                flexShrink: 0,
+      <Box
+        role="img"
+        aria-label={pokemon.name}
+        sx={{
+          position: "relative",
+          display: "block",
+          width: displaySize,
+          height: displaySize,
+          flexShrink: 0,
 
-                "&::before": {
-                    content: '""',
-                    position: "absolute",
-                    inset: "5%",
-                    borderRadius: "50%",
-                    background: shiny
-                        ? "radial-gradient(circle, rgba(255, 193, 7, 0.5) 0%, rgba(255, 193, 7, 0.15) 20%,  rgba(255, 193, 7, 0.01) 65%, transparent 80%)"
-                        : "radial-gradient(circle, rgba(128, 128, 128, 0.2) 0%, rgba(128, 128, 128, 0.05) 50%, transparent 70%)",
-                },
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            inset: "5%",
+            borderRadius: "50%",
+            background: shiny
+              ? "radial-gradient(circle, rgba(255, 193, 7, 0.5) 0%, rgba(255, 193, 7, 0.15) 20%,  rgba(255, 193, 7, 0.01) 65%, transparent 80%)"
+              : "radial-gradient(circle, rgba(128, 128, 128, 0.2) 0%, rgba(128, 128, 128, 0.05) 50%, transparent 70%)",
+          },
 
-                "&::after": {
-                    content: '""',
-                    position: "absolute",
-                    inset: 0,
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
 
-                    backgroundImage: `url("${
-                        shiny ? SPRITE_SHEETS.shiny : SPRITE_SHEETS.normal
-                    }")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: `${SPRITE_COLUMNS * SPRITE_SIZE * scale}px auto`,
-                    backgroundPosition: `${
-                        -column * displaySize
-                    }px ${-row * displaySize}px`,
+            backgroundImage: `url("${
+              shiny ? SPRITE_SHEETS.shiny : SPRITE_SHEETS.normal
+            }")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: `${SPRITE_COLUMNS * SPRITE_SIZE * scale}px auto`,
+            backgroundPosition: `${
+              -column * displaySize
+            }px ${-row * displaySize}px`,
 
-                    imageRendering: "auto",
-                },
-            }}
-        />
+            imageRendering: "auto",
+          },
+        }}
+      />
     </Badge>
   );
 }
