@@ -38,7 +38,7 @@ export function SoundPreferencesProvider({ children }: PropsWithChildren) {
     <SoundPreferencesContext value={soundLevel}>
       <Fab
         onClick={toggleSound}
-        color="inherit"
+        color="default"
         size="medium"
         sx={{
           position: "fixed",

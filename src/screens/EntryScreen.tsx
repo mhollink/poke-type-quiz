@@ -11,7 +11,9 @@ import Fab from "@mui/material/Fab";
 import Link from "@mui/material/Link";
 import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
+import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import type { GameMode } from "~/types";
 
@@ -33,6 +35,9 @@ export function EntryScreen({
   onOpenPokedex,
   onOpenMovedex,
 }: EntryPageProps) {
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
     <Box
       component="main"
@@ -125,10 +130,10 @@ export function EntryScreen({
         <EntrySupportLinks version={version} />
       </Stack>
       <Fab
-        variant="extended"
+        variant={isMediumScreen ? "extended" : "circular"}
         onClick={onOpenPokedex}
         color="secondary"
-        size="large"
+        size={isMediumScreen ? "large" : "medium"}
         sx={{
           position: "fixed",
           top: 16,
@@ -139,22 +144,32 @@ export function EntryScreen({
           },
         }}
       >
-        <CatchingPokemonIcon sx={{ mr: 1 }} />
-        Pokedex
+        <CatchingPokemonIcon sx={{ mr: { xs: 0, md: 1 } }} />
+        <Typography
+          variant="body2"
+          sx={{ display: { xs: "none", md: "unset" } }}
+        >
+          Pokedex
+        </Typography>
       </Fab>
       <Fab
-        variant="extended"
+        variant={isMediumScreen ? "extended" : "circular"}
         onClick={onOpenMovedex}
         color="warning"
-        size="large"
+        size={isMediumScreen ? "large" : "medium"}
         sx={{
           position: "fixed",
           top: 16,
-          right: 230,
+          right: { xs: 140, md: 220 },
         }}
       >
-        <SportsMmaRoundedIcon sx={{ mr: 1 }} />
-        Attackdex
+        <SportsMmaRoundedIcon sx={{ mr: { xs: 0, md: 1 } }} />
+        <Typography
+          variant="body2"
+          sx={{ display: { xs: "none", md: "unset" } }}
+        >
+          Attackdex
+        </Typography>
       </Fab>
 
       {import.meta.env.DEV && (
