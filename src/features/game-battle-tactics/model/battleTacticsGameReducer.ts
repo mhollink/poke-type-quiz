@@ -1,3 +1,6 @@
+import type { ResolvedBattleTacticsRound } from "~/features/game-battle-tactics/model/MoveDex.ts";
+import { moveDexRepository } from "~/features/game-battle-tactics/storage/moveDexRepository.ts";
+
 import { battleTacticsAttemptRepository } from "../storage/battleTacticsAttemptRepository.ts";
 import type { BattleTacticsChallenge } from "./Round";
 
@@ -18,12 +21,14 @@ export type BattleTacticsGameState = {
   optimalSelections: number;
   selectedMoveId: string | null;
   selections: readonly BattleTacticsSelection[];
+  resolvedRounds: ResolvedBattleTacticsRound[];
 };
 
 export type BattleTacticsGameAction =
   | {
       type: "select-move";
       moveId: string;
+      resolvedRound: ResolvedBattleTacticsRound;
     }
   | {
       type: "continue";
@@ -44,6 +49,7 @@ export function createInitialBattleTacticsGameState(
     optimalSelections: 0,
     selectedMoveId: null,
     selections: [],
+    resolvedRounds: [],
   };
 }
 
@@ -91,6 +97,7 @@ export function battleTacticsGameReducer(
         optimalSelections: state.optimalSelections + (isOptimal ? 1 : 0),
         selectedMoveId: selectedOption.move.id,
         selections: [...state.selections, selection],
+        resolvedRounds: [...state.resolvedRounds, action.resolvedRound],
       };
     }
 
@@ -115,6 +122,11 @@ export function battleTacticsGameReducer(
               : Math.round((state.score / state.challenge.maxScore) * 100),
           maxScore: state.challenge.maxScore,
         });
+        moveDexRepository.applyRounds(
+          state.challenge.dateKey,
+          state.resolvedRounds,
+        );
+
         return {
           ...state,
           status: "completed",
@@ -132,3 +144,4 @@ export function battleTacticsGameReducer(
       return createInitialBattleTacticsGameState(action.challenge);
   }
 }
+

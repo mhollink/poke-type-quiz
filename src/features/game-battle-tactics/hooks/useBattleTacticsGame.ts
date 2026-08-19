@@ -9,6 +9,7 @@ import type {
   BattleTacticsOption,
   BattleTacticsRound,
 } from "../model/Round.ts";
+import { resolveBattleTacticsRound } from "../model/resolveBattleTacticsRound.ts";
 
 export type BattleTacticsGame = {
   state: ReturnType<typeof createInitialBattleTacticsGameState>;
@@ -61,12 +62,32 @@ export function useBattleTacticsGame(
     );
   }, [currentRound, state.selectedMoveId]);
 
-  const selectMove = useCallback((moveId: string) => {
-    dispatch({
-      type: "select-move",
-      moveId,
-    });
-  }, []);
+  const selectMove = useCallback(
+    (moveId: string) => {
+      if (state.status !== "playing" || state.selectedMoveId !== null) {
+        return;
+      }
+
+      const round = state.challenge.rounds[state.roundIndex];
+
+      if (!round) {
+        return;
+      }
+
+      const resolvedRound = resolveBattleTacticsRound({
+        round,
+        selectedMoveId: moveId,
+        resolvedAt: Date.now(),
+      });
+
+      dispatch({
+        type: "select-move",
+        moveId,
+        resolvedRound,
+      });
+    },
+    [state.status, state.selectedMoveId, state.challenge, state.roundIndex],
+  );
 
   const continueGame = useCallback(() => {
     dispatch({

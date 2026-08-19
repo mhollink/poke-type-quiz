@@ -160,6 +160,7 @@ export function EntryScreen({
               localStorage.removeItem("poketype.daily-moves.v1");
               localStorage.removeItem("poketype:pokedex:v1");
               localStorage.removeItem("poketype:shinydex:v1");
+              localStorage.removeItem("poketype:move-dex:v1");
               window.location.reload();
             }
           }}
