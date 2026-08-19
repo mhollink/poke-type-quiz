@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import CatchingPokemonRoundedIcon from "@mui/icons-material/CatchingPokemonRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
@@ -152,6 +153,15 @@ export function GameModeCard({ gameMode, onSelect }: GameModeCardProps) {
                 size="small"
                 variant="outlined"
                 color="secondary"
+              />
+            )}
+            {gameMode.movedexRewards && !gameMode.disabled && (
+              <Chip
+                icon={<SportsMmaRoundedIcon />}
+                label="Attackdex rewards"
+                size="small"
+                variant="outlined"
+                color="warning"
               />
             )}
           </Box>

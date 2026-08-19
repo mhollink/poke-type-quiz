@@ -10,5 +10,6 @@ export interface GameModeOption {
   badge?: string;
   disabled?: boolean;
   pokedexRewards?: boolean;
+  movedexRewards?: boolean;
   checkCompletion: () => boolean;
 }

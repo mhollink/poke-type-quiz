@@ -46,7 +46,7 @@ function MoveDex({ moves, onExit }: MoveDexProps) {
 
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h4" component="h1">
-            Move Dex
+            Attackdex
           </Typography>
 
           <Typography color="textSecondary">

@@ -31,28 +31,30 @@ export function useMoveDex(
       progress.map((entry) => [entry.moveId, entry]),
     );
 
-    return moves.map((move): MoveDexViewEntry => {
-      const entry = progressByMoveId.get(move.id) ?? null;
-      const masteryLevel = getMoveMasteryLevel(entry);
+    return moves
+      .map((move): MoveDexViewEntry => {
+        const entry = progressByMoveId.get(move.id) ?? null;
+        const masteryLevel = getMoveMasteryLevel(entry);
 
-      return {
-        move,
-        progress: entry,
+        return {
+          move,
+          progress: entry,
 
-        discovered: entry !== null,
-        masteryLevel,
-        mastered: masteryLevel === 5,
+          discovered: entry !== null,
+          masteryLevel,
+          mastered: masteryLevel === 5,
 
-        judgementRate:
-          entry && entry.judgementAttempts > 0
-            ? entry.correctJudgements / entry.judgementAttempts
-            : null,
+          judgementRate:
+            entry && entry.judgementAttempts > 0
+              ? entry.correctJudgements / entry.judgementAttempts
+              : null,
 
-        optimalPickRate:
-          entry && entry.optimalAppearances > 0
-            ? entry.optimalSelections / entry.optimalAppearances
-            : null,
-      };
-    });
+          optimalPickRate:
+            entry && entry.optimalAppearances > 0
+              ? entry.optimalSelections / entry.optimalAppearances
+              : null,
+        };
+      })
+      .sort((left, right) => left.move.name.localeCompare(right.move.name));
   }, [moves, progress]);
 }

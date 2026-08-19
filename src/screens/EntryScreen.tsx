@@ -2,6 +2,7 @@ import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import CoffeeIcon from "@mui/icons-material/Coffee";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import SportsMmaRoundedIcon from "@mui/icons-material/SportsMmaRounded";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Box from "@mui/material/Box";
@@ -23,12 +24,14 @@ interface EntryPageProps {
   version: string;
   onSelectGameMode: (gameMode: GameMode) => void;
   onOpenPokedex: () => void;
+  onOpenMovedex: () => void;
 }
 
 export function EntryScreen({
   version,
   onSelectGameMode,
   onOpenPokedex,
+  onOpenMovedex,
 }: EntryPageProps) {
   return (
     <Box
@@ -138,6 +141,20 @@ export function EntryScreen({
       >
         <CatchingPokemonIcon sx={{ mr: 1 }} />
         Pokedex
+      </Fab>
+      <Fab
+        variant="extended"
+        onClick={onOpenMovedex}
+        color="warning"
+        size="large"
+        sx={{
+          position: "fixed",
+          top: 16,
+          right: 230,
+        }}
+      >
+        <SportsMmaRoundedIcon sx={{ mr: 1 }} />
+        Attackdex
       </Fab>
 
       {import.meta.env.DEV && (

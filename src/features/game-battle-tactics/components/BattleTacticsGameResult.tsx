@@ -147,7 +147,7 @@ export function BattleTacticsGameResult({
         </Paper>
 
         <Button onClick={onOpenMovedex} color="primary">
-          Go to movedex
+          Go to attackdex
         </Button>
 
         <Suspense

@@ -30,6 +30,12 @@ export function App() {
           });
           analytics.track("open_pokedex", {});
         }}
+        onOpenMovedex={() => {
+          dispatch({
+            type: "OPEN_MOVEDEX",
+          });
+          analytics.track("open_movedex", {});
+        }}
       />
     );
   }

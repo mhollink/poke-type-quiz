@@ -50,6 +50,7 @@ export const gameModes: GameModeOption[] = [
       "Choose the strongest of four moves for each Pokémon. Better matchups earn more points, with no penalty for guessing.",
     icon: <MoveBattleRoundedIcon fontSize="inherit" />,
     badge: `Best move`,
+    movedexRewards: true,
     checkCompletion: () => !!battleTacticsAttemptRepository.findByDate(dateKey),
   },
 ];
