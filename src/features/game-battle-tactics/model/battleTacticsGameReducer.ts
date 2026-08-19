@@ -1,5 +1,6 @@
-import type { ResolvedBattleTacticsRound } from "~/features/game-battle-tactics/model/MoveDex.ts";
-import { moveDexRepository } from "~/features/game-battle-tactics/storage/moveDexRepository.ts";
+import type { ResolvedBattleTacticsRound } from "~/features/movedex/model/MoveDex.ts";
+import { resolveBattleTacticsRound } from "~/features/movedex/model/resolveBattleTacticsRound.ts";
+import { moveDexRepository } from "~/features/movedex/storage/moveDexRepository.ts";
 
 import { battleTacticsAttemptRepository } from "../storage/battleTacticsAttemptRepository.ts";
 import type { BattleTacticsChallenge } from "./Round";
@@ -28,7 +29,6 @@ export type BattleTacticsGameAction =
   | {
       type: "select-move";
       moveId: string;
-      resolvedRound: ResolvedBattleTacticsRound;
     }
   | {
       type: "continue";
@@ -91,13 +91,19 @@ export function battleTacticsGameReducer(
         isOptimal,
       };
 
+      const resolvedRound = resolveBattleTacticsRound({
+        round,
+        selectedMoveId: selection.moveId,
+        resolvedAt: Date.now(),
+      });
+
       return {
         ...state,
         score: state.score + awardedScore,
         optimalSelections: state.optimalSelections + (isOptimal ? 1 : 0),
         selectedMoveId: selectedOption.move.id,
         selections: [...state.selections, selection],
-        resolvedRounds: [...state.resolvedRounds, action.resolvedRound],
+        resolvedRounds: [...state.resolvedRounds, resolvedRound],
       };
     }
 
@@ -144,4 +150,3 @@ export function battleTacticsGameReducer(
       return createInitialBattleTacticsGameState(action.challenge);
   }
 }
-

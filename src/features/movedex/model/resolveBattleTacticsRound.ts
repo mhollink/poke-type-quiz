@@ -1,8 +1,8 @@
+import type { BattleTacticsRound } from "../../game-battle-tactics/model/Round.ts";
 import type {
   ResolvedBattleTacticsRound,
   ResolvedMoveOption,
 } from "./MoveDex.ts";
-import type { BattleTacticsRound } from "./Round.ts";
 
 type ResolveBattleTacticsRoundArgs = {
   readonly round: BattleTacticsRound;
