@@ -7356,7 +7356,13 @@
     "name": "Heat Rotom",
     "types": ["electric", "fire"],
     "gen": 4,
-    "origin": 479
+    "origin": 479,
+    "pastTypes": [
+      {
+        "gen": 4,
+        "types": ["electric", "ghost"]
+      }
+    ]
   },
   {
     "nr": 10009,
@@ -7364,7 +7370,13 @@
     "name": "Wash Rotom",
     "types": ["electric", "water"],
     "gen": 4,
-    "origin": 479
+    "origin": 479,
+    "pastTypes": [
+      {
+        "gen": 4,
+        "types": ["electric", "ghost"]
+      }
+    ]
   },
   {
     "nr": 10010,
@@ -7372,7 +7384,13 @@
     "name": "Frost Rotom",
     "types": ["electric", "ice"],
     "gen": 4,
-    "origin": 479
+    "origin": 479,
+    "pastTypes": [
+      {
+        "gen": 4,
+        "types": ["electric", "ghost"]
+      }
+    ]
   },
   {
     "nr": 10011,
@@ -7380,7 +7398,13 @@
     "name": "Fan Rotom",
     "types": ["electric", "flying"],
     "gen": 4,
-    "origin": 479
+    "origin": 479,
+    "pastTypes": [
+      {
+        "gen": 4,
+        "types": ["electric", "ghost"]
+      }
+    ]
   },
   {
     "nr": 10012,
@@ -7388,7 +7412,13 @@
     "name": "Mow Rotom",
     "types": ["electric", "grass"],
     "gen": 4,
-    "origin": 479
+    "origin": 479,
+    "pastTypes": [
+      {
+        "gen": 4,
+        "types": ["electric", "ghost"]
+      }
+    ]
   },
   {
     "nr": 10013,
